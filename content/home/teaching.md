@@ -7,7 +7,7 @@ active = true
 date = 2016-04-20T00:00:00
 
 # Note: a full width section format can be enabled by commenting out the `title` and `subtitle` with a `#`.
-title = "Custom Section"
+title = "Teaching"
 subtitle = ""
 
 # Order that this section will appear in.
@@ -15,6 +15,16 @@ weight = 60
 
 +++
 
-This is an example of using the *custom* widget to create your own homepage section.
+Below is my philosophy. I share it with all my students at the beginning of every course that I teach:
 
-To remove this section, either delete `content/home/teaching.md` or edit the frontmatter of the file to deactivate the widget by setting `active = false`.
+*I take it as my personal responsibility to expose you to [evidence-based management] (https://www.cebma.org) so that you might make wiser decisions as an employee, manager, and business leader. In our classes, we'll discuss the most reliable and credible science that I'm aware of on various topics, we'll weigh this evidence against our own experiences, and consider how best to act given this information. By the end of our time together, I hope that you will have cultivated an attitude of wisdom, which means acting with the best information on hand while doubting what we would like to be true.*
+
+For a quick overview of evidence-based managment, please [see] (https://scienceforwork.com/blog/what-is-evidence-based-management/).
+
+The courses that I teach are below:
+
+- MNGT370: Human Relations and Interpersonal Skills
+- MNGT475: Performance and Compensation Management
+- MNGT486: Special Topic: HR Analytics
+- MNGT502: Managing Human Capital
+

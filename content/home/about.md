@@ -10,31 +10,30 @@ weight = 5
 # List your academic interests.
 [interests]
   interests = [
-    "Artificial Intelligence",
-    "Computational Linguistics",
-    "Information Retrieval"
-  ]
+    "Personality and Individual Differences",
+    "Organizational Research Methods"
+  ] 
 
 # List your qualifications (such as academic degrees).
 [[education.courses]]
-  course = "PhD in Artificial Intelligence"
-  institution = "Stanford University"
+  course = "PhD in Industrial/Organizational Psychology"
+  institution = "Louisiana Tech University"
+  year = 2015
+
+[[education.courses]]
+  course = "MA in Industrial/Organizational Psychology"
+  institution = "Louisiana Tech University"
   year = 2012
 
 [[education.courses]]
-  course = "MEng in Artificial Intelligence"
-  institution = "Massachusetts Institute of Technology"
-  year = 2009
-
-[[education.courses]]
-  course = "BSc in Artificial Intelligence"
-  institution = "Massachusetts Institute of Technology"
+  course = "BSc in Psychology"
+  institution = "Louisiana State University"
   year = 2008
  
 +++
 
 # Biography
 
-Lena Smith is a professor of artificial intelligence at the Stanford AI Lab. Her research interests include distributed robotics, mobile computing and programmable matter. She leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+Christopher M. Castille is an Assistant Professor of Management at Nicholls State University. He teaches courses on Human Resource Management (HRM), including HR Analytics, Managing Human Capital, Human Relations, and Performance and Compensation Management. His research interests include the relationship between ethical workplace behavior and individual differences factors (e.g., personality traits). He also has a stream of research devoted to organizational research methods and open science practice.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate. 
+He currently co-directs the People Analytics Lab out of Nicholls State University, which focuses on exposing students to problems in the people analytics domain and providing organizations with evidence-based solutions to people analytics problems.
