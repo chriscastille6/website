@@ -21,7 +21,7 @@ lapply(packages, function(x) {
 })
 ```
 
-*You write in order to change the world...if you alter, even by a millimeter, the way people look at reality, then you can change it.* - George Orwell [@OrwellWhyWrite1946]. 
+*You write in order to change the world...if you alter, even by a millimeter, the way people look at reality, then you can change it.* - George Orwell, *Why I Write* (1946)
 
 I work in the Management and Marketing Department at Nicholls State University, which is a small public school (teaching-focused) institution located in Thibodaux, Louisiana. I created this blog for a number of reasons, to highlight my own research (such as any awards I've [received](https://www.nicholls.edu/news/2017/nicholls-professor-receives-top-research-honor-at-annual-management-conference/)), share lessons I've learned in consulting and collaborating with others or insights from people analytics-related research, and to foster a more open dialogue on open science in business and organizational scholarship. I'll also write about (hopefully, pretty cool) and credible insights from the organizational science. How we come to tease out the signal from the noise in today's scientific landscape is of particular interest to me. 
 
@@ -35,7 +35,7 @@ This year, we, Ann-Marie Castille (my better half over in the Computer Informati
 
 Even though the study isn't earth-shattering and does fit with common sense, I'm inclined to view the exercise an example of how we can come to see the world a little more clearly. Simply speaking, what we did was the scientific process as most of us understand it: (1) write down a hypothesis or a best guess about the state of the world, (2) test your hypothesis by gathering data, and (3) update your beliefs based on the data. Depending on your level of exposure to academic research, it might surprise you to learn that science is not always conducted this way for a variety of reasons.
 
-#References
+
 ```{r create_r-references, include=FALSE}
 r_refs(file = "r-references.bib")
 ```
