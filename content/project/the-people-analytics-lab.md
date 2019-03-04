@@ -85,3 +85,7 @@ If you have any more questions, then please don't hesitate to reach out to Dr. C
 
 We hope to hear from you soon!
 
+# Lab Resources
+
+* [Open Science Manual from Haverford College](https://docs.google.com/document/d/1oMkTCEFtOq_DB0eoNiyk-B5QCgL6sVSF5pVvD1ONZDc/mobilebasic#h.pmed3q71ugip) 
+
