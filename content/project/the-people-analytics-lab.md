@@ -73,13 +73,13 @@ To qualify for our lab, you must:
 
 * Be willing to dedicate a minimum of 5 hours per week to lab duties. If a graduate student, be willing to dedicate 10 hours (2.5 days) per week to lab management and research. Must also be willing to participate in semi-regular readings and lab discussions (1+ hours/week) related to current research projects.
 * Have a GPA of at least 3.0.
-* (Not required, but ideal) Have received basic statistical and/or computer coding training.
+* (Not required, but ideal) Have received basic statistical and/or computer coding training (e.g., SQL, Excel, SPSS, R, RStudio)
 
 If you qualify, then please feel free to apply by doing the following:
 
 1. *Send an email to Dr. Castille (email below) expressing your interest in the lab and what you want to get out of it.* Why do you want to be in the lab? What is the motivation? If you want to go on to grad school and need research experience, let us know? If it just sounds cool and you want to see what it is like, that is great? Just make sure you write something professional (that is really important).
 
-2. *Send a resume and unofficial transcript that details what you might be able to contribute to the lab.* No doubt you have experiences or prior coursework that might make for meaningful contributions to the lab. Call attention to this in your letter of interest and make sure we can see this in your resume and transcript. We'd also like to know what your GPA is.
+2. *Send a resume and unofficial transcript. This can give me some ideas for how you might contribute to the lab.* No doubt you have experiences or prior coursework that might make for meaningful contributions to the lab. Call attention to this in your letter of interest and make sure we can see this in your resume and transcript. We'd also like to know what your GPA is.
 
 If you have any more questions, then please don't hesitate to reach out to Dr. Christopher Castille (christopher.castille@nicholls.edu) and ask for more information.
 
