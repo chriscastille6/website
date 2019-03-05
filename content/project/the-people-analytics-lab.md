@@ -87,5 +87,7 @@ We hope to hear from you soon!
 
 # Lab Resources
 
-* [Open Science Manual from Haverford College](https://docs.google.com/document/d/1oMkTCEFtOq_DB0eoNiyk-B5QCgL6sVSF5pVvD1ONZDc/mobilebasic#h.pmed3q71ugip) 
+* Lab [syllabi](https://docs.google.com/document/d/136ErjOM1SNroW-XGtb2x4k9FdZG8FQw5tsHgqR07pXU/edit?usp=sharing) for research assistants
+* Open Science [Manual](https://docs.google.com/document/d/1oMkTCEFtOq_DB0eoNiyk-B5QCgL6sVSF5pVvD1ONZDc/mobilebasic#h.pmed3q71ugip) from Haverford College
+* A Tutorial for [Learning Statistics with R](http://www.fon.hum.uva.nl/paul/lot2015/Navarro2014.pdf)
 
