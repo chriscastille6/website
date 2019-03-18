@@ -1,5 +1,5 @@
 ---
-title: 'QRPs are like pollution: We should treat them as such'
+title: 'Research that is not reproducible is like pollution: We should treat it as such'
 author: 'Chris '
 date: '2019-03-09'
 slug: qrps-are-like-pollution-we-should-treat-them-as-such
