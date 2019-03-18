@@ -27,7 +27,7 @@ abstract = "Melson-Silimon and colleagues (2018) raise an important issue that I
 image_preview = ""
 
 # Is this a selected publication? (true/false)
-selected = false
+selected = true
 
 # Projects (optional).
 #   Associate this publication with one or more of your projects.
