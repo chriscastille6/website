@@ -36,7 +36,7 @@ It is an applied social science lab is in the tradition of industrial and organi
 
 We created the People Analytics Lab at NSU to give students the opportunity to do research that helps make organizational life not suck. We hope that the experiences give you a spring board to start your graduate education in I/O psych or a related discipline (e.g., getting your MBA). Importantly, many of the activities in the lab are conducted virtually, meaning that students don't have to be from our institution or near Thibodaux, LA. Indeed, we've had students participate from other schools as well (e.g., Villanova University, Rutgers Business School). Keep in mind that our research focuses on many areas but do include specifically (1) the impact of performance feedback on future performance, (2) gender-related leadership issues, (3) personality in the workplace, (4) workplace ethics, and (5) organizational research methods (e.g., method variance and open science in I/O psych). 
 
-![Our NSU President, Dr. Jay Clune, bestowing a small award and posing with one of our lab managers, Sarah Avet.](/project/the-people-analytics-lab_files/Sarah-with-Jay-Clune.jpg)
+![Our NSU President, Dr. Jay Clune, bestowing a small award and posing with one of our previous lab managers, Sarah Avet.](/project/the-people-analytics-lab_files/Sarah-with-Jay-Clune.jpg)
 
 **What are we looking for in a collaborator?**
 
