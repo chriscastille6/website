@@ -1,6 +1,6 @@
 +++
 title = "Assessing Ideal Personalities at Work: Is it all Just a Little Bit of History Repeating?"
-date = 2018-01-01T00:00:00
+date = 2019-01-01T00:00:00
  
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
 authors = ["Christopher M. Castille", "Ann-Marie R.Castille", "Rachel Williamson Smith"]
