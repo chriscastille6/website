@@ -91,4 +91,5 @@ Thee resources below are for those individuals who are in the lab:
 * Open Science [Manual](https://docs.google.com/document/d/1oMkTCEFtOq_DB0eoNiyk-B5QCgL6sVSF5pVvD1ONZDc/mobilebasic#h.pmed3q71ugip) from Haverford College
 * Free BOOKS! A Tutorial for [Learning Statistics with R](http://www.fon.hum.uva.nl/paul/lot2015/Navarro2014.pdf) and Hadley Wickham's [R for Data Science](https://r4ds.had.co.nz)
 * Psych Data Standards [Materials](https://github.com/psych-ds/psych-DS) 
+* Teaching yourself R? Try using the [swirl package](https://swirlstats.com)
 
