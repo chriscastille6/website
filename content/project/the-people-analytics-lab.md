@@ -28,37 +28,28 @@ caption = ""
 
 +++
 
-**What is the People Analytics Lab (PAL) and why join?**
+## What is the People Analytics Lab (PAL)?
 
-PAL is an applied social science lab is in the tradition of industrial and organizational psychology (see [siop.org](https://www.siop.org) for more details on the discipline). In the lab, students can find opportunities for professional development that will prepare them for their careers (e.g., grad school, entering technical entry-level analyst roles), learn about open science and open practice within the I/O psych domain, and gain opportunities to learn about or apply psychological theory to solve a variety of problems in organizational life. One big set of opportunities for students involves learning how to apply data analytics and project management tools, which include [R](https://www.r-project.org/), [Jupyter Notebooks](https://jupyter.org), [RStudio](https://www.rstudio.com/), [GitHub](https://github.com), [Slack](https://slack.com), and [Trello](https://slack.com), which are in-demand tools in a variety of areas (just Google "Data Science Tools" to see what we mean). These tools are valued chiefly because they make insights - and how those insights were derived - transparent and reproducible. [^1]
+PAL is an applied social science lab is in the tradition of industrial and organizational psychology (see [siop.org](https://www.siop.org) for more details on the discipline). In the lab, students can find opportunities for professional development that will prepare them for their careers (e.g., grad school, entering technical entry-level analyst roles), learn about [open science](http://my.siop.org/Publications/TIP/562/ArtMID/18540/ArticleID/711/We-Want-Open-Science-in-I-O-Do-We) and open practice within the I/O psych domain, and gain opportunities to learn about or apply psychological theory to solve a variety of problems in organizational life. One big set of opportunities for students involves learning how to apply data analytics and project management tools, which include [R](https://www.r-project.org/), [Jupyter Notebooks](https://jupyter.org), [RStudio](https://www.rstudio.com/), [GitHub](https://github.com), [Slack](https://slack.com), and [Trello](https://slack.com), which are in-demand tools in areas related to people analytics and data science. These tools are valued chiefly because they make insights - and how those insights were derived - transparent and reproducible. [^1]
 
 [^1]: To give you a sense of what we mean by making insights transparent and reproducible, take a look at [this Jupyter Notebook](https://hub.mybinder.org/user/tnt-lab-siop-20-master-tutorial-tvnnu7tk/lab) written by a team fellow I/O psychologists working under the leaderhsip of Dr. Richard Landers, who is one of the I/O psychologists offering tutorials in this area. This notebook walks you through an analysis of Tweets to see which attributes make tweets more likeable.
 
-We created the People Analytics Lab at NSU to give students the opportunity to do research that informs the practice of industrial/organizational psychology. Dr. Christopher Castille's research focus is on individual differences in the workplace. Specifically, he examines the role of personality traits in the work setting. He is also interested in examining how receiving observer reports of personality (e.g., having co-workers describe your interpersonal style) might relate to productive behavioral changes in the workplace. Dr. Ann-Marie Castille's research focus is on how performance feedback can help or harm performance in the workplace. She also studies issues relating to gender and leadership.
+## Why did we create the PAL?
+
+We created the PAL at NSU to give students opportunities to do research that informs the practice of industrial/organizational psychology. Dr. Christopher Castille's research focus is on individual differences in the workplace. Specifically, he examines the role of personality traits in the work setting. He is also interested in examining how receiving observer reports of personality (e.g., having co-workers describe your interpersonal style) might relate to productive behavioral changes in the workplace. Dr. Ann-Marie Castille's research focus is on how performance feedback can help or harm performance in the workplace. She also studies issues relating to gender and leadership.
 
 We hope that the experiences give you a spring board to start their graduate education in I/O psych or a related discipline (e.g., getting your MBA, or entering practice). Importantly, many of the activities in the lab are conducted virtually, meaning that students don't have to be from our institution or near Thibodaux, LA. Indeed, we've had students participate from other schools as well (e.g., Villanova University, Rutgers Business School). Keep in mind that our research focuses on many areas but do include specifically (1) the impact of performance feedback on future performance, (2) gender-related leadership issues, (3) personality in the workplace, (4) workplace ethics, and (5) organizational research methods (e.g., method variance and open science in I/O psych). 
 
-***Social events (for those local to Thibodaux, LA)***
+## Social events (for those local to Thibodaux, LA)
 
 We want to build a community of students that work hard but also get to know each other. Lab students often build deep friendships, working closely with each other for years. Many lab member remain connected to the lab even after graduation, coming back as guest speakers or mentoring new students.
 
-**What are we looking for in a collaborator?**
+## What kinds of work do PAL research assistants do?
 
-We are looking for individuals who:
-
-* Enjoy working with others in a team context
-* Are capable of working virtually in a self-directed manner
-* Are capable of gathering and summarizing research literature 
-* Are interested in using data to better understand people in organizational settings to make work not suck
-* Are willing to acclimate to data analytics tools for working in an open science environment (e.g., R, GitHub, Open Science Framework) 
-* Either have or are interested in pursuing a graduate degree in the social sciences, or would like to learn more about people analytics! 
-
-Undergraduates and graduate students from any major and any level are eligible. We accept applications on a rolling basis throughout the year.Students outside of Nicholls State University can also apply. Preference will be given to students in business and social science programs that have a 3.0 GPA or higher. 
-
-PAL collaborators may work on any of the following tasks:
+PAL collaborators may work on any of the following tasks as part of a larger project that is sponsored by the Castille's. 
 
 * Building and reviewing surveys using Qualtrics
-* Analyzing survey data
+* Analyzing survey data using statistics
 * Reviewing the literature on a given topic
 * Programming for open-science projects (e.g., using RStudio, GitHub, and using the Open Science Framework resources)
 * Learn how to different good versus poor quality survey responses
@@ -75,7 +66,20 @@ More advanced students will be tasked with helping Dr. Castille and his colleagu
 * Update projects on the Open Science Framework
 * Help prepare manuscripts for presentation and publication
 
-**How to join our lab?**
+## What are we looking for in a collaborator?
+
+We are looking for individuals who:
+
+* Enjoy working with others in a team context
+* Are capable of working virtually in a self-directed manner
+* Are capable of gathering and summarizing research literature 
+* Are interested in using data to better understand people in organizational settings to make work not suck
+* Are willing to acclimate to data analytics tools for working in an open science environment (e.g., R, GitHub, Open Science Framework) 
+* Either have or are interested in pursuing a graduate degree in the social sciences, or would like to learn more about people analytics! 
+
+Undergraduates and graduate students from any major and any level are eligible. We accept applications on a rolling basis throughout the year.Students outside of Nicholls State University can also apply. Preference will be given to students in business and social science programs that have a 3.0 GPA or higher. 
+
+## How to join our lab?
 
 To apply to be a research assistant in the LC lab, please fill out [this application form](https://forms.gle/VADbPPBKPBcSc4BX8). After your application has been received, Dr. Castille will conduct a 30-minute behavioral interview. This [article](https://www.theladders.com/career-advice/acing-behavioral-interview) will help you to prepare. 
 
@@ -83,7 +87,7 @@ If you have any more questions, then please don't hesitate to reach out to Dr. C
 
 We hope to hear from you soon!
 
-# Lab Resources 
+## Lab Resources 
 
 Thee resources below are for those individuals who are in the lab:
 
