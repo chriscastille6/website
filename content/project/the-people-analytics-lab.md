@@ -81,7 +81,7 @@ Undergraduates and graduate students from any major and any level are eligible. 
 
 ## How to join our lab?
 
-To apply to be a research assistant in the LC lab, please fill out [this application form](https://forms.gle/VADbPPBKPBcSc4BX8). After your application has been received, Dr. Castille will conduct a 30-minute behavioral interview. This [article](https://www.theladders.com/career-advice/acing-behavioral-interview) will help you to prepare. 
+To apply to be a research assistant in the PAL, please fill out [this application form](https://forms.gle/VADbPPBKPBcSc4BX8). After your application has been received, Dr. Castille will conduct a 30-minute behavioral interview. This [article](https://www.theladders.com/career-advice/acing-behavioral-interview) will help you to prepare. 
 
 If you have any more questions, then please don't hesitate to reach out to Dr. Christopher Castille (christopher.castille@nicholls.edu) and ask for more information.
 
