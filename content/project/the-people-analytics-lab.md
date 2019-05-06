@@ -77,6 +77,8 @@ We are looking for individuals who:
 
 Undergraduates and graduate students from any major and any level are eligible. We accept applications on a rolling basis throughout the year.Students outside of Nicholls State University can also apply. Preference will be given to students in business and social science programs that have a 3.0 GPA or higher. 
 
+More details on the role can be found [here](https://docs.google.com/document/d/136ErjOM1SNroW-XGtb2x4k9FdZG8FQw5tsHgqR07pXU/edit?usp=sharing).
+
 ## How to join our lab?
 
 To apply to be a research assistant in the PAL, please fill out [this application form](https://forms.gle/VADbPPBKPBcSc4BX8). After your application has been received, Dr. Castille will conduct a 30-minute behavioral interview. This [article](https://www.theladders.com/career-advice/acing-behavioral-interview) will help you to prepare. 
@@ -89,7 +91,6 @@ We hope to hear from you soon!
 
 Thee resources below are for those individuals who are in the lab:
 
-* Lab associate on-boarding [survey form](https://forms.gle/rnBNnmu2HbpsdYQF6)
 * Lab [syllabi](https://docs.google.com/document/d/136ErjOM1SNroW-XGtb2x4k9FdZG8FQw5tsHgqR07pXU/edit?usp=sharing) for research assistants (contains job descriptions)
 * Letter of recommendation request [survey form](https://forms.gle/LF6cB7iFaBiW5dTg7)
 * Open Science [Manual](https://docs.google.com/document/d/1oMkTCEFtOq_DB0eoNiyk-B5QCgL6sVSF5pVvD1ONZDc/mobilebasic#h.pmed3q71ugip) from Haverford College
