@@ -94,7 +94,7 @@ Thee resources below are for those individuals who are in the lab:
 * Lab [syllabi](https://docs.google.com/document/d/136ErjOM1SNroW-XGtb2x4k9FdZG8FQw5tsHgqR07pXU/edit?usp=sharing) for research assistants (contains job descriptions)
 * Letter of recommendation request [survey form](https://forms.gle/LF6cB7iFaBiW5dTg7)
 * Open Science [Manual](https://docs.google.com/document/d/1oMkTCEFtOq_DB0eoNiyk-B5QCgL6sVSF5pVvD1ONZDc/mobilebasic#h.pmed3q71ugip) from Haverford College
-* Free BOOKS! A Tutorial for [Learning Statistics with R](http://www.fon.hum.uva.nl/paul/lot2015/Navarro2014.pdf); Hadley Wickham's [R for Data Science](https://r4ds.had.co.nz); and the popular [R Graphics Cookbook](R Graphics Cookbook (https://r-graphics.org)
+* Free BOOKS! A Tutorial for [Learning Statistics with R](http://www.fon.hum.uva.nl/paul/lot2015/Navarro2014.pdf); Hadley Wickham's [R for Data Science](https://r4ds.had.co.nz); and the popular [R Graphics Cookbook](https://r-graphics.org)
 * Psych Data Standards [Materials](https://github.com/psych-ds/psych-DS) 
 * Teaching yourself R? Try using the [swirl package](https://swirlstats.com)
 * Full project [repository](https://docs.google.com/spreadsheets/d/1aRTwgxTZLl8zlnK7TqnVpCMcoVShFRGqfXzqEvhR-rg/edit?usp=sharing)
