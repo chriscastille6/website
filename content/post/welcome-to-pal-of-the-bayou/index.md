@@ -8,8 +8,8 @@ publishDate: "2025-01-25T00:00:00Z"
 publication_types: ["0"]
 publication: ""
 publication_short: ""
-abstract: "Welcome to the People Analytics Lab of the Bayou! We are excited to launch our research lab focused on understanding how people work, lead, and thrive in organizations."
-summary: "An introduction to our new research lab dedicated to organizational behavior and workplace analytics."
+abstract: "Welcome to the People Analytics Lab of the Bayou! This post explains the motivation for the website, my teaching philosophy, and my commitment to open science."
+summary: "An introduction to our new research lab, teaching philosophy, and open science initiatives."
 tags:
   - Organizational Behavior
   - Workplace Analytics
@@ -34,48 +34,34 @@ image:
 
 ---
 
-Welcome to the **People Analytics Lab of the Bayou**! We are thrilled to announce the launch of our research laboratory dedicated to advancing our understanding of organizational behavior, human resource management, and workplace analytics.
+## Why I'm Building This Website
 
-## Our Mission
+Welcome to the People Analytics Lab of the Bayou! I'm launching this website to make my research and teaching resources more accessible to the public, students, and fellow scholars. As someone who studies people in organizations, I'm passionate about understanding—and helping others understand—the complex dynamics that drive workplace behavior and effectiveness.
 
-The People Analytics Lab of the Bayou is committed to conducting rigorous research that helps organizations understand how people work, lead, and thrive in the workplace. Our research focuses on:
+### My Teaching Philosophy
 
-- **Organizational Behavior**: Understanding individual and group dynamics in organizations
-- **Workplace Analytics**: Using data-driven approaches to improve organizational effectiveness
-- **Human Resource Management**: Developing evidence-based HR practices
-- **Leadership Development**: Exploring effective leadership strategies
-- **Employee Well-being**: Promoting healthy and productive work environments
+As an instructor, I take it as my personal responsibility to expose students to evidence-based management (EBM; Barends & Rousseau, 2018) so that they might make wiser decisions as employees, managers, and business leaders. In my classes, we discuss the most credible science available on various topics, weighing scientific evidence against our own experiences and the views of professionals, and ultimately considering how best to act given this information. My goal is to help students cultivate an attitude of wisdom—acting with the best information on hand while doubting what they believe to be true (Erez & Grant, 2014).
 
-## Research Areas
+EBM is about making decisions through the conscientious, explicit, and judicious use of the best available evidence to increase the likelihood of a favorable outcome. I strive to be a role model of evidence-based decision making, helping students see how to acquire and use information to make decisions in organizational settings.
 
-Our lab conducts research across several key areas:
+My pedagogy is informed by integrating key sources of information: my colleagues, my students, and the peer-reviewed literature on effective teaching practices. I use a variety of tactics, such as signaling flexibility and availability, assigning weekly preparation participation assignments, using team-based teaching and charters, leveraging pre-course surveys to connect with student interests, reaching out to struggling students, clarifying the value of active learning, reframing mistakes as learning opportunities, and encouraging peer review and writing support. My courses are designed to help students not only master content but also develop practical skills for their future careers.
 
-### 1. Workplace Dynamics
-We study how organizational culture, communication patterns, and team dynamics influence employee performance and satisfaction.
+### Research, Technology, and Open Science
 
-### 2. Leadership and Management
-Our research explores effective leadership styles, management practices, and their impact on organizational outcomes.
+I specialize in building computer simulations, which allows me to create interactive, data-driven tools for both research and pedagogy. One of my goals is to help students grasp challenging concepts—like evaluating the utility of HR interventions—by making abstract ideas tangible. For example, I'm developing apps that generate organic organizational data based on decisions students make in the Interpretive Simulations HRManagement simulation. This approach helps students see the direct connection between their choices and outcomes such as voluntary turnover, morale, and productivity (Guzzo, 2022).
 
-### 3. Employee Engagement
-We investigate factors that contribute to employee engagement, motivation, and retention.
+I am also a leader in the open science movement, which aims to make research more transparent, reproducible, and replicable. My work has focused on advocating for open science practices and integrating them into my own research pipeline. Currently, I serve on the executive team for the Advancement of Replications Initiative in Management (ARIM, [arimweb.org](https://arimweb.org)), specifically on a project examining the dark side of goal setting. Through ARIM, we implement open science practices to benefit our research and to train the next generation of doctoral students.
 
-### 4. Organizational Change
-We examine how organizations can successfully navigate change and transformation.
+### Looking Ahead
 
-## Get Involved
-
-We welcome collaboration from:
-- **Students**: Undergraduate and graduate students interested in organizational research
-- **Faculty**: Colleagues from related disciplines
-- **Organizations**: Partners interested in applied research projects
-- **Researchers**: Scholars working in organizational behavior and related fields
-
-## Contact Us
-
-If you're interested in learning more about our research or getting involved with the lab, please don't hesitate to reach out. We're always excited to connect with others who share our passion for understanding and improving the workplace.
-
-Stay tuned for updates on our research projects, publications, and upcoming events!
+This website will serve as a hub for sharing my research, teaching tools, and open science initiatives. I hope it will help students, practitioners, and researchers engage more deeply with people analytics and organizational science.
 
 ---
 
-*The People Analytics Lab of the Bayou is based at Nicholls State University in Thibodaux, Louisiana.* 
+### References
+
+Barends, E., & Rousseau, D. M. (2018). *Evidence-based management: How to use evidence to make better organizational decisions*. Kogan Page.
+
+Erez, A., & Grant, A. M. (2014). Separating data from intuition: Bringing evidence into the management classroom. *Academy of Management Learning & Education, 13*(1), 104–119. https://doi.org/10.5465/amle.2013.0098
+
+Guzzo, R. (2022). Organizational data and its implications for research and theory. In K. R. Murphy (Ed.), *Data, Methods and Theory in the Organizational Sciences: A New Synthesis* (1st ed.). Routledge. https://doi.org/10.4324/9781003015000 
