@@ -29,13 +29,13 @@ education:
   courses:
     - course: PhD in Industrial/Organizational Psychology
       institution: Louisiana Tech University
-      year: 2019
+      year: 2015
     - course: MA in Industrial/Organizational Psychology
       institution: Louisiana Tech University
-      year: 2016
+      year: 2012
     - course: BS in Business Administration
-      institution: Nicholls State University
-      year: 2013
+      institution: Louisiana State University
+      year: 2008
 
 # Social/Academic Networking
 # For available icons, see: https://docs.hugoblox.com/getting-started/page-builder/#icons
@@ -71,4 +71,4 @@ user_groups:
 
 Dr. Christopher M. Castille is the Director of the People Analytics Lab of the Bayou and the Gerald Gaston Endowed Associate Professor of Management at Nicholls State University. His research focuses on organizational behavior, workplace analytics, and human resource management. He is particularly interested in understanding how organizational practices impact employee performance and organizational effectiveness.
 
-Dr. Castille earned his PhD in Management from Louisiana State University and has published research on topics including workplace dynamics and employee engagement. He leads the lab's research initiatives and mentors students interested in organizational research and analytics.
+Dr. Castille earned his PhD in Management from Louisiana Tech University and has published research on topics including workplace dynamics and employee engagement. He leads the lab's research initiatives and mentors students interested in organizational research and analytics.
