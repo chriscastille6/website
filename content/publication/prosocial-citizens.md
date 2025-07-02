@@ -3,7 +3,7 @@ title = "Prevailing to their peers' detriment: Organizational constraints motiva
 date = 2017-09-01T00:00:00
  
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Christopher M. Castille", "Daniel Kuyumcu", "Rebecca J. Bennett"]
+authors = ["Castille, Christopher M.", "Daniel Kuyumcu", "Rebecca J. Bennett"]
 
 # Publication type.
 # Legend:

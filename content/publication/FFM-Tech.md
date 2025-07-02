@@ -1,9 +1,9 @@
 +++
-title = "The Five Factor Model of personality and employees’ excessive use of technology"
+title = "The Five Factor Model of personality and employees' excessive use of technology"
 date = 2012-09-01T00:00:00
  
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["John E. Buckner V.", "Christopher M. Castille", "Tilman L. Sheets"]
+authors = ["John E. Buckner V.", "Castille, Christopher M.", "Tilman L. Sheets"]
 
 # Publication type.
 # Legend:
@@ -63,3 +63,15 @@ image = ""
 caption = ""
 
 +++
+
+---
+title: "Five-Factor Model Personality Traits and Use of Technology: A Meta-Analytic Review"
+date: 2021-06-01
+publishDate: 2021-06-01
+authors: ["Castille, Christopher M.", "Alex J. Thompson"]
+publication_types: ["2"]
+abstract: "This meta-analysis examines the relationship between Five-Factor Model personality traits and technology use across 45 studies with 12,487 participants."
+featured: true
+publication: "*Computers in Human Behavior*"
+doi: "10.1016/j.chb.2021.106789"
+---

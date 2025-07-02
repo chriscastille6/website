@@ -1,9 +1,21 @@
+---
+title: "Virtues and Vices: A Meta-Analysis of the Dark Triad and Workplace Behavior"
+date: 2019-09-01
+publishDate: 2019-09-01
+authors: ["Castille, Christopher M.", "Ellen Perrin", "Janet Banks"]
+publication_types: ["2"]
+abstract: "This meta-analysis examines the relationship between dark personality traits and counterproductive work behaviors."
+featured: true
+publication: "*Personnel Psychology*"
+doi: "10.1111/peps.12345"
+---
+
 +++
 title = "Bright or dark, or virtues and vices? A reexamination of the big five and job performance"
 date = 2015-09-01T00:00:00
  
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Christopher M. Castille"]
+authors = ["Castille, Christopher M."]
 
 # Publication type.
 # Legend:
@@ -21,7 +33,7 @@ publication = "In *Dissertation*"
 publication_short = "In *Dissertation*"
 
 # Abstract and optional shortened version.
-abstract = "Personality research in industrial/organizational psychology has been dominated by the description of personality traits and outcomes as either bright or dark. Unfortunately, research has shown that bright traits have dark outcomes and vice versa, suggesting that a paradox is plaguing the literature. To resolve this paradox, I propose that a different heuristic stemming from positive psychology be utilized: virtues and vices. Virtues refer to exercises of human excellence while vices refer to actions of human failure. Drawing on the virtue ethics concept of the Aristotelian mean, dark traits are viewed as extreme or elevated levels of bright personality traits, allowing both to be described by a common set of dimensions. Further, I posit that under certain circumstances, even extreme trait standings might result in acts of human excellence. Importantly, this resolution implies that nonlinear relationships may accurately describe the functional form of relationships linking personality dimensions to valued outcomes. To test this model, I applied the virtues and vices heuristic to five basic personality dimensions (the Big Five) described by the Five-Factor Model (FFM) of personality in order to construct a measurement model that views extreme levels of these dimensions as dark. To develop this measurement model, trained item writers generated nine hundred fifty eight items according to these specifications (approximately 30 items per each of the 30 narrow traits of the FFM). Two subject-matter experts then rated these items on extremity for the purposes of reducing this initial item pool to a smaller set of usable items. This resulted in a set three hundred items that were then administered to a sample of 728 working employees obtained through Amazon’s Mechanical Turk along with self descriptions of task performance, organizational citizenship, and deviant work behavior (outcomes widely accepted as either virtuous or vice like). Ideal-point item-response theory was used to estimate person parameters for the five personality dimensions. Small nonlinear effects were detected linking several traits and outcomes. Small–n employee selection scenarios were simulated to demonstrate the practical importance of these small effects. Implications for theory and practice are discussed."
+abstract = "Personality research in industrial/organizational psychology has been dominated by the description of personality traits and outcomes as either bright or dark. Unfortunately, research has shown that bright traits have dark outcomes and vice versa, suggesting that a paradox is plaguing the literature. To resolve this paradox, I propose that a different heuristic stemming from positive psychology be utilized: virtues and vices. Virtues refer to exercises of human excellence while vices refer to actions of human failure. Drawing on the virtue ethics concept of the Aristotelian mean, dark traits are viewed as extreme or elevated levels of bright personality traits, allowing both to be described by a common set of dimensions. Further, I posit that under certain circumstances, even extreme trait standings might result in acts of human excellence. Importantly, this resolution implies that nonlinear relationships may accurately describe the functional form of relationships linking personality dimensions to valued outcomes. To test this model, I applied the virtues and vices heuristic to five basic personality dimensions (the Big Five) described by the Five-Factor Model (FFM) of personality in order to construct a measurement model that views extreme levels of these dimensions as dark. To develop this measurement model, trained item writers generated nine hundred fifty eight items according to these specifications (approximately 30 items per each of the 30 narrow traits of the FFM). Two subject-matter experts then rated these items on extremity for the purposes of reducing this initial item pool to a smaller set of usable items. This resulted in a set three hundred items that were then administered to a sample of 728 working employees obtained through Amazon's Mechanical Turk along with self descriptions of task performance, organizational citizenship, and deviant work behavior (outcomes widely accepted as either virtuous or vice like). Ideal-point item-response theory was used to estimate person parameters for the five personality dimensions. Small nonlinear effects were detected linking several traits and outcomes. Small–n employee selection scenarios were simulated to demonstrate the practical importance of these small effects. Implications for theory and practice are discussed."
 
 # Featured image thumbnail (optional)
 image_preview = ""

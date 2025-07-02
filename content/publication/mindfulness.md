@@ -3,7 +3,7 @@ title = "Some key questions for mindfulness interventions"
 date = 2015-09-01T00:00:00
  
 # Authors. Comma separated list, e.g. `["Bob Smith", "David Jones"]`.
-authors = ["Christopher M. Castille", "Katina Sawyer", "Christian N. Thoroughgood", "John E. Buckner"]
+authors = ["Castille, Christopher M.", "Katina Sawyer", "Christian N. Thoroughgood", "John E. Buckner"]
 
 # Publication type.
 # Legend:
