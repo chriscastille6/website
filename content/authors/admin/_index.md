@@ -69,6 +69,4 @@ user_groups:
   - Principal Investigators
 ---
 
-Dr. Christopher M. Castille is the Director of the People Analytics Lab of the Bayou and the Gerald Gaston Endowed Associate Professor of Management at Nicholls State University. His research focuses on organizational behavior, workplace analytics, and human resource management. He is particularly interested in understanding how organizational practices impact employee performance and organizational effectiveness.
-
-Dr. Castille earned his PhD in Management from Louisiana Tech University and has published research on topics including workplace dynamics and employee engagement. He leads the lab's research initiatives and mentors students interested in organizational research and analytics.
+Dr. Christopher M. Castille is the Director of the People Analytics Lab of the Bayou and the Gerald Gaston Endowed Associate Professor of Management at Nicholls State University. He teaches Human Relations and Interpersonal Skills (MNGT 370), Performance and Compensation Management (MNGT 475), HR Analytics (MNGT 425), and Managing Human Capital (MNGT 502). He is particularly interested in understanding how organizational practices impact employee performance and organizational effectiveness.
