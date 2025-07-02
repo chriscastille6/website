@@ -8,14 +8,14 @@ sections:
   - block: hero
     content:
       title: |
-        Wowchemy
-        Research Group
+        People Analytics Lab
+        of the Bayou
       image:
         filename: welcome.jpg
       text: |
         <br>
         
-        The **Wowchemy Research Group** has been a center of excellence for Artificial Intelligence research, teaching, and practice since its founding in 2016.
+        The **People Analytics Lab of the Bayou** is dedicated to advancing research in organizational behavior, human resource management, and workplace analytics. We focus on understanding how people work, lead, and thrive in organizations.
   
   - block: collection
     content:
@@ -45,7 +45,7 @@ sections:
       columns: '1'
       background:
         image: 
-          filename: coders.jpg
+          filename: human-capital-roi.png
           filters:
             brightness: 1
           parallax: false
@@ -58,7 +58,7 @@ sections:
 
   - block: collection
     content:
-      title: Latest Preprints
+      title: Latest Publications
       text: ""
       count: 5
       filters:
