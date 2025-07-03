@@ -1,21 +1,37 @@
 ---
-title: About
+title: Bio
 date: 2022-10-24
 
-type: landing
-
-sections:
-  - block: people
-    content:
-      title: Lab Director
-      # Choose which groups/teams of users to display.
-      #   Edit `user_groups` in each user's profile to add them to one or more of these groups.
-      user_groups:
-          - Principal Investigators
-      sort_by: Params.last_name
-      sort_ascending: true
-    design:
-      show_interests: true
-      show_role: true
-      show_social: true
+type: page
 ---
+
+{{< figure src="/authors/admin/avatar.jpg" class="img-fluid rounded-circle" width="200" >}}
+
+## Christopher M. Castille
+
+**Lab Director & Gerald Gaston Endowed Associate Professor of Management**
+
+*Nicholls State University*
+
+### About Me
+
+Dr. Christopher M. Castille is the Director of the People Analytics Lab of the Bayou and the Gerald Gaston Endowed Associate Professor of Management at Nicholls State University. He teaches Human Relations and Interpersonal Skills (MNGT 370), Performance and Compensation Management (MNGT 475), HR Analytics (MNGT 425), and Managing Human Capital (MNGT 502). He is particularly interested in understanding how organizational practices impact employee performance and organizational effectiveness.
+
+### Research Interests
+
+- **People Analytics**
+- **Psychological Assessment** 
+- **Open Science**
+
+### Education
+
+- **PhD in Industrial/Organizational Psychology** - Louisiana Tech University (2015)
+- **MA in Industrial/Organizational Psychology** - Louisiana Tech University (2012)
+- **BS in Business Administration** - Louisiana State University (2008)
+
+### Contact
+
+- **Email:** [christopher.castille@nicholls.edu](mailto:christopher.castille@nicholls.edu)
+- **Google Scholar:** [Christopher M. Castille](https://scholar.google.com/citations?user=vO-9e7MAAAAJ)
+- **LinkedIn:** [Christopher Castille](https://www.linkedin.com/in/christopher-castille/)
+- **University Profile:** [Nicholls State University](https://www.nicholls.edu/management/faculty-staff/dr-chris-castille/)

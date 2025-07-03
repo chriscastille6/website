@@ -7,7 +7,7 @@ main:
   - name: Blog
     url: post
     weight: 10
-  - name: People
+  - name: Bio
     url: people
     weight: 20
   - name: Publications
