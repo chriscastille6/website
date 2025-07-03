@@ -61,6 +61,8 @@ sections:
       title: Latest Publications
       text: ""
       count: 3
+      filters:
+        publication_type: ['article', 'article-journal']
     design:
       view: citation
       columns: '1'
