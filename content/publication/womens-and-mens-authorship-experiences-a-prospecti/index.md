@@ -13,7 +13,7 @@ authors:
   - Batchelor, John H
   - others
 date: "2025-01-01T00:00:00Z"
-doi: "10.3366/edinburgh/9781474413473.003.0003"
+doi: "10.1177/01492063251315701"
 publishDate: "2025-01-01T00:00:00Z"
 publication_types: ["article"]
 publication: "*Journal of Management*"
