@@ -3,7 +3,7 @@
   {{ range $index, $value := (.GetTerms $taxonomy) }}
     {{- if gt $index 0 }}, {{ end -}}
     {{- $authorName := .LinkTitle -}}
-    {{- if or (eq $authorName "Castille, Christopher M") (eq $authorName "Christopher M Castille") (eq $authorName "Castille, C. M.") (eq $authorName "C. M. Castille") -}}
+    {{- if or (eq $authorName "Castille, Christopher M") (eq $authorName "Castille, Christopher") (eq $authorName "Christopher M Castille") (eq $authorName "Christopher Castille") (eq $authorName "Castille, C. M.") (eq $authorName "C. M. Castille") -}}
       <strong>{{ $authorName }}</strong>
     {{- else -}}
       {{ $authorName }}
