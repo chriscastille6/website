@@ -23,23 +23,31 @@
       {{ range .Pages }}
       <div class="row">
         <div class="col-lg-12">
-          {{ if eq $.Params.view 1 }}
-            {{ partial "li_list" . }}
-          {{ else if eq $.Params.view 3 }}
-            {{ partial "li_card" . }}
-          {{ else if eq $.Params.view 4 }}
-            {{ partial "li_citation" . }}
-          {{ else }}
-            {{ partial "li_compact" . }}
-          {{ end }}
+          <div class="pub-list-item view-citation" style="margin-bottom: 1rem">
+            <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+            <span class="article-metadata li-cite-author">
+              {{ partial "page_metadata_authors" . }}
+            </span>
+
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+
+            {{ if .Params.publication_short }}
+              {{- .Params.publication_short | markdownify -}}
+            {{ else if .Params.publication }}
+              {{- .Params.publication | markdownify -}}
+            {{ end }}
+
+            <div class="btn-links">
+              {{ partial "page_links" (dict "content" . "is_list" 1) }}
+            </div>
+          </div>
         </div>
       </div>
       {{ end }}
       {{ end }}
     </div>
   </div>
-
-
 
   {{ end }}
 </div>

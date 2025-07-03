@@ -17,7 +17,7 @@ featured: false
 projects: []
 slides: ""
 
-url_pdf: ""
+url_pdf: "https://link.springer.com/content/pdf/10.1007/s10551-017-3748-3.pdf"
 url_code: ""
 url_dataset: ""
 url_poster: ""
