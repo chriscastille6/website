@@ -1,0 +1,47 @@
+{{ define "main" }}
+
+{{ partial "page_header.html" . }}
+
+<div class="universal-wrapper">
+  {{ with .Content }}
+  <div class="article-style">{{ . }}</div>
+  {{ end }}
+
+  {{ $query := where .Pages ".IsNode" false }}
+  {{ $count := len $query }}
+  {{ if $count }}
+
+  <div class="row">
+    <div class="col-lg-12">
+      {{ $paginator := .Paginate $query }}
+      {{ range $paginator.Pages.GroupByDate "2006" }}
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="mb-4">{{ .Key }}</h2>
+        </div>
+      </div>
+      {{ range .Pages }}
+      <div class="row">
+        <div class="col-lg-12">
+          {{ if eq $.Params.view 1 }}
+            {{ partial "li_list" . }}
+          {{ else if eq $.Params.view 3 }}
+            {{ partial "li_card" . }}
+          {{ else if eq $.Params.view 4 }}
+            {{ partial "li_citation" . }}
+          {{ else }}
+            {{ partial "li_compact" . }}
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+      {{ end }}
+    </div>
+  </div>
+
+
+
+  {{ end }}
+</div>
+
+{{ end }} 
