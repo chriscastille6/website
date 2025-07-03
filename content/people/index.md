@@ -1,21 +1,15 @@
 ---
-title: People
+title: About
 date: 2022-10-24
 
 type: landing
 
 sections:
-  - block: people
+  - block: about
     content:
-      title: Lab Director
-      # Choose which groups/teams of users to display.
-      #   Edit `user_groups` in each user's profile to add them to one or more of these groups.
-      user_groups:
-          - Principal Investigators
-      sort_by: Params.last_name
-      sort_ascending: true
+      title: Biography
+      # Choose a user profile to display (a folder name within `content/authors/`)
+      username: admin
     design:
-      show_interests: true
-      show_role: true
-      show_social: true
+      columns: '2'
 ---
