@@ -7,13 +7,14 @@ This file is for tracking daily goals, progress, and completed tasks for the PAL
 ## Date: 2024-06-10
 
 ### Goals
-- [ ] Finish drafting the 'hello world' website revamp. Needs to incorporate teaching philosophy and 'why am I doing this?'
+- [x] Finish drafting the 'hello world' website revamp. Needs to incorporate teaching philosophy and 'why am I doing this?'
 - [ ] Include a 'correlation slider' post that involves testing students' intuitions about the value of psychological assessment. That tool needs to be modified to include sample size and be dynamic.
 - [ ] Cut unnecessary pubs from the files and, if possible, include data and code from published files to make work more easily reproduced.
 - [ ] Post website (can we do that one first?)
 
 ### Completed
 - [x] Set up goals and progress log file
+- [x] Finish drafting the 'hello world' website revamp.
 
 ### Notes
 - Example goals for reference:
