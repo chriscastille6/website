@@ -62,9 +62,8 @@ sections:
       text: ""
       count: 3
       filters:
-        folders:
-          - publication
         publication_type: ['article', 'article-journal']
+      page_type: publication
     design:
       view: citation
       columns: '1'
