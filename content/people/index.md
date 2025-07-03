@@ -33,5 +33,5 @@ Dr. Christopher M. Castille is the Director of the People Analytics Lab of the B
 
 - **Email:** [christopher.castille@nicholls.edu](mailto:christopher.castille@nicholls.edu)
 - **Google Scholar:** [Christopher M. Castille](https://scholar.google.com/citations?user=vO-9e7MAAAAJ)
-- **LinkedIn:** [Christopher Castille](https://www.linkedin.com/in/christopher-castille/)
+- **LinkedIn:** [Christopher Castille](https://www.linkedin.com/in/christopher-castille-0b0860b)
 - **University Profile:** [Nicholls State University](https://www.nicholls.edu/management/faculty-staff/dr-chris-castille/)
