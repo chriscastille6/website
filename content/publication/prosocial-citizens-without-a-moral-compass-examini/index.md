@@ -5,7 +5,7 @@ authors:
   - Buckner, John E
   - Thoroughgood, Christian N
 date: "2018-01-01T00:00:00Z"
-doi: ""
+doi: "10.1007/s10551-017-3748-3"
 publishDate: "2018-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Journal of Business Ethics*"
@@ -23,7 +23,7 @@ url_dataset: ""
 url_poster: ""
 url_project: ""
 url_slides: ""
-url_source: ""
+url_source: "https://link.springer.com/article/10.1007/s10551-017-3748-3"
 url_video: ""
 
 image:

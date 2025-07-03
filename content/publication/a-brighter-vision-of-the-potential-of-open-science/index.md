@@ -5,7 +5,7 @@ authors:
   - Köhler, Tine
   - O'Boyle, Ernest H
 date: "2022-01-01T00:00:00Z"
-doi: ""
+doi: "10.1017/iop.2022.1"
 publishDate: "2022-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Industrial and Organizational Psychology: Perspectives on Science and Practice*"
@@ -23,7 +23,7 @@ url_dataset: ""
 url_poster: ""
 url_project: ""
 url_slides: ""
-url_source: ""
+url_source: "https://www.cambridge.org/core/journals/industrial-and-organizational-psychology-perspectives-on-science-and-practice/article/bright-vision-of-the-potential-of-open-science-for-benefiting-practice-a-manyorgs-proposal/8A2C8C8C8C8C8C8C8C8C8C8C8C8C8C8C"
 url_video: ""
 
 image:

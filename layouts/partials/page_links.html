@@ -1,0 +1,24 @@
+{{ $links := slice }}
+
+{{ if .Params.doi }}
+  {{ $links = $links | append (dict "url" (printf "https://doi.org/%s" .Params.doi) "icon" "ai ai-doi" "name" "DOI") }}
+{{ end }}
+
+{{ if .Params.url_pdf }}
+  {{ $links = $links | append (dict "url" .Params.url_pdf "icon" "fas fa-file-pdf" "name" "PDF") }}
+{{ end }}
+
+{{ if .Params.url_source }}
+  {{ $links = $links | append (dict "url" .Params.url_source "icon" "fas fa-external-link-alt" "name" "Source") }}
+{{ end }}
+
+{{ if gt (len $links) 0 }}
+  <div class="btn-links">
+    {{ range $links }}
+      <a class="btn btn-outline-primary btn-sm" href="{{ .url }}" target="_blank" rel="noopener">
+        <i class="{{ .icon }}" aria-hidden="true"></i>
+        {{ .name }}
+      </a>
+    {{ end }}
+  </div>
+{{ end }} 
