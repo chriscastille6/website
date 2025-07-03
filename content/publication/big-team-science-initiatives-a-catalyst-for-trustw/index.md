@@ -6,7 +6,7 @@ authors:
   - Castille, Christopher
   - Cogswell, Joshua
 date: "2024-01-01T00:00:00Z"
-doi: ""
+doi: "10.1016/j.actpsy.2023.104101"
 publishDate: "2024-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Acta Psychologica*"

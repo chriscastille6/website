@@ -1,11 +1,11 @@
 ---
-title: "The Five Factor Model of personality and employees’ excessive use of technology"
+title: "The Five Factor Model of personality and employees' excessive use of technology"
 authors:
   - Castille, Christopher M
   - Sheets, Tilman L
   - others
 date: "2012-01-01T00:00:00Z"
-doi: ""
+doi: "10.1016/j.chb.2012.05.014"
 publishDate: "2012-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Computers in Human Behavior*"

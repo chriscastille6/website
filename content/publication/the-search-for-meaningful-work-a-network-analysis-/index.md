@@ -4,7 +4,7 @@ authors:
   - Simonet, Daniel V
   - Castille, Christopher M
 date: "2020-01-01T00:00:00Z"
-doi: ""
+doi: "10.1016/j.paid.2019.109569"
 publishDate: "2020-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Personality and Individual Differences*"

@@ -5,7 +5,7 @@ authors:
   - Kuyumcu, Daniel
   - Bennett, Rebecca J
 date: "2017-01-01T00:00:00Z"
-doi: ""
+doi: "10.1016/j.paid.2016.07.026"
 publishDate: "2017-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Personality and Individual Differences*"

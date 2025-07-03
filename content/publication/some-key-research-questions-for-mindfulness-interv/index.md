@@ -6,7 +6,7 @@ authors:
   - Thoroughgood, Christian
   - Buckner, John
 date: "2015-01-01T00:00:00Z"
-doi: ""
+doi: "10.1017/iop.2015.86"
 publishDate: "2015-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Industrial and Organizational Psychology: Perspectives on Science and Practice*"

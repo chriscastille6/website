@@ -4,7 +4,7 @@ authors:
   - Castille, Christopher
   - Fultz, Andrew
 date: "2018-01-01T00:00:00Z"
-doi: ""
+doi: "10.24251/hicss.2018.014"
 publishDate: "2018-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "**"

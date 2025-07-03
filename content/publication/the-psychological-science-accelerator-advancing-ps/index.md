@@ -13,7 +13,7 @@ authors:
   - Antfolk, Jan
   - others
 date: "2018-01-01T00:00:00Z"
-doi: ""
+doi: "10.7557/5.4562"
 publishDate: "2018-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Advances in Methods and Practices in Psychological Science*"

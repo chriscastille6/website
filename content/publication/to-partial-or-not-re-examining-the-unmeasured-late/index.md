@@ -4,7 +4,7 @@ authors:
   - Castille, Christopher
   - Williams, Larry J
 date: "2022-01-01T00:00:00Z"
-doi: ""
+doi: "10.5465/ambpp.2022.10998abstract"
 publishDate: "2022-01-01T00:00:00Z"
 publication_types: ["paper-conference"]
 publication: "*Academy of Management Proceedings*"

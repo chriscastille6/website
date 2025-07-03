@@ -5,7 +5,7 @@ authors:
   - Castille, Christopher M
   - Farley, Justina A
 date: "2011-01-01T00:00:00Z"
-doi: ""
+doi: "10.21091/mppa.2011.1004"
 publishDate: "2011-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Medical Problems of Performing Artists*"

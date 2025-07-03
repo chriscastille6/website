@@ -4,7 +4,7 @@ authors:
   - Castille, Christopher M
   - Castille, Ann-Marie R
 date: "2019-01-01T00:00:00Z"
-doi: ""
+doi: "10.31219/osf.io/p8msx"
 publishDate: "2019-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Industrial and Organizational Psychology: Perspectives on Science and Practice*"

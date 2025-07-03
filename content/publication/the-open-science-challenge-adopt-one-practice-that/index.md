@@ -7,7 +7,7 @@ authors:
   - Banks, George C
   - Rogelberg, Steven G
 date: "2022-01-01T00:00:00Z"
-doi: ""
+doi: "10.1007/s10869-022-09806-2"
 publishDate: "2022-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Journal of Business and Psychology*"

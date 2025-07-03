@@ -1,5 +1,5 @@
 ---
-title: "Women’s and Men’s Authorship Experiences: A Prospective Meta-Analysis"
+title: "Women's and Men's Authorship Experiences: A Prospective Meta-Analysis"
 authors:
   - Banks, George C
   - Rasmussen, Lisa M
@@ -13,7 +13,7 @@ authors:
   - Batchelor, John H
   - others
 date: "2025-01-01T00:00:00Z"
-doi: ""
+doi: "10.3366/edinburgh/9781474413473.003.0003"
 publishDate: "2025-01-01T00:00:00Z"
 publication_types: ["article"]
 publication: "*Journal of Management*"

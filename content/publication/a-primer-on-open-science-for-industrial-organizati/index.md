@@ -3,7 +3,7 @@ title: "A Primer on Open Science for Industrial-Organizational Psychologists."
 authors:
   - Castille, Christopher M
 date: "2024-01-01T00:00:00Z"
-doi: ""
+doi: "10.1017/iop.2022.70"
 publishDate: "2024-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*TIP: The Industrial-Organizational Psychologist*"

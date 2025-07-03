@@ -5,7 +5,7 @@ authors:
   - Castille, Christopher M
   - Sharma, Sandesh
 date: "2021-01-01T00:00:00Z"
-doi: ""
+doi: "10.33423/jop.v21i5.4723"
 publishDate: "2021-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Journal of Organizational Psychology*"

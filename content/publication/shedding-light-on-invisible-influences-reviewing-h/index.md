@@ -4,7 +4,7 @@ authors:
   - Castille, Christopher M
   - Williams, Larry J
 date: "2024-01-01T00:00:00Z"
-doi: ""
+doi: "10.1108/s0742-730120240000042007"
 publishDate: "2024-01-01T00:00:00Z"
 publication_types: ["article"]
 publication: "*Research in Personnel and Human Resources Management*"
