@@ -5,7 +5,7 @@ date: 2022-10-24
 type: page
 ---
 
-{{< figure src="/authors/admin/avatar.jpg" class="img-fluid rounded-circle" width="200" >}}
+{{< figure src="/img/avatar.jpg" class="img-fluid rounded-circle" width="200" >}}
 
 ## Christopher M. Castille
 
