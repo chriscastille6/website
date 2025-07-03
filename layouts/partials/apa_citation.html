@@ -15,8 +15,8 @@
     {{- else -}}
       {{ $formatted }}
     {{- end -}}
-    {{- if lt (add $index 2) $authorCount -}}
-      {{- if eq (add $index 2) $authorCount -}}
+    {{- if lt (add $index 1) $authorCount -}}
+      {{- if eq (add $index 1) (sub $authorCount 1) -}}
         , &
       {{- else -}}
         ,
