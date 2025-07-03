@@ -27,16 +27,8 @@
             <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
 
             <span class="article-metadata li-cite-author">
-              {{ partial "page_metadata_authors" . }}
+              {{ partial "apa_citation" . }}
             </span>
-
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-
-            {{ if .Params.publication_short }}
-              {{- .Params.publication_short | markdownify -}}
-            {{ else if .Params.publication }}
-              {{- .Params.publication | markdownify -}}
-            {{ end }}
 
             <div class="btn-links">
               {{ partial "page_links" (dict "content" . "is_list" 1) }}
