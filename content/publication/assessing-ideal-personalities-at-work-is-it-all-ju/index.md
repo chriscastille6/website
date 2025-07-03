@@ -8,7 +8,7 @@ date: "2019-01-01T00:00:00Z"
 doi: ""
 publishDate: "2019-01-01T00:00:00Z"
 publication_types: ["article-journal"]
-publication: "*Industrial and Organizational Psychology*"
+publication: "*Industrial and Organizational Psychology: Perspectives on Science and Practice*"
 publication_short: ""
 abstract: ""
 summary: ""

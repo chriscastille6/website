@@ -8,7 +8,7 @@ date: "2018-01-01T00:00:00Z"
 doi: ""
 publishDate: "2018-01-01T00:00:00Z"
 publication_types: ["article-journal"]
-publication: "*Journal of business ethics*"
+publication: "*Journal of Business Ethics*"
 publication_short: ""
 abstract: ""
 summary: ""

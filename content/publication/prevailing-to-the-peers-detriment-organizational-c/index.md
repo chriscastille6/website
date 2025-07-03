@@ -8,7 +8,7 @@ date: "2017-01-01T00:00:00Z"
 doi: ""
 publishDate: "2017-01-01T00:00:00Z"
 publication_types: ["article-journal"]
-publication: "*Personality and individual differences*"
+publication: "*Personality and Individual Differences*"
 publication_short: ""
 abstract: ""
 summary: ""
