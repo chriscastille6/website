@@ -12,9 +12,9 @@ authors:
   - Bastardoz, Nicolas
   - Batchelor, John H
   - others
-date: "2025-01-01T00:00:00Z"
+date: "2024-01-01T00:00:00Z"
 doi: "10.1177/01492063251315701"
-publishDate: "2025-01-01T00:00:00Z"
+publishDate: "2024-01-01T00:00:00Z"
 publication_types: ["article"]
 publication: "*Journal of Management*"
 publication_short: ""
