@@ -56,14 +56,9 @@ sections:
         padding: ['20px', '0', '20px', '0']
       css_class: fullscreen
 
-  - block: collection
+  - block: latest_publications
     content:
       title: Latest Publications
-      text: ""
-      count: 3
-      filters:
-        publication_type: ['article', 'article-journal']
     design:
-      view: citation
       columns: '1'
 ---
