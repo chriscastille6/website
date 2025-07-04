@@ -1,7 +1,7 @@
 ---
 title: "Some key research questions for mindfulness interventions"
 authors:
-  - Castille, Christopher
+  - Castille, Christopher M.
   - Sawyer, Katina
   - Thoroughgood, Christian
   - Buckner, John

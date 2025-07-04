@@ -8,7 +8,7 @@ doi: "10.31219/osf.io/p8msx"
 publishDate: "2024-01-01T00:00:00Z"
 publication_types: ["article"]
 publication: "*The Industrial-Organizational Psychologist*"
-publication_short: "*TIP*"
+publication_short: ""
 abstract: ""
 summary: ""
 tags: []

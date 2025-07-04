@@ -8,8 +8,8 @@ date: "2023-01-01T00:00:00Z"
 doi: "10.1017/iop.2022.70"
 publishDate: "2023-01-01T00:00:00Z"
 publication_types: ["article"]
-publication: "*Industrial and Organizational Psychology*"
-publication_short: "*IOP*"
+publication: "*Industrial and Organizational Psychology: Perspectives on Science and Practice*"
+publication_short: ""
 abstract: ""
 summary: ""
 tags: []
