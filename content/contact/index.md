@@ -22,7 +22,7 @@ sections:
       coordinates:
         latitude: '29.7952'
         longitude: '-90.8226'
-      directions: Enter the College of Business Administration building and take the elevator to the 3rd floor. The lab is located in Room 301.
+      directions: The lab is located in Powell Hall, Room 150, on the first floor.
       office_hours:
         - 'Tuesday and Thursday 8:00 AM to 9:00 AM'
         - 'Tuesday and Thursday 10:30 AM to 12:00 PM'
@@ -49,23 +49,5 @@ sections:
     design:
       columns: '1'
 
-  - block: markdown
-    content:
-      title:
-      subtitle: ''
-      text:
-    design:
-      columns: '1'
-      background:
-        image: 
-          filename: contact.jpg
-          filters:
-            brightness: 1
-          parallax: false
-          position: center
-          size: cover
-          text_color_light: true
-      spacing:
-        padding: ['20px', '0', '20px', '0']
-      css_class: fullscreen
+
 ---
