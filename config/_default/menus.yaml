@@ -8,7 +8,7 @@ main:
     url: post
     weight: 10
   - name: Bio
-    url: people
+    url: author/christopher-m.-castille
     weight: 20
   - name: Publications
     url: publication
