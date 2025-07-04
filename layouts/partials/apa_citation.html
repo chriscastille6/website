@@ -16,7 +16,7 @@
       {{ $formatted }}
     {{- end -}}
     {{- if lt (add $index 1) $authorCount -}}
-      {{- if eq (add $index 1) (sub $authorCount 1) -}}
+      {{- if and (gt $authorCount 1) (eq (add $index 1) (sub $authorCount 1)) -}}
         , &nbsp;&nbsp;
       {{- else -}}
         ,&nbsp;
