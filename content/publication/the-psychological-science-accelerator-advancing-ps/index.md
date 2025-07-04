@@ -11,9 +11,19 @@ authors:
   - McCarthy, Randy J
   - Musser, Erica D
   - Antfolk, Jan
-  - others
+  - Castille, Christopher M
+  - Evans, Thomas R
+  - Fiedler, Susann
+  - Flake, Jessica K
+  - Forero, Diego A
+  - Janssen, Steve M J
+  - Keene, Justin R
+  - Protzko, John
+  - Aczel, Balazs
+  - Solas, Sara A
+  - Chartier, Christopher R
 date: "2018-01-01T00:00:00Z"
-doi: "10.7557/5.4562"
+doi: "10.1177/2515245918797607"
 publishDate: "2018-01-01T00:00:00Z"
 publication_types: ["article-journal"]
 publication: "*Advances in Methods and Practices in Psychological Science*"
