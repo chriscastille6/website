@@ -35,7 +35,7 @@ type: page
       <h3>Research Interests</h3>
       <ul>
         <li><strong>People Analytics</strong></li>
-        <li><strong>Psychological Assessment</strong></li>
+        <li><strong>Personality in the Workplace</strong></li>
         <li><strong>Open Science</strong></li>
       </ul>
 

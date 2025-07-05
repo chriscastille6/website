@@ -20,7 +20,7 @@ Dr. Christopher M. Castille is the Director of the People Analytics Lab of the B
 ### Research Interests
 
 - **People Analytics**
-- **Psychological Assessment** 
+- **Personality in the Workplace** 
 - **Open Science**
 
 ### Education
