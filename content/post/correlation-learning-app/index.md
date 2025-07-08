@@ -40,7 +40,7 @@ image:
 
 How well can you spot the strength of relationships in data? This seemingly simple question reveals one of the fundamental challenges in teaching statistics: the gap between theoretical understanding and intuitive feel. As someone who teaches organizational research methods, I've found that correlation coefficients—while mathematically straightforward—are surprisingly difficult for students to grasp intuitively.
 
-**I'm experimenting with Generative AI to become a more effective teacher.** This blog post shares one of those experiments: an interactive web application designed to help students develop an intuitive understanding of correlation coefficients through experiential learning. It – and the tool that I created – were done so with the help of Cursor. 
+**I'm experimenting with Generative AI to become a more effective teacher.** This blog post shares one of those experiments: an interactive web application designed to help students develop an intuitive understanding of correlation coefficients through experiential learning. It – and the tool that I created – were done so with the help of [Cursor](https://cursor.sh), an AI-powered code editor that has been incredibly helpful for my development workflow. 
 
 ### The Challenge of Teaching the Concept of a Correlation
 
