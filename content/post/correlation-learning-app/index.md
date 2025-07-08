@@ -24,7 +24,7 @@ url_pdf: ""
 url_code: ""
 url_dataset: ""
 url_poster: ""
-url_project: ""
+url_project: "https://christopher-m-castille.shinyapps.io/correlation-learning-app/"
 url_slides: ""
 url_source: ""
 url_video: ""
@@ -59,23 +59,7 @@ Enter the "Guess the Correlation" app—a web-based interactive tool that transf
 - **Effect size interpretation** through BESD (Binomial Effect Size Display)
 - **Educational explanations** for each correlation
 
-## The Learning Journey
 
-### Phase 1: Intuitive Relationships
-
-The app begins with familiar relationships that feel "right"—height and weight, study time and GPA, age and experience. These correlations build confidence and establish the visual language of scatter plots. Students quickly learn to recognize strong positive relationships and understand how data clustering affects correlation strength.
-
-### Phase 2: Medical Research
-
-Phase 2 introduces surprising medical correlations that challenge assumptions about effect sizes. Many students are surprised to learn that a correlation of 0.3 between a medical treatment and patient outcomes can be clinically significant. This phase helps students understand that "small" correlations can have meaningful real-world implications.
-
-### Phase 3: Business & Organizational Psychology
-
-This phase focuses on workplace-relevant correlations from Meyer et al. (2001), including personality traits and job performance, cognitive abilities and workplace success. These examples directly connect to students' future careers and help them understand the practical significance of correlation coefficients in organizational research.
-
-### Phase 4: Mixed Challenges
-
-The final phase combines different types of correlations to test integrated understanding. Students must apply their developing intuition across various domains and correlation strengths, preparing them for real-world application.
 
 ## Educational Benefits
 
@@ -143,7 +127,7 @@ The broader applications extend beyond correlation coefficients to other statist
 
 The power of interactive learning cannot be overstated. By transforming abstract statistical concepts into hands-on experiences, we can make complex ideas accessible to everyone. This GenAI experiment has reinforced my belief that technology, when thoughtfully designed, can significantly enhance educational effectiveness.
 
-**Try the app yourself** and see how quickly you develop an intuitive feel for correlation coefficients. Share it with your students, colleagues, or anyone interested in understanding data relationships better. The app is designed to be accessible to everyone, regardless of their statistical background.
+**[Try the app yourself](https://christopher-m-castille.shinyapps.io/correlation-learning-app/)** and see how quickly you develop an intuitive feel for correlation coefficients. Share it with your students, colleagues, or anyone interested in understanding data relationships better. The app is designed to be accessible to everyone, regardless of their statistical background.
 
 This project represents just one step in my ongoing exploration of AI-assisted teaching methods. The goal is not to replace traditional teaching but to enhance it with tools that make complex concepts more approachable and engaging.
 
