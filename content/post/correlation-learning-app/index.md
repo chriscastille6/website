@@ -77,7 +77,9 @@ Enter the "Guess the Correlation" app—a web-based interactive tool that transf
 
 ### Research Foundation
 
-The app is grounded in educational psychology research and incorporates findings from Meyer et al. (2001) meta-analysis. It uses BESD (Rosenthal & Rubin, 1982) for effect size interpretation, helping students understand the practical significance of correlations beyond just the numerical value.
+The app is grounded in educational psychology research and incorporates findings from Meyer et al. (2001) meta-analysis. This landmark study systematically reviewed thousands of psychological assessment studies and provided real-world correlation coefficients that students encounter in organizational research. For example, Meyer et al. found that conscientiousness personality tests correlate only 0.23 with job performance, while integrity tests correlate 0.27 with supervisory ratings—much smaller than most people expect. These findings help students understand that meaningful workplace relationships are often surprisingly modest in magnitude.
+
+The app uses the Binomial Effect Size Display (BESD) method (Rosenthal & Rubin, 1982) for effect size interpretation, helping students understand the practical significance of correlations beyond just the numerical value. BESD translates correlation coefficients into more intuitive language by showing how the relationship affects success rates. For instance, a correlation of 0.30 means that if you split people into high and low groups on the predictor variable, 65% of the high group will be above average on the outcome, compared to only 35% of the low group. This makes abstract statistical concepts concrete and meaningful for business decision-making.
 
 ![BESD Visualization](/img/correlation-app/besd_visualization.png)
 
