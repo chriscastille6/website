@@ -105,10 +105,6 @@ Students can use the app for:
 
 The app features four progressive learning phases, each building on the previous one:
 
-![Phase 2: Medical Interventions](/img/correlation-app/phase2_medical_example.png)
-
-![Phase 3: Business & Organizational Psychology](/img/correlation-app/phase3_business_example.png)
-
 ## Technical Implementation
 
 The app is **web-based** with no software installation required, making it accessible to anyone with internet access. It's **mobile-friendly** and works on phones and tablets, allowing students to practice anywhere, anytime. The **free access** and **no registration** requirements remove barriers to learning.
