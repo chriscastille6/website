@@ -52,6 +52,8 @@ The answer lies in the difference between knowing and feeling. Students can memo
 
 Enter the "Guess the Correlation" app—a web-based interactive tool that transforms abstract statistical concepts into hands-on learning experiences. The app presents users with scatter plots and asks them to estimate the correlation coefficient, providing immediate feedback and educational explanations.
 
+**[🎯 Try the app now!](https://christopher-m-castille.shinyapps.io/correlation-learning-app/)**
+
 ![Correlation Learning App Main Interface](/img/correlation-app/main_interface.png)
 
 **Key Features:**
