@@ -52,6 +52,8 @@ The answer lies in the difference between knowing and feeling. Students can memo
 
 Enter the "Guess the Correlation" app—a web-based interactive tool that transforms abstract statistical concepts into hands-on learning experiences. The app presents users with scatter plots and asks them to estimate the correlation coefficient, providing immediate feedback and educational explanations.
 
+![Correlation Learning App Main Interface](/img/correlation-app/main_interface.png)
+
 **Key Features:**
 - **No technical knowledge required** - anyone can use it in their browser
 - **Four structured learning phases** that build understanding progressively
@@ -67,11 +69,17 @@ Enter the "Guess the Correlation" app—a web-based interactive tool that transf
 
 **Experiential learning** is at the heart of the app's effectiveness. Students learn by doing, not just reading. The immediate feedback loop—make a guess, see the result, understand the explanation—creates powerful learning moments that stick.
 
+![Phase 1: Height vs Weight Example](/img/correlation-app/phase1_height_weight.png)
+
 **Progressive difficulty** ensures that students build skills systematically. Each phase introduces new challenges while reinforcing previously learned concepts. The visual nature of scatter plots leverages our natural pattern recognition abilities, making statistical concepts more accessible.
 
 ### Research Foundation
 
-The app is grounded in educational psychology research and incorporates findings from Meyer et al. (2001) meta-analysis. It uses BESD (Rosenthal & Rubin, 1982) for effect size interpretation, helping students understand the practical significance of correlations beyond just the numerical value. Research by Brooks et al. (2014) demonstrates that managers and practitioners find common language effect sizes like BESD significantly easier to understand than traditional effect size measures like correlation coefficients, making this approach particularly valuable for students who will communicate research findings to business audiences.
+The app is grounded in educational psychology research and incorporates findings from Meyer et al. (2001) meta-analysis. It uses BESD (Rosenthal & Rubin, 1982) for effect size interpretation, helping students understand the practical significance of correlations beyond just the numerical value.
+
+![BESD Visualization](/img/correlation-app/besd_visualization.png)
+
+Research by Brooks et al. (2014) demonstrates that managers and practitioners find common language effect sizes like BESD significantly easier to understand than traditional effect size measures like correlation coefficients, making this approach particularly valuable for students who will communicate research findings to business audiences.
 
 ## Using the App for Teaching
 
@@ -91,9 +99,17 @@ Students can use the app for:
 - **Practice** building intuition through repeated exposure
 - **Preparation** for research methods courses and real-world applications
 
+The app features four progressive learning phases, each building on the previous one:
+
+![Phase 2: Medical Example](/img/correlation-app/phase2_medical_example.png)
+
+![Phase 3: Business Example](/img/correlation-app/phase3_business_example.png)
+
 ## Technical Implementation
 
 The app is **web-based** with no software installation required, making it accessible to anyone with internet access. It's **mobile-friendly** and works on phones and tablets, allowing students to practice anywhere, anytime. The **free access** and **no registration** requirements remove barriers to learning.
+
+![Interactive Hover Information](/img/correlation-app/hover_information.png)
 
 ## Impact and Outcomes
 
@@ -104,6 +120,10 @@ Students who use the app develop:
 - **Better effect size interpretation** skills
 - **Increased confidence** in interpreting research findings
 - **Enhanced ability** to communicate statistical concepts
+
+The app provides immediate feedback on guesses, showing the actual correlation and explaining the relationship. This instant reinforcement helps students develop an intuitive understanding of what different correlation values look like in practice.
+
+![Feedback and Scoring System](/img/correlation-app/feedback_scoring.png)
 
 ### Measurable Benefits
 
@@ -122,6 +142,8 @@ This experiment with GenAI-assisted teaching has opened up exciting possibilitie
 - Analytics for tracking learning progress
 
 The broader applications extend beyond correlation coefficients to other statistical concepts like regression, ANOVA, and domain-specific versions for healthcare, education, and finance.
+
+![Trend Line Visualization](/img/correlation-app/trend_line_example.png)
 
 
 

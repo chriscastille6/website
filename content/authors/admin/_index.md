@@ -21,9 +21,9 @@ organizations:
 bio: My research interests include organizational behavior, workplace analytics, and human resource management.
 
 interests:
-      - People Analytics
-      - Personality in the Workplace
-      - Open Science
+  - People Analytics
+  - Personality in the Workplace
+  - Open Science
 
 education:
   courses:

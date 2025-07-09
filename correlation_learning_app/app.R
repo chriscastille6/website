@@ -288,29 +288,9 @@ ui <- fluidPage(
           p("4. Adjust your guess if needed, then submit for feedback"),
           p("5. See how close you were to the real correlation from research!"),
           br(),
-          h4("Learning Progression:"),
-          tags$ol(
-            tags$li("Phase 1 (Green): Intuitive examples to build confidence"),
-            tags$li("Phase 2 (Yellow): Effect sizes from real life"),
-            tags$li("Phase 3 (Red): Applied Psychological Research"),
-            tags$li("Phase 4 (Mixed): More examples from our database")
-          ),
-          br(),
           plotlyOutput("scatter_plot", height = "500px"),
           br(),
-          conditionalPanel(
-            condition = "input.submit_guess > 0",
-            h3("Binomial Effect Size Display"),
-            p("The Binomial Effect Size Display (BESD) helps translate correlation coefficients into more intuitive language."),
-            p("For any correlation r, we can calculate:"),
-            p("Success rate with intervention = 0.35 + (r/2)"),
-            p("Success rate without intervention = 0.35"),
-            br(),
-            h4("Current Example:"),
-            plotOutput("besd_plot", height = "400px"),
-            br(),
-            uiOutput("besd_explanation")
-          )
+          uiOutput("besd_section")
         ),
         tabPanel(
           "Understanding Correlation Coefficients",
@@ -369,13 +349,29 @@ ui <- fluidPage(
             h4("Your Data"),
             p("Complete at least one question to see your statistics and progress here.")
           )
+        ),
+        tabPanel(
+          "References",
+          h3("References and Sources"),
+          p("This app uses real correlation coefficients from published research to provide authentic learning experiences."),
+          br(),
+          h4("Primary Sources:"),
+          tags$ul(
+            tags$li("Meyer, G. J., Finn, S. E., Eyde, L. D., Kay, G. G., Moreland, K. L., Dies, R. R., Eisman, E. J., Kubiszyn, T. W., & Reed, G. M. (2001). Psychological testing and psychological assessment: A review of evidence and issues. American Psychologist, 56(2), 128-165."),
+            tags$li("Läkens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: a practical primer for t-tests and ANOVAs. Frontiers in Psychology, 4, 863.")
+          ),
+          br(),
+          h4("App Inspiration:"),
+          p("This app is inspired by Daniel Läkens' 'Guess the Correlation' game, which provides an interactive way to learn about correlation coefficients."),
+          br(),
+          h4("Technical Implementation:"),
+          p("Built with R Shiny for educational purposes. The Binomial Effect Size Display (BESD) method helps translate correlation coefficients into more intuitive probability language.")
         )
       ),
       
-      # Footer with attributions
+      # Footer
       tags$div(
         style = "margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-radius: 5px; text-align: center;",
-        p("This app is inspired by Daniel Läkens' 'Guess the Correlation' game", style = "font-style: italic;"),
         p("Built with R Shiny for educational purposes", style = "font-size: 12px; color: #666;")
       )
     )
@@ -590,6 +586,27 @@ server <- function(input, output, session) {
     ))
   })
   
+  # BESD section - controls visibility based on guess submission
+  output$besd_section <- renderUI({
+    if (game_state$guess_submitted) {
+      tagList(
+        h3("Binomial Effect Size Display"),
+        p("The Binomial Effect Size Display (BESD) helps translate correlation coefficients into more intuitive language."),
+        p("For any correlation r, we can calculate:"),
+        p("Success rate with intervention = 0.35 + (r/2)"),
+        p("Success rate without intervention = 0.35"),
+        br(),
+        h4("Current Example:"),
+        plotOutput("besd_plot", height = "400px"),
+        br(),
+        uiOutput("besd_explanation")
+      )
+    } else {
+      # Return empty div when BESD should be hidden
+      div()
+    }
+  })
+  
   # Create initial plot
   output$scatter_plot <- renderPlotly({
     suppressWarnings({
@@ -604,8 +621,8 @@ server <- function(input, output, session) {
           ) %>%
           layout(
             title = "Your Correlation Prediction",
-            xaxis = list(title = "X (Standardized)", range = c(-3, 3)),
-            yaxis = list(title = "Y (Standardized)", range = c(-3, 3)),
+            xaxis = list(title = "X (Standardized)", range = c(-4, 4)),
+            yaxis = list(title = "Y (Standardized)", range = c(-4, 4)),
             margin = list(t = 80, b = 80, l = 80, r = 80),
             showlegend = FALSE
           ) %>%
@@ -634,20 +651,27 @@ server <- function(input, output, session) {
           ) %>%
             layout(
               title = paste0("Your Prediction: r = ", input$user_correlation, " (n = ", game_state$current_sample_size, ")"),
-              xaxis = list(title = paste0(game_state$current_variable1, " (Standardized)"), range = c(-3, 3)),
-              yaxis = list(title = paste0(game_state$current_variable2, " (Standardized)"), range = c(-3, 3)),
+              xaxis = list(title = paste0(game_state$current_variable1, " (Standardized)"), range = c(-4, 4)),
+              yaxis = list(title = paste0(game_state$current_variable2, " (Standardized)"), range = c(-4, 4)),
               showlegend = TRUE,
-              margin = list(t = 80, b = 80, l = 80, r = 80),
+              legend = list(
+                orientation = "h",
+                x = 0.5,
+                y = 1.02,
+                xanchor = "center",
+                yanchor = "bottom"
+              ),
+              margin = list(t = 100, b = 80, l = 80, r = 80),
               transition = list(
-                duration = 1500,
-                easing = 'elastic-out',
+                duration = 500,
+                easing = 'cubic-in-out',
                 ordering = 'trace'
               )
             ) %>%
             config(displayModeBar = FALSE)
           
           if (input$show_trendline) {
-            x_full_range <- seq(-3, 3, length.out = 100)
+            x_full_range <- seq(-4, 4, length.out = 100)
             y_guess <- input$user_correlation * x_full_range
             
             p <- p %>% add_trace(
@@ -664,7 +688,7 @@ server <- function(input, output, session) {
           }
           
           if (game_state$guess_submitted) {
-            x_full_range <- seq(-3, 3, length.out = 100)
+            x_full_range <- seq(-4, 4, length.out = 100)
             y_true <- game_state$current_correlation * x_full_range
             
             p <- p %>% add_trace(
@@ -693,8 +717,8 @@ server <- function(input, output, session) {
             ) %>%
             layout(
               title = "Error",
-              xaxis = list(title = "X (Standardized)", range = c(-3, 3)),
-              yaxis = list(title = "Y (Standardized)", range = c(-3, 3)),
+              xaxis = list(title = "X (Standardized)", range = c(-4, 4)),
+              yaxis = list(title = "Y (Standardized)", range = c(-4, 4)),
               margin = list(t = 80, b = 80, l = 80, r = 80),
               showlegend = FALSE
             ) %>%
