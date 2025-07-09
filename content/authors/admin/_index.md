@@ -18,7 +18,7 @@ organizations:
     url: 'https://www.nicholls.edu/management/faculty-staff/dr-chris-castille/'
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include organizational behavior, workplace analytics, and human resource management.
+bio: My research interests include People Analytics, Personality in the Workplace, and Open Science.
 
 interests:
   - People Analytics
