@@ -290,6 +290,18 @@ ui <- fluidPage(
           br(),
           plotlyOutput("scatter_plot", height = "500px"),
           br(),
+          conditionalPanel(
+            condition = "input.generate_plot > 0",
+            div(
+              style = "text-align: center; margin: 10px 0;",
+              downloadButton("download_scatter_data", "📊 Download This Data (CSV)", 
+                           class = "btn-info", 
+                           style = "width: 250px; margin: 5px;"),
+              p("Practice computing correlations with this standardized data!", 
+                style = "font-size: 12px; color: #666; margin-top: 5px;")
+            )
+          ),
+          br(),
           uiOutput("besd_section")
         ),
         tabPanel(
@@ -851,6 +863,45 @@ server <- function(input, output, session) {
       }
     })
   })
+  
+  # Download handler for scatter plot data
+  output$download_scatter_data <- downloadHandler(
+    filename = function() {
+      paste0("scatter_data_", game_state$current_variable1, "_vs_", game_state$current_variable2, "_r", input$user_correlation, ".csv")
+    },
+    content = function(file) {
+      if (game_state$plot_generated) {
+        data <- plot_data()
+        # Add variable names and metadata
+        scatter_data <- data.frame(
+          X = data$x,
+          Y = data$y,
+          X_Variable = game_state$current_variable1,
+          Y_Variable = game_state$current_variable2,
+          Sample_Size = game_state$current_sample_size,
+          Your_Predicted_Correlation = input$user_correlation,
+          True_Correlation = ifelse(game_state$guess_submitted, game_state$current_correlation, "Not revealed yet"),
+          Phase = game_state$current_phase,
+          Description = game_state$current_description
+        )
+        write.csv(scatter_data, file, row.names = FALSE)
+      } else {
+        # Return empty data if plot not generated
+        empty_data <- data.frame(
+          X = numeric(),
+          Y = numeric(),
+          X_Variable = character(),
+          Y_Variable = character(),
+          Sample_Size = integer(),
+          Your_Predicted_Correlation = numeric(),
+          True_Correlation = character(),
+          Phase = character(),
+          Description = character()
+        )
+        write.csv(empty_data, file, row.names = FALSE)
+      }
+    }
+  )
   
   # Download handler for session data
   output$download_data <- downloadHandler(
