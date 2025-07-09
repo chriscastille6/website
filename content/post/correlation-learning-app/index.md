@@ -69,7 +69,7 @@ Enter the "Guess the Correlation" app—a web-based interactive tool that transf
 
 **Experiential learning** is at the heart of the app's effectiveness. Students learn by doing, not just reading. The immediate feedback loop—make a guess, see the result, understand the explanation—creates powerful learning moments that stick.
 
-![Phase 1: Height vs Weight Example](/img/correlation-app/phase1_height_weight.png)
+![Phase 1: Intuitive Examples](/img/correlation-app/phase1_height_weight.png)
 
 **Progressive difficulty** ensures that students build skills systematically. Each phase introduces new challenges while reinforcing previously learned concepts. The visual nature of scatter plots leverages our natural pattern recognition abilities, making statistical concepts more accessible.
 
@@ -101,9 +101,9 @@ Students can use the app for:
 
 The app features four progressive learning phases, each building on the previous one:
 
-![Phase 2: Medical Example](/img/correlation-app/phase2_medical_example.png)
+![Phase 2: Medical Interventions](/img/correlation-app/phase2_medical_example.png)
 
-![Phase 3: Business Example](/img/correlation-app/phase3_business_example.png)
+![Phase 3: Business & Organizational Psychology](/img/correlation-app/phase3_business_example.png)
 
 ## Technical Implementation
 
