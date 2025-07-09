@@ -161,11 +161,11 @@ This project represents just one step in my ongoing exploration of AI-assisted t
 
 Brooks, M. E., Dalal, D. K., & Nolan, K. P. (2014). Are common language effect sizes easier to understand than traditional effect sizes? *Journal of Applied Psychology*, 99(2), 332–340. https://doi.org/10.1037/a0034745
 
+Erez, A., & Grant, A. M. (2014). Separating data from intuition: Bringing evidence into the management classroom. *Academy of Management Learning & Education*, 13(3), 295-311. https://faculty.wharton.upenn.edu/wp-content/uploads/2014/01/ErezGrant_AMLEforthcoming_5.pdf
+
 Meyer, G. J., Finn, S. E., Eyde, L. D., Kay, G. G., Moreland, K. L., Dies, R. R., Eisman, E. J., Kubiszyn, T. W., & Reed, G. M. (2001). Psychological testing and psychological assessment: A review of evidence and issues. *American Psychologist*, 56(2), 128–165. https://doi.org/10.1037/0003-066X.56.2.128
 
 Rosenthal, R., & Rubin, D. B. (1982). A simple, general purpose display of magnitude of experimental effect. *Journal of Educational Psychology*, 74(2), 166–169. https://doi.org/10.1037/0022-0663.74.2.166
-
-Erez, A., & Grant, A. M. (2014). Separating data from intuition: Bringing evidence into the management classroom. *Academy of Management Learning & Education*, 13(3), 295-311. https://faculty.wharton.upenn.edu/wp-content/uploads/2014/01/ErezGrant_AMLEforthcoming_5.pdf
 
 ---
 
