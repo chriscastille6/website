@@ -46,7 +46,7 @@ How well can you spot the strength of relationships in data? This seemingly simp
 
 Correlation coefficients are deceptively simple. The math is straightforward: a value between -1 and +1 that measures the strength and direction of a linear relationship. But ask students to look at a scatter plot and estimate the correlation, and you'll often see wildly different guesses. Why is this?
 
-The answer lies in the difference between knowing and feeling. Students can memorize that r = 0.3 represents a "moderate" correlation, but without repeated exposure to visual patterns, they lack the intuitive sense of what that actually looks like in data. This gap becomes particularly problematic when they need to interpret research findings or communicate statistical concepts to non-technical audiences. In practice, meaningful correlations are often tiny, tagging causes that may not yet be appreciated.
+The answer lies in the difference between knowing and feeling. Students can memorize that r = 0.3 represents a "moderate" correlation, but without repeated exposure to visual patterns, they lack the intuitive sense of what that actually looks like in data. This gap becomes particularly problematic when they need to interpret research findings or communicate statistical concepts to non-technical audiences. In practice, meaningful correlations are often small, reflecting underlying causes that may not yet be clearly understood.
 
 ### Getting this Intuitive Feeling About Correlations with a Web App
 
