@@ -69,7 +69,9 @@ Enter the "Guess the Correlation" app—a web-based interactive tool that transf
 
 ### Why This Approach Works
 
-**Experiential learning** is at the heart of the app's effectiveness. Students learn by doing, not just reading. The immediate feedback loop—make a guess, see the result, understand the explanation—creates powerful learning moments that stick.
+**Experiential learning is at the heart of the app’s effectiveness.** Students learn by doing, not just reading. The immediate feedback loop—make a guess, see the result, understand the explanation—creates powerful learning moments that stick.
+
+To use the app, select the correlation coefficient (r) that represents your best guess for the relationship between the two variables using the slider. Then, click “Generate Plot” to visualize how your chosen correlation would look in the data. You can explore how different values of r change the scatterplot. When you’re ready to see how your guess compares to the actual research finding, click “Submit for Feedback.” The app will show you the correct answer and provide an explanation, helping you build intuition for what different correlations look like in real data.
 
 ![Phase 1: Intuitive Examples](/img/correlation-app/phase1_height_weight.png)
 
