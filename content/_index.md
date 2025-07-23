@@ -17,25 +17,6 @@ sections:
         
         The **People Analytics Lab of the Bayou** is dedicated to advancing research in organizational behavior, human resource management, and workplace analytics. We focus on understanding how people work, lead, and thrive in organizations.
   
-  - block: collection
-    content:
-      title: Latest News
-      subtitle:
-      text:
-      count: 5
-      filters:
-        author: ''
-        category: ''
-        exclude_featured: false
-        publication_type: ''
-        tag: ''
-      offset: 0
-      order: desc
-      page_type: post
-    design:
-      view: card
-      columns: '1'
-  
   - block: markdown
     content:
       title:
@@ -59,6 +40,12 @@ sections:
   - block: latest_publications
     content:
       title: Latest Publications
+    design:
+      columns: '1'
+
+  - block: collection
+    content:
+      title: Latest News
     design:
       columns: '1'
 ---
