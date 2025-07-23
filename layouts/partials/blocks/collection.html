@@ -21,7 +21,7 @@
       <div id="news-slideshow" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
         
         {{/* Slide 1 - Correlation Learning App */}}
-        <div class="news-slide active" style="display: block; padding: 2rem; background: white; transition: opacity 0.5s ease-in-out;">
+        <div class="news-slide active" style="display: block; padding: 2rem; background: white; opacity: 1; transition: opacity 0.8s ease-in-out;">
           <div class="d-flex justify-content-between align-items-start mb-3">
             <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
               <a href="/post/correlation-learning-app/" style="color: #2c3e50; text-decoration: none;">
@@ -44,7 +44,7 @@
         </div>
 
         {{/* Slide 2 - Welcome to PAL */}}
-        <div class="news-slide" style="display: none; padding: 2rem; background: white; transition: opacity 0.5s ease-in-out;">
+        <div class="news-slide" style="display: none; padding: 2rem; background: white; opacity: 0; transition: opacity 0.8s ease-in-out;">
           <div class="d-flex justify-content-between align-items-start mb-3">
             <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
               <a href="/post/welcome-to-pal-of-the-bayou/" style="color: #2c3e50; text-decoration: none;">
@@ -85,15 +85,26 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentSlide = 0;
   
   function showSlide(index) {
-    // Hide all slides
+    // Fade out all slides
     slides.forEach(slide => {
-      slide.style.display = 'none';
+      slide.style.opacity = '0';
       slide.classList.remove('active');
     });
     
-    // Show current slide
-    slides[index].style.display = 'block';
-    slides[index].classList.add('active');
+    // After fade out, show current slide and fade in
+    setTimeout(() => {
+      slides.forEach(slide => {
+        slide.style.display = 'none';
+      });
+      
+      slides[index].style.display = 'block';
+      slides[index].classList.add('active');
+      
+      // Trigger fade in
+      setTimeout(() => {
+        slides[index].style.opacity = '1';
+      }, 50);
+    }, 400); // Half of the transition time
   }
   
   function nextSlide() {
