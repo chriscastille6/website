@@ -2,49 +2,6 @@
 {{ $page := .page }}
 {{ $block := .block }}
 
-{{/* Get the collection type from the block configuration */}}
-{{ $collection_type := $block.content.page_type | default "post" }}
-
-{{/* Build the query based on filters */}}
-{{ $query := where $.Site.RegularPages "Type" $collection_type }}
-
-{{/* Apply filters if specified */}}
-{{ if $block.content.filters.author }}
-  {{ $query = where $query "Params.author" $block.content.filters.author }}
-{{ end }}
-
-{{ if $block.content.filters.category }}
-  {{ $query = where $query "Params.category" $block.content.filters.category }}
-{{ end }}
-
-{{ if $block.content.filters.tag }}
-  {{ $query = where $query "Params.tags" "intersect" (slice $block.content.filters.tag) }}
-{{ end }}
-
-{{ if $block.content.filters.publication_type }}
-  {{ $query = where $query "Params.publication_types" "intersect" (slice $block.content.filters.publication_type) }}
-{{ end }}
-
-{{ if $block.content.filters.exclude_featured }}
-  {{ $query = where $query "Params.featured" "!=" true }}
-{{ end }}
-
-{{/* Apply ordering */}}
-{{ if eq $block.content.order "desc" }}
-  {{ $query = $query.ByDate.Reverse }}
-{{ else }}
-  {{ $query = $query.ByDate }}
-{{ end }}
-
-{{/* Apply offset and count */}}
-{{ $count := $block.content.count | default 5 }}
-{{ $offset := $block.content.offset | default 0 }}
-{{ $query = after $offset $query }}
-{{ $query = first $count $query }}
-
-{{/* Get the archive page for "view all" link */}}
-{{ $archive_page := $.Site.GetPage "section" $collection_type }}
-
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -60,54 +17,66 @@
         <div style="text-align: center; margin-bottom: 2rem;">{{ . | markdownify }}</div>
       {{ end }}
 
-      {{ if $query }}
-        <div class="row">
-          {{ range $query }}
-            <div class="col-lg-12 mb-4">
-              <div class="card h-100" style="border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s;">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h5 class="card-title mb-0">
-                      <a href="{{ .RelPermalink }}" style="color: #2c3e50; text-decoration: none; font-weight: 600;">
-                        {{ .Title }}
-                      </a>
-                    </h5>
-                    <small class="text-muted">{{ .Date.Format "Jan 2, 2006" }}</small>
-                  </div>
-                  
-                  {{ with .Params.summary }}
-                    <p class="card-text" style="color: #555; line-height: 1.6;">{{ . }}</p>
-                  {{ else if .Summary }}
-                    <p class="card-text" style="color: #555; line-height: 1.6;">{{ .Summary | truncate 200 }}</p>
-                  {{ end }}
-                  
-                  {{ with .Params.tags }}
-                    <div class="mt-3">
-                      {{ range . }}
-                        <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">{{ . }}</span>
-                      {{ end }}
-                    </div>
-                  {{ end }}
-                </div>
-              </div>
+      {{/* Blog Post 1 - Correlation Learning App */}}
+      <div class="col-lg-12 mb-4">
+        <div class="card h-100" style="border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h5 class="card-title mb-0">
+                <a href="/post/correlation-learning-app/" style="color: #2c3e50; text-decoration: none; font-weight: 600;">
+                  Teaching Correlation Coefficients with Interactive Apps: A GenAI-Enhanced Approach
+                </a>
+              </h5>
+              <small class="text-muted">Jan 27, 2025</small>
             </div>
-          {{ end }}
-        </div>
-
-        {{ $total_posts := len (where $.Site.RegularPages "Type" $collection_type) }}
-        {{ if and $archive_page (gt $total_posts $count) }}
-          <div class="text-center mt-4">
-            <a href="{{ $archive_page.RelPermalink }}" class="btn btn-outline-primary">
-              View All {{ $collection_type | title }}s
-              <i class="fas fa-arrow-right ms-2"></i>
-            </a>
+            
+            <p class="card-text" style="color: #555; line-height: 1.6;">
+              An interactive web app for teaching correlation coefficients, developed through GenAI experimentation to enhance statistical education.
+            </p>
+            
+            <div class="mt-3">
+              <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Teaching</span>
+              <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Statistics</span>
+              <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Interactive Learning</span>
+              <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">GenAI</span>
+            </div>
           </div>
-        {{ end }}
-      {{ else }}
-        <div class="text-center">
-          <p style="color: #7f8c8d; font-style: italic;">No {{ $collection_type }}s found.</p>
         </div>
-      {{ end }}
+      </div>
+
+      {{/* Blog Post 2 - Welcome to PAL */}}
+      <div class="col-lg-12 mb-4">
+        <div class="card h-100" style="border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h5 class="card-title mb-0">
+                <a href="/post/welcome-to-pal-of-the-bayou/" style="color: #2c3e50; text-decoration: none; font-weight: 600;">
+                  Welcome to the People Analytics Lab of the Bayou
+                </a>
+              </h5>
+              <small class="text-muted">Jan 25, 2025</small>
+            </div>
+            
+            <p class="card-text" style="color: #555; line-height: 1.6;">
+              An introduction to our new research lab, teaching philosophy, and open science initiatives.
+            </p>
+            
+            <div class="mt-3">
+              <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Organizational Behavior</span>
+              <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Workplace Analytics</span>
+              <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Research</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{/* View All Posts Link */}}
+      <div class="text-center mt-4">
+        <a href="/post/" class="btn btn-outline-primary">
+          View All Posts
+          <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
     </div>
   </div>
 </div> 
