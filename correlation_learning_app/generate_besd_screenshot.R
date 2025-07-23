@@ -13,12 +13,9 @@ besd_data <- data.frame(
   SuccessRate = c(success_rate_without_intervention, success_rate_with_intervention)
 )
 
-# Calculate dynamic y-axis limits for better zoom
-min_rate <- min(besd_data$SuccessRate)
-max_rate <- max(besd_data$SuccessRate)
-range_size <- max_rate - min_rate
-y_min <- max(0, min_rate - range_size * 0.1)  # Add 10% padding below
-y_max <- min(1, max_rate + range_size * 0.1)  # Add 10% padding above
+# Set y-axis limits to always show 30% to 55%
+y_min <- 0.30
+ y_max <- 0.55
 
 # Create the plot with cropped y-axis
 p <- ggplot(besd_data, aes(x = Group, y = SuccessRate, fill = Group)) +
