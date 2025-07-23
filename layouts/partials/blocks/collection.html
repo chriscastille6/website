@@ -5,19 +5,9 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      {{ with $block.content.title }}
-        <h2 style="text-align: center; font-weight: bold; font-size: 2.5rem; margin-bottom: 2rem; color: #2c3e50;">{{ . }}</h2>
-      {{ end }}
+      <h2 style="text-align: center; font-weight: bold; font-size: 2.5rem; margin-bottom: 2rem; color: #2c3e50;">Latest News</h2>
       
-      {{ with $block.content.subtitle }}
-        <p style="text-align: center; font-size: 1.2rem; color: #7f8c8d; margin-bottom: 3rem;">{{ . }}</p>
-      {{ end }}
-
-      {{ with $block.content.text }}
-        <div style="text-align: center; margin-bottom: 2rem;">{{ . | markdownify }}</div>
-      {{ end }}
-
-      {{/* Slideshow Container */}}
+      {{/* News Slideshow Container */}}
       <div id="news-slideshow" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
         
         {{/* Slide 1 - Correlation Learning App */}}
@@ -78,7 +68,7 @@
   </div>
 </div>
 
-{{/* Slideshow JavaScript */}}
+{{/* News Slideshow JavaScript */}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const slides = document.querySelectorAll('.news-slide');
