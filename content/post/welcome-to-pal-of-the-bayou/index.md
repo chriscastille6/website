@@ -5,7 +5,7 @@ authors:
 date: "2025-01-25T00:00:00Z"
 doi: ""
 publishDate: "2025-01-25T00:00:00Z"
-publication_types: ["post"]
+publication_types: ["0"]
 publication: ""
 publication_short: ""
 abstract: "Welcome to the People Analytics Lab of the Bayou! This post explains the motivation for the website, my teaching philosophy, and my commitment to open science."
