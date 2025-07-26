@@ -37,15 +37,15 @@ sections:
         padding: ['20px', '0', '20px', '0']
       css_class: fullscreen
 
-  - block: latest_publications
-    content:
-      title: Latest Publications
-    design:
-      columns: '1'
-
   - block: collection
     content:
       title: Latest News
+    design:
+      columns: '1'
+
+  - block: latest_publications
+    content:
+      title: Latest Publications
     design:
       columns: '1'
 ---
