@@ -30,7 +30,7 @@ type: page
   <div class="col-12 col-lg-8">
     <div class="article-style" itemprop="description">
       <h3>About Me</h3>
-      <p>Dr. Christopher M. Castille is the Director of the People Analytics Lab of the Bayou and the Gerald Gaston Endowed Associate Professor of Management at Nicholls State University. He teaches Human Relations and Interpersonal Skills (MNGT 370), Performance and Compensation Management (MNGT 475), HR Analytics (MNGT 425), and Managing Human Capital (MNGT 502). He is particularly interested in understanding how organizational practices impact employee performance and organizational effectiveness.</p>
+      <p>Dr. Christopher M. Castille is the Director of the People Analytics Lab of the Bayou and the Gerald Gaston Endowed Associate Professor of Management at Nicholls State University. He teaches undergraduate students in Human Relations and Interpersonal Skills (MNGT 370), Performance and Compensation Management (MNGT 475), and HR Analytics (MNGT 425). He also teaches in the graduate (MBA) and Executive MBA programs where he teaches Managing Human Capital (MNGT 502). He is particularly interested in understanding how organizational practices impact employee performance and organizational effectiveness.</p>
 
       <h3>Research Interests</h3>
       <ul>
