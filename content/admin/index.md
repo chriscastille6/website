@@ -35,7 +35,7 @@ type: page
       <h3>Research Interests</h3>
       <ul>
         <li><strong>People Analytics</strong></li>
-        <li><strong>personality and individual differences in the workplace</strong></li>
+        <li><strong>Personality and Individual Differences in the Workplace</strong></li>
         <li><strong>Open Science</strong></li>
       </ul>
 

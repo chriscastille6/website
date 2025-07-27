@@ -1,8 +1,11 @@
 {{/* Custom Latest Publications Block with Slideshow */}}
+{{ $page := .page }}
+{{ $block := .block }}
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h2 style="text-align: center; font-weight: bold; font-size: 2.5rem; margin-bottom: 2rem; color: #2c3e50;">Latest Publications</h2>
+      <h2 style="text-align: center; font-weight: bold; font-size: 2.5rem; margin-bottom: 2rem; color: #2c3e50;">{{ $block.content.title | default "Latest Publications" }}</h2>
       
       {{/* Publications Slideshow Container */}}
       <div id="publications-slideshow" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
