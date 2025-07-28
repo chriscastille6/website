@@ -10,73 +10,39 @@
       {{/* News Slideshow Container */}}
       <div id="news-slideshow" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
         
-        {{/* Slide 1 - AOM 2025 Copenhagen */}}
-        <div class="news-slide active" style="display: block; padding: 2rem; background: white; opacity: 1; transition: opacity 0.8s ease-in-out;">
+        {{/* Dynamic slides from blog posts */}}
+        {{ range $index, $post := (where site.RegularPages "Type" "post") }}
+        <div class="news-slide {{ if eq $index 0 }}active{{ end }}" style="display: {{ if eq $index 0 }}block{{ else }}none{{ end }}; padding: 2rem; background: white; opacity: {{ if eq $index 0 }}1{{ else }}0{{ end }}; transition: opacity 0.8s ease-in-out;">
           <div class="d-flex justify-content-between align-items-start mb-3">
             <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
-              <a href="/post/aom-2025-copenhagen/" style="color: #2c3e50; text-decoration: none;">
-                AOM 2025 Copenhagen: Building Credibility, Collaboration, and Methodological Rigor in Management Research
+              <a href="{{ $post.RelPermalink }}" style="color: #2c3e50; text-decoration: none;">
+                {{ $post.Title }}
               </a>
             </h5>
-            <small class="text-muted">Jul 2025</small>
+            <small class="text-muted">{{ $post.Date.Format "Jan 2006" }}</small>
           </div>
           
           <p style="color: #555; line-height: 1.6; font-size: 1.1rem; margin-bottom: 1rem;">
-            A comprehensive overview of AOM 2025 Copenhagen, highlighting sessions on transparency, replication, latent variable modeling, and team science that are shaping the future of management research.
+            {{ $post.Summary | default $post.Params.abstract | truncate 200 }}
           </p>
           
           <div>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Conference</span>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Research</span>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Open Science</span>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Collaboration</span>
+            {{ with $post.Params.tags }}
+              {{ range . }}
+                <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">{{ . }}</span>
+              {{ end }}
+            {{ else }}
+              {{ with $post.Params.categories }}
+                {{ range . }}
+                  <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">{{ . }}</span>
+                {{ end }}
+              {{ else }}
+                <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Research</span>
+              {{ end }}
+            {{ end }}
           </div>
         </div>
-
-        {{/* Slide 2 - Correlation Learning App */}}
-        <div class="news-slide" style="display: none; padding: 2rem; background: white; opacity: 0; transition: opacity 0.8s ease-in-out;">
-          <div class="d-flex justify-content-between align-items-start mb-3">
-            <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
-              <a href="/post/correlation-learning-app/" style="color: #2c3e50; text-decoration: none;">
-                Teaching Correlation Coefficients with Interactive Apps: A GenAI-Enhanced Approach
-              </a>
-            </h5>
-            <small class="text-muted">Jun 2025</small>
-          </div>
-          
-          <p style="color: #555; line-height: 1.6; font-size: 1.1rem; margin-bottom: 1rem;">
-            An interactive web app for teaching correlation coefficients, developed through GenAI experimentation to enhance statistical education.
-          </p>
-          
-          <div>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Teaching</span>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Statistics</span>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Interactive Learning</span>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">GenAI</span>
-          </div>
-        </div>
-
-        {{/* Slide 3 - Welcome to PAL */}}
-        <div class="news-slide" style="display: none; padding: 2rem; background: white; opacity: 0; transition: opacity 0.8s ease-in-out;">
-          <div class="d-flex justify-content-between align-items-start mb-3">
-            <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
-              <a href="/post/welcome-to-pal-of-the-bayou/" style="color: #2c3e50; text-decoration: none;">
-                Welcome to the People Analytics Lab of the Bayou
-              </a>
-            </h5>
-            <small class="text-muted">Jun 2025</small>
-          </div>
-          
-          <p style="color: #555; line-height: 1.6; font-size: 1.1rem; margin-bottom: 1rem;">
-            An introduction to our new research lab, teaching philosophy, and open science initiatives.
-          </p>
-          
-          <div>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Organizational Behavior</span>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Workplace Analytics</span>
-            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Research</span>
-          </div>
-        </div>
+        {{ end }}
 
       </div>
 
