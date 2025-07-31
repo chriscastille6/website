@@ -1,15 +1,15 @@
 {{ $ := .root }}
 {{ $page := .page }}
 
-{{ $query := where (where $.Site.RegularPages "Type" "post") ".Params.notonhomepage" nil }}
-{{ $archive_page := $.Site.GetPage "section" "post" }}
+{{ $query := where (where site.RegularPages "Type" "post") ".Params.notonhomepage" nil }}
+{{ $archive_page := site.GetPage "section" "post" }}
 
 {{/* Check if a filter should be applied. */}}
 {{ if $page.Params.filter_tag }}
-  {{ $archive_page = $.Site.GetPage (printf "tags/%s" $page.Params.filter_tag) }}
+  {{ $archive_page = site.GetPage (printf "tags/%s" $page.Params.filter_tag) }}
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ else if $page.Params.filter_category }}
-  {{ $archive_page = $.Site.GetPage (printf "categories/%s" $page.Params.filter_category) }}
+  {{ $archive_page = site.GetPage (printf "categories/%s" $page.Params.filter_category) }}
   {{ $query = $query | intersect $archive_page.Pages }}
 {{ end }}
 

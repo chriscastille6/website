@@ -1,4 +1,4 @@
-{{ if not (or (eq .Site.Params.profile false) (eq .Params.profile false)) }}
+{{ if not (or (eq site.Params.profile false) (eq .Params.profile false)) }}
 
 {{ $author := "" }}
 {{ if .Params.authors }}
@@ -6,19 +6,19 @@
 {{ end }}
 
 {{/* Display site author if page authors not explicitly specified or if first page author is site author. */}}
-{{ if or (not .Params.authors) (eq $author $.Site.Params.name) }}
+{{ if or (not .Params.authors) (eq $author site.Params.name) }}
 <div class="media author-card" itemscope itemtype="http://schema.org/Person">
-  {{ if $.Site.Params.gravatar }}
-  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 $.Site.Params.email }}?s=200')" itemprop="image" alt="Avatar">
-  {{ else if $.Site.Params.avatar }}
-  <img class="portrait mr-3" src="{{ (printf "img/%s" $.Site.Params.avatar) | relURL }}" itemprop="image" alt="Avatar">
+  {{ if site.Params.gravatar }}
+  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/{{ md5 site.Params.email }}?s=200')" itemprop="image" alt="Avatar">
+  {{ else if site.Params.avatar }}
+  <img class="portrait mr-3" src="{{ (printf "img/%s" site.Params.avatar) | relURL }}" itemprop="image" alt="Avatar">
   {{ end }}
   <div class="media-body">
-    <h5 class="card-title" itemprop="name"><a href="{{ "/" | relLangURL }}">{{ $.Site.Params.name }}</a></h5>
-    {{ with $.Site.Params.role }}<h6 class="card-subtitle">{{.}}</h6>{{end}}
-    {{ with $.Site.Params.bio }}<p class="card-text" itemprop="description">{{. | markdownify | emojify}}</p>{{end}}
+    <h5 class="card-title" itemprop="name"><a href="{{ "/" | relLangURL }}">{{ site.Params.name }}</a></h5>
+    {{ with site.Params.role }}<h6 class="card-subtitle">{{.}}</h6>{{end}}
+    {{ with site.Params.bio }}<p class="card-text" itemprop="description">{{. | markdownify | emojify}}</p>{{end}}
     <ul class="network-icon" aria-hidden="true">
-      {{ range $.Site.Params.social }}
+      {{ range site.Params.social }}
       {{ $pack := or .icon_pack "fas" }}
       {{ $pack_prefix := $pack }}
       {{ if in (slice "fab" "fas" "far" "fal") $pack }}

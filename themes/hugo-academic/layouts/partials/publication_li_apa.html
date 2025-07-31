@@ -3,8 +3,9 @@
   <span itemprop="author">
     {{ with .Params.authors }}
       {{- $authors := . -}}
-      {{- $authors := apply $authors "replace" "." (dict "old" "Castille, Christopher M." "new" "<strong>Castille, Christopher M.</strong>") -}}
-      {{- delimit $authors ", " | safeHTML -}}
+      {{- $authorStr := delimit $authors ", " -}}
+      {{- $authorStr := replace $authorStr "Castille, Christopher M." "<strong>Castille, Christopher M.</strong>" -}}
+      {{- $authorStr | safeHTML -}}
     {{- end -}}
   </span>
   ({{- .Date.Format "2006" -}}).
