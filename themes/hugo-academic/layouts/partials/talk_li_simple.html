@@ -3,9 +3,9 @@
   <span itemprop="name"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span>
   <div itemprop="startDate">
     {{ $date := .Params.time_start | default .Date }}
-    {{ (time $date).Format $.Site.Params.date_format }}
-    {{ if $.Site.Params.talks.time }}
-      {{ (time $date).Format ($.Site.Params.time_format | default "3:04 PM") }}
+    {{ (time $date).Format site.Params.date_format }}
+    {{ if site.Params.talks.time }}
+      {{ (time $date).Format (site.Params.time_format | default "3:04 PM") }}
     {{ end }}
   </div>
   <div class="talk-metadata">

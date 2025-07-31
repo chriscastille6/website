@@ -58,7 +58,7 @@
 {{ end }}
 {{ if $.Params.projects }}
 {{ range $.Params.projects }}
-  {{ with ($.Site.GetPage (printf "project/%s" .)) }}
+  {{ with (site.GetPage (printf "project/%s" .)) }}
   <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .RelPermalink }}">
     {{ i18n "btn_project" }}
   </a>
@@ -85,7 +85,7 @@
 </a>
 {{ end }}
 {{ if $.Params.slides }}
-  {{ with ($.Site.GetPage (printf "slides/%s" $.Params.slides)) }}
+  {{ with (site.GetPage (printf "slides/%s" $.Params.slides)) }}
   <a class="btn btn-outline-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ .RelPermalink }}" target="_blank">
     {{ i18n "btn_slides" }}
   </a>
