@@ -1,6 +1,6 @@
 [build]
   base = "PAL-of-the-Bayou"
-  command = "hugo --gc --minify -b $URL"
+  command = "hugo --gc --minify --buildFuture -b $URL"
   publish = "public"
 
 [build.environment]
