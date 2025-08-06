@@ -4,13 +4,16 @@
 #   The weight parameter defines the order that the links will appear in.
 
 main:
-  - name: Blog
+  - name: Home
+    url: /
+    weight: 5
+  - name: News
     url: post
     weight: 10
   - name: Bio
     url: author/christopher-m.-castille
     weight: 20
-  - name: Publications
+  - name: Research
     url: publication
     weight: 30
   - name: Contact

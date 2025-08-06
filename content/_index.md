@@ -8,14 +8,13 @@ sections:
   - block: hero
     content:
       title: |
-        People Analytics Lab
-        of the Bayou
+        About Our Lab
       image:
         filename: welcome.jpg
       text: |
         <br>
         
-        The **People Analytics Lab of the Bayou** is dedicated to advancing research in organizational behavior, human resource management, and workplace analytics. We focus on understanding how people work, lead, and thrive in organizations.
+        Founded in 2017 by Dr. Chris Castille, PAL of the Bayou is housed in Nicholls State University's Al Danos College of Business Administration in the Management and Marketing Department. We study how people make decisions in organizational life, focusing on the role of personality at work and goal striving.
 
   - block: news_slideshow
     content:
