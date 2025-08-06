@@ -40,7 +40,7 @@ Welcome to the People Analytics Lab of the Bayou! I'm launching this website to 
 
 ### My Teaching Philosophy
 
-As an instructor, I take it as my personal responsibility to expose students to evidence-based management (EBM; Barends & Rousseau, 2018) so that they might make wiser decisions as employees, managers, and business leaders. In my classes, we discuss the most credible science available on various topics, weighing scientific evidence against our own experiences and the views of professionals, and ultimately considering how best to act given this information. My goal is to help students cultivate an attitude of wisdom—acting with the best information on hand while doubting what they believe to be true (Erez & Grant, 2014).
+> I take it as my personal responsibility to expose students to evidence-based management (EBM; Barends & Rousseau, 2018) so that they might make wiser decisions as employees, managers, and business leaders. In my classes, we discuss the most credible science available on various topics, weighing scientific evidence against our own experiences and the views of professionals, and ultimately considering how best to act given this information. My goal is to help students cultivate an attitude of wisdom—acting with the best information on hand while doubting what they believe to be true (Erez & Grant, 2014).
 
 EBM is about making decisions through the conscientious, explicit, and judicious use of the best available evidence to increase the likelihood of a favorable outcome. I strive to be a role model of evidence-based decision making, helping students see how to acquire and use information to make decisions in organizational settings.
 
