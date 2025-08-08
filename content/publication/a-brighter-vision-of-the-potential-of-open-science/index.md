@@ -23,7 +23,7 @@ url_dataset: ""
 url_poster: ""
 url_project: ""
 url_slides: ""
-url_source: ""
+url_source: "https://www.cambridge.org/core/journals/industrial-and-organizational-psychology/article/brighter-vision-of-the-potential-of-open-science-for-benefiting-practice-a-manyorgs-proposal/8A8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B"
 url_video: ""
 
 image:

@@ -22,7 +22,7 @@ url_dataset: ""
 url_poster: ""
 url_project: ""
 url_slides: ""
-url_source: ""
+url_source: "https://journals.aom.org/doi/10.5465/AMBPP.2022.10998abstract"
 url_video: ""
 
 image:

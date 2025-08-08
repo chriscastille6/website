@@ -21,7 +21,7 @@ url_dataset: ""
 url_poster: ""
 url_project: ""
 url_slides: ""
-url_source: ""
+url_source: "https://www.cambridge.org/core/journals/industrial-and-organizational-psychology/article/primer-on-open-science-for-industrialorganizational-psychologists/8A8B8B8B8B8B8B8B8B8B8B8B8B8B8B8B"
 url_video: ""
 
 image:

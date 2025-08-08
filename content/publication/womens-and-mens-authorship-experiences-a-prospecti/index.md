@@ -31,7 +31,7 @@ url_dataset: ""
 url_poster: ""
 url_project: ""
 url_slides: ""
-url_source: ""
+url_source: "https://journals.sagepub.com/doi/10.1177/01492063251315701"
 url_video: ""
 
 image:

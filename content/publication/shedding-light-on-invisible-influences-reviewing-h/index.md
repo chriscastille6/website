@@ -22,7 +22,7 @@ url_dataset: ""
 url_poster: ""
 url_project: ""
 url_slides: ""
-url_source: ""
+url_source: "https://www.emerald.com/insight/content/doi/10.1108/S0742-730120240000042007/full/html"
 url_video: ""
 
 image:
