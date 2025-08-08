@@ -24,7 +24,15 @@
     {{- end -}}
   {{- end -}}
 {{ end }}
- ({{ .Date.Format "2006" }}). {{ .Title | replaceRE "[.]+$" "." }} 
+ ({{ .Date.Format "2006" }}). 
+{{ $title := (replaceRE "[.]+$" "." .Title) }}
+{{ if .Params.url_source }}
+  <a href="{{ .Params.url_source }}" target="_blank" rel="noopener">{{ $title }}</a>
+{{ else if .Params.doi }}
+  <a href="https://doi.org/{{ .Params.doi }}" target="_blank" rel="noopener">{{ $title }}</a>
+{{ else }}
+  {{ $title }}
+{{ end }} 
 {{ if .Params.publication_short }}
   <em>{{ .Params.publication_short | markdownify | plainify }}</em>
 {{ else if .Params.publication }}
