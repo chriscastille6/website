@@ -20,24 +20,17 @@ sections:
         country: United States
         country_code: US
       coordinates:
-        latitude: '29.7952'
-        longitude: '-90.8226'
-      directions: The lab is located in Powell Hall, Room 150, on the first floor.
+        latitude: '29.79353'
+        longitude: '-90.80081'
+      directions: My office is located in Powell Hall, Room 150, on the Nicholls State University campus.
       office_hours:
-        - 'Tuesday and Thursday 8:00 AM to 9:00 AM'
-        - 'Tuesday and Thursday 10:30 AM to 12:00 PM'
-        - 'Tuesday and Thursday 2:00 PM to 5:00 PM'
-        - 'Or email for appointment'
-      appointment_url: 'mailto:christopher.castille@nicholls.edu'
-      #contact_links:
-      #  - icon: comments
-      #    icon_pack: fas
-      #    name: Discuss on Forum
-      #    link: 'https://discourse.gohugo.io'
-    
-      # Automatically link email and phone or display as text?
+        - 'Monday 9:00AM to 5:00PM'
+        - 'Tuesday 9:00AM to 5:00PM'
+        - 'Wednesday 9:00AM to 5:00PM'
+        - 'Thursday 9:00AM to 5:00PM'
+        - 'Friday 9:00AM to 5:00PM'
+      # Automatically link email and phone or display as contact?
       autolink: true
-    
       # Email form provider
       form:
         provider: netlify
@@ -47,7 +40,5 @@ sections:
           # Enable CAPTCHA challenge to reduce spam?
           captcha: false
     design:
-      columns: '1'
-
-
+      columns: '2'
 ---
