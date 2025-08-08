@@ -3,6 +3,7 @@ title: "Bright or dark, or virtues and vices? A reexamination of the big five an
 authors:
   - Castille, Christopher M
 date: "2015-01-01T00:00:00Z"
+doi: "10.18297/etd/194"
 publishDate: "2015-01-01T00:00:00Z"
 publication_types: ["dissertation"]
 publication: "*Louisiana Tech University*"

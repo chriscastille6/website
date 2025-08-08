@@ -2,6 +2,17 @@
 {{ $ := .content }}
 {{ $link := "" }}
 
+{{/* View Article button - show first and most prominently */}}
+{{ if $.Params.url_source }}
+<a class="btn btn-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="{{ $.Params.url_source }}" target="_blank" rel="noopener">
+  <i class="fas fa-external-link-alt mr-1"></i>View Article
+</a>
+{{ else if $.Params.doi }}
+<a class="btn btn-primary my-1 mr-1{{ if $is_list }} btn-sm{{end}}" href="https://doi.org/{{ $.Params.doi }}" target="_blank" rel="noopener">
+  <i class="fas fa-external-link-alt mr-1"></i>View Article
+</a>
+{{ end }}
+
 {{ with $.Params.url_preprint }}
   {{ $resource := $.Resources.GetMatch . }}
   {{ if $resource }}
