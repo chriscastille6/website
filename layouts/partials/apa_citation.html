@@ -30,4 +30,4 @@
 {{ else if .Params.publication }}
   <em>{{ .Params.publication | markdownify | plainify }}</em>
 {{ end }}
-{{ with .Params.doi }} https://doi.org/{{ . }}{{ end }} 
+{{ with .Params.doi }} <a href="https://doi.org/{{ . }}" target="_blank" rel="noopener">https://doi.org/{{ . }}</a>{{ end }} 
