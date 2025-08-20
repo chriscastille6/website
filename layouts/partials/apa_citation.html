@@ -34,8 +34,8 @@
   {{ $title }}
 {{ end }} 
 {{ if .Params.publication_short }}
-  <em>{{ .Params.publication_short | markdownify | plainify }}</em>
+  <em>{{ .Params.publication_short | markdownify | plainify }}</em>.
 {{ else if .Params.publication }}
-  <em>{{ .Params.publication | markdownify | plainify }}</em>
+  <em>{{ .Params.publication | markdownify | plainify }}</em>.
 {{ end }}
 {{ with .Params.doi }} <a href="https://doi.org/{{ . }}" target="_blank" rel="noopener">https://doi.org/{{ . }}</a>{{ end }} 
