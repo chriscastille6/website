@@ -2,9 +2,9 @@
 title: "AOM 2025 Copenhagen: Building Credibility, Collaboration, and Methodological Rigor in Management Research"
 authors:
   - admin
-date: "2025-01-15T00:00:00Z"
+date: "2025-07-26T00:00:00Z"
 doi: ""
-publishDate: "2025-01-15T00:00:00Z"
+publishDate: "2025-07-26T00:00:00Z"
 publication_types: ["0"]
 publication: ""
 publication_short: ""

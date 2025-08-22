@@ -1,0 +1,447 @@
+                                                                                                                            TOTAL REWARDS
+
+
+
+
+                        HOW MICROSOFT OPTIMIZED ITS
+                        INVESTMENT IN PEOPLE AFTER
+                        THE DOT-COM ERA
+                        Even after the dot-com bubble burst and layoffs became the order of the day,
+                        Microsoft faced the traditional challenge of attracting and retaining key talent.
+                        So the company embarked on a rigorous analysis of what rewards most at-
+                        tracted and kept loyal the kind of people they need. And then they weighed the
+                        costs of enhancing those rewards against the economic and other benefits of
+                        reduced turnover. © 2002 Wiley Periodicals, Inc.
+
+
+
+
+L. Allen Slade, Thomas O. Davenport, Darryl R. Roberts, and Samir Shah
+
+
+
+
+  n March 2001, Microsoft CEO Steve Ballmer                                           people we want. And we’re spending much more
+I made what seemed like a passing comment in
+an interview for Fast Company magazine. Asked
+                                                                                      time focusing on the quality of the job. We’re
+                                                                                      thinking hard about how to keep jobs big and full
+about how to get 40,000 employees focused on a                                        of impact. That’s the key: doing more than just
+unified vision, he emphasized rewards as a                                            fixating on compensation.”
+mechanism for increasing commitment to the                                                Since that interview, the problem of hiring
+company and engagement in work. He also made                                          and keeping great people has become even more
+what was, for Microsoft, an extraordinary state-                                      complicated. The challenge has taken on in-
+ment about the relative importance of financial                                       creased urgency for managers as methods for
+and nonfinancial rewards: “In the past few years,                                     quantifying the importance of intangible capital
+with the dot-com mania, some people left be-                                          have improved. A few years ago, managers were
+cause they thought they could make a lot of                                           shocked to learn that the hard and soft costs of
+money at a start-up. That has changed. We’re                                          turnover could add up to two or even three times
+back to doing better at recruiting and keeping the                                    the annual salary of a key executive or technical
+
+                                                                          *       *       *
+L. Allen Slade, Ph.D., is managing principal of Slade & Associates, where he provides advice on management practices, employee morale, re-
+search and statistical analysis. Previously he was the director of people research at Microsoft. He can be reached at allen_slade@hotmail.com.
+Thomas O. Davenport, a principal in the San Francisco office of Towers Perrin and the author of Human Capital: What It Is and Why People
+Invest It (Jossey-Bass, 1999), provides counsel on human capital strategy, change management, and organization effectiveness to clients in a
+variety of industries. He can be reached at davenpt@towers.com. Darryl R. Roberts is a consultant with Towers Perrin in Irvine, California,
+where his major focus is helping clients use employee research to drive improvements in employee engagement and commitment, customer
+loyalty, and financial performance. He coauthored Work Culture, Organizational Performance, and Business Success: Measurement and Man-
+agement (Quorum, 1998). He can be reached at roberda@towers.com. Samir Shah is a managing consultant in Towers Perrin’s Tillinghast di-
+vision in Washington, D.C. He specializes in the application of management science and operations research methods to general management
+decision making and financial risk management. He can be reached at shahsa@tillinghast.com.
+
+
+JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002                                                                                         43
+© 2002 Wiley Periodicals, Inc. Published online in Wiley InterScience (www.interscience.wiley.com) DOI: 10.1002/npr.10052
+44                                   L. Allen Slade, Thomas O. Davenport, Darryl R. Roberts, and Samir Shah
+
+
+
+contributor. For a company the size of Microsoft,                         however short-lived, introduced a new source of
+a single percentage-point reduction in turnover                           attractive job opportunities into the mix. Small
+can be worth as much as $25 million in avoided                            companies, many of them technology start-ups,
+cost. At companies across geographies and in-                             held out the promise of jobs with broad scopes
+dustries, shock has turned to dismay as financial                         of responsibility. Microsoft, which by 1999 was
+research has attached ever more accurate and                              a $20 billion organization with 35,000 employ-
+convincing numbers to the value produced by the                           ees worldwide, couldn’t always match these
+knowledge, skills, and talents of employees.                              kinds of enriched job opportunities. When the
+Work by Baruch Lev at New York University’s                               stock market began to fall in 2000, the linchpin
+Stern School of Business, Mark Huselid at Rut-                            of Microsoft’s total rewards package began to
+gers, and others has shown that effective man-                            lose its attractiveness. The company became vul-
+agement of human capital significantly improves                           nerable to turnover of key people and sometimes
+a company’s market capitalization. Employee re-                           had difficulty filling vacant slots with equally
+tention, once considered a problem for the                                talented new employees.
+human resource department, now keeps senior
+executives and board members awake at night (or
+it certainly should). And the retention challenge                           When the stock market began to fall in 2000,
+is compounded by the need for organizations to                               the linchpin of Microsoft’s total rewards
+continue to hire talented employees even while                               package began to lose its attractiveness.
+they cut staff in some areas. In a Towers Perrin
+survey of large North American companies, al-
+most three-quarters of the respondents said they                              Faced with growing concern about the orga-
+must manage this bi-directional pipeline.                                 nization’s ability to compete for critical em-
+                                                                          ployee talent, Microsoft’s human resource group
+THE MICROSOFT SITUATION                                                   began to take action. It started by considering
+                                                                          the merits of a comprehensive total rewards re-
+Microsoft’s historical compensation philosophy                            sponse to the recruiting and retention chal-
+featured conservative base salaries, relatively                           lenges. HR decided that for such a strategy to
+small incentive opportunities, generous benefits,                         make sense, it would need to:
+and a broad-based stock program that created
+enormous wealth during the 1990s. As illus-                                   •      Combine the full array of rewards impor-
+trated in Exhibit 1, Microsoft’s share price in-                                     tant to employees.
+creased from $4.38 in June 1992 to $116.75 in                                 •      Give the organization effective weapons
+December 1999, a 27-fold gain. What a package                                        against companies that compete for Mi-
+Microsoft offered to employees and job candi-                                        crosoft employees and candidates.
+dates: cool company, leading-edge projects,                                   •      Reflect the organization’s status as an at-
+charismatic leadership, and the opportunity to                                       tractive, albeit maturing, company.
+get rich. Microsoft’s deal produced low turnover                              •      Forge a clear link between rewards re-
+rates, outstanding business performance, and                                         ceived and contribution made.
+wealth for shareholders and employees alike.                                  •      Accommodate individual needs and
+    This seemingly unassailable rewards port-                                        personal values, but remain administra-
+folio came under fire, however, with the ap-                                         tively practical.
+proach of the 21st century. The rising tide of                                •      Support the organization’s evolving busi-
+sustained stock-market performance increased                                         ness strategy, which would focus on In-
+competitors’ equity values just as it had Mi-                                        ternet delivery and personalization.
+crosoft’s. Increasing use of stock options as a                               •      Ensure that the organization invested its
+foundation for compensation plans meant that                                         reward dollars where they would produce
+other organizations could begin to entice peo-                                       the greatest benefit—that is, yield the
+ple with the possibility of impressive financial                                     highest possible employee commitment
+gains. The proliferation of dot-com companies,                                       to the company and engagement in work.
+
+JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002
+                                   How Microsoft Optimized Its Investment in People after the Dot-Com Era                                  45
+
+
+
+
+Sources: Yahoo Finance, Merrill Lynch
+
+Exhibit 1. Microsoft Stock Price—June 1992 to June 2002
+
+
+    To achieve these goals, Microsoft needed a                          and nontangible rewards people receive in ex-
+tool that would allow HR to do three things: de-                        change for their investment of skills, knowledge,
+termine the value employees attach to various fi-                       talent, and energy. These rich data allow an analyst
+nancial and non-financial rewards; understand                           to construct the total rewards portfolio that has the
+how those values vary across employee groups;                           greatest power to elicit employee commitment to
+and anticipate how employees would act given                            the organization and engagement in work. TRO
+the availability of various reward combinations.                        also employs information on reward costs and on
+Perhaps most important, Microsoft wanted a way                          the financial implications of such employee be-
+to calculate the return on investment of different                      haviors as reduced turnover or increased engage-
+reward strategies. That is, the HR group wanted                         ment in work. A flexible modeling technique
+to weigh the cost of rewards against the savings                        uses the employee preference and financial data
+produced by reduced employee turnover, and to                           and enables an organization to analyze various
+identify the net financial return from a range of                       reward portfolios. Using the modeling tool, a
+reward offerings. Microsoft found the necessary                         company can determine the costs and benefits
+tool in Total Rewards Optimization (TRO).                               associated with different combinations of re-
+    Towers Perrin’s TRO approach incorporates                           wards and determine how to allocate its budget to
+conjoint analysis, a sophisticated survey method                        specific reward elements.
+drawn from market research science. Using the
+survey tool, an employee makes choices indicating                       TOTAL REWARDS OPTIMIZATION—
+the relative value he or she places on the range of                     MICROSOFT’S APPROACH
+financial and nonfinancial rewards that a company
+provides. These data tell an organization what em-                      Microsoft’s HR group started with a well-
+ployees really think about the full array of tangible                   informed but nevertheless general sense of how
+
+                                                                                             JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002
+46                                   L. Allen Slade, Thomas O. Davenport, Darryl R. Roberts, and Samir Shah
+
+
+
+employees valued different elements of the cur-                           welfare benefits, and time off. These are typically
+rent reward portfolio. By the project’s comple-                           well defined and offered to employees through
+tion, the team had a fully functional analytical                          formal programs. Rewards representing the other,
+model that permitted them to determine how                                “softer” categories must also be carefully defined.
+various reward portfolios would affect employee                           However, because most organizations don’t attach
+behavior. Project results also equipped HR to                             financial value to rewards in these categories,
+identify the net benefit (in ROI terms) of every                          coming up with definitions requires creativity. Ul-
+different reward combination. The team accom-                             timately, the team developed a tentative list of re-
+plished these goals in four major steps.                                  ward elements believed to have a strong effect on
+    Step 1: Define the total array of rewards. The                        retention. TRO can focus on any employee behav-
+process began with the establishment of a project                         ior that has financial implications for an organiza-
+team. The Microsoft core team comprised five                              tion. For example, TRO could indicate how re-
+members, representing the employee research,                              wards influence such critical behaviors as
+compensation, and finance functions. HR mem-                              commitment to a company, involvement in work,
+bership ensured that the recommendations would                            or direct productivity. Because employee turnover
+remain consistent with the organization’s com-                            was the dominant issue on the minds of Microsoft
+pensation, benefits, and human capital manage-                            managers and executives, however, the project
+ment philosophies. Team members from finance                              team chose retention as the behavior to analyze.
+were responsible for ensuring that the team used                               The team also realized that the only way to
+accurate cost data and applied a quantitative                             validate the accuracy of their hypotheses was to
+analysis as rigorous as that applied to other major                       go directly to employees. To gather employee
+investment decisions. Microsoft also established                          input, the project team convened some 20 focus
+an oversight group consisting of representatives                          groups involving a variety of employee popula-
+from a variety of line functions. Ultimately, line                        tions and locations. The focus group meetings
+managers would have major responsibility for im-                          enabled the project team to validate some of its
+plementing recommendations, especially those                              beliefs about what employees value and to mod-
+having to do with improved supervisor efforts to                          ify others. Focus group information also helped
+create engaging work and rich learning opportu-                           in understanding the language employees use
+nities. Hence, line-manager participation was im-                         when they talk about what makes them want to
+portant to ensure that the analysis would produce                         come to work and keep working for Microsoft.
+practical recommendations.                                                The output of the focus groups was a reward ma-
+                                                                          trix. (See Exhibit 2 for an example of a partial
+                                                                          reward matrix.) The Microsoft reward matrix
+ ... TRO could indicate how rewards influence                             contained 12 reward elements, each reflected at
+      such critical behaviors as commitment                               two or three different levels. The reward ele-
+        to a company, involvement in work,                                ments and levels shown in Exhibit 2 are ex-
+               or direct productivity.                                    pressed in terms similar to what a survey re-
+                                                                          spondent would see on the conjoint survey.
+                                                                               Step 2: Determine how employees value re-
+    In the first project step, the team developed                         wards. Having developed the reward matrix, the
+hypotheses about the rewards that attract and re-                         team next set out to determine how employees
+tain employees. It’s important to start with a broad                      value various combinations of these rewards.
+view of rewards, reflecting the breadth of financial                      The reward matrix formed the basis for the con-
+and nonfinancial elements that influence an em-                           joint trade-off survey that respondents would use
+ployee’s decision to stay with a company or quit.                         to indicate what they value most and what ex-
+Rewards come from a range of categories, includ-                          changes they would be willing to make among
+ing pay, benefits, learning opportunities, career                         rewards. Essentially, the conjoint approach al-
+development, work environment, and manager ef-                            lows survey respondents to indicate preferences
+fectiveness. Pay and benefits comprise such ele-                          for various packages of features for whatever is
+ments as base pay, incentives, bonuses, health and                        being analyzed—whether it’s a product or a job.
+
+JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002
+                         How Microsoft Optimized Its Investment in People after the Dot-Com Era                                  47
+
+
+
+
+Exhibit 2. Example of a Total Rewards Matrix
+
+
+
+The survey presents the features in a way that re-            each question in response to the employee’s prior
+quires the survey respondent to make trade-offs,              answers. At the end of the survey, the employee
+giving up lower-valued elements for higher-                   has constructed his or her preferred reward
+valued ones. For example, consider how a po-                  package. The final part of the survey exercise re-
+tential car buyer might choose between two au-                quires the employee to indicate his or her likeli-
+tomobiles: an expensive two-seat sports car with              hood of staying with the company for a specified
+fast acceleration and low gas mileage, or an                  period, given rewards at the levels contained in
+economy sedan that is slower but roomier, more                the preferred rewards package. In effect, em-
+fuel-efficient, and less expensive. In total re-              ployees respond to the question, “What will you
+wards terms, an employee might choose either a                do, given these rewards?” rather than “How
+job with market-level base pay but a high incen-              much do you like these rewards?” In other
+tive and aggressive development opportunities,                words, the survey measures behavioral inten-
+or one with a higher base, lower incentive and a              tions rather than attitudes.
+relatively stable future.                                         The conjoint analysis yielded a series of
+    The survey gathered this information by re-               preference curves for each reward. Exhibit 3
+quiring respondents to think about the various                shows examples of preference curves for two re-
+rewards they do (or might) receive: “Do you                   wards, base pay and learning opportunities. In-
+want a higher base or would you be willing to                 terpreting the preference curves (which econo-
+take a lower base with an aggressive bonus op-                mists would refer to as utility curves) is
+portunity?” “Is having a great training program               straightforward. Note that employees clearly
+as important as an empowering manager, or                     prefer level 2 of base pay (10 percent increase
+not?” To get people to consider such tradeoffs,               over the current level) over level 1; the upward-
+we used an adaptive, computerized survey deliv-               sloping first segment of the line illustrates this.
+ered via the Internet. The survey software varies             The second segment of the line, which shows the
+                                                                                   JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002
+48                                   L. Allen Slade, Thomas O. Davenport, Darryl R. Roberts, and Samir Shah
+
+
+
+
+Exhibit 3. Sample Comparison of Two Preference Curves
+
+
+
+degree to which employees prefer a 20 percent                             preferences for specific employee populations,
+pay increase to a 10 percent gain, is significantly                       as well as for the organization as a whole. For
+flatter, however. The flattening slope indicates                          example, the HR group had a particular interest
+that moving to 20 percent from 10 percent cre-                            in knowing how employees in the sales and tech-
+ates relatively little additional value, from the                         nology development functions valued different
+employees’ perspective. We often see this kind                            reward combinations. The team also studied
+of phenomenon with base pay; continuously                                 variations in reward preferences among employ-
+adding pay increments generally yields dimin-                             ees with different tenure levels and among high
+ishing returns in terms of employees’ perceived                           performers in all departments. TRO permits the
+value. In contrast, note the shape of the right-                          user to analyze the reward valuations of any spe-
+hand curve, which pertains to three levels of                             cific demographic group.
+learning opportunities. Employees expressed a                                 Useful as the preference data were, they gave
+clear preference for level 2 of learning opportu-                         only half the picture. They told Microsoft what
+nities (mandatory 40 hours of training annually)                          employees value, with those values expressed in
+over level 1. The line becomes even steeper be-                           behavioral terms—that is, in terms of their likeli-
+tween level 2 and level 3, however, indicating an                         hood of staying with Microsoft. To determine the
+increasing preference for moving to the third                             financial implications of responding to employ-
+level (60 hours of training annually, plus a men-                         ees’ reward preferences, the project team needed
+toring program). Again, this kind of finding is                           to attach a financial value to employee turnover
+not atypical. Increases in developmental oppor-                           and to determine the cost of delivering various
+tunities often generate significant additional                            reward combinations. The team gathered these
+value from the employee perspective.                                      financial data in the next step of the project.
+     Beyond these kinds of findings, the TRO                                  Step 3: Determine the cost of turnover and
+analysis also allowed Microsoft to assess reward                          the price tag for rewards. The conjoint analysis
+JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002
+                          How Microsoft Optimized Its Investment in People after the Dot-Com Era                                  49
+
+
+gave the project team the first key element of                     •      Investments required for recruiting and
+the information needed to forge a successful                              company marketing events
+retention improvement strategy. However, rely-
+ing only on the preference curves might lead a                     The Microsoft team used an aggressive ap-
+team to conclude that the way to improve re-                   proach to determine turnover cost, incorporat-
+tention is to give everyone the highest level of               ing both hard and soft items. With turnover
+each reward. Doing this would, of course, max-                 cost data under its belt, the team proceeded to
+imize perceived value in employees’ eyes. This                 determine the second financial element of the
+strategy makes little sense, however, for any                  total rewards optimization analysis: the cost to
+organization that faces constraints on the                     deliver the high, medium, and low levels of
+amount of money it can invest in employee re-                  each reward element. The pay and benefit ele-
+wards. Even cash-rich companies like Mi-                       ments of the rewards portfolios lend them-
+crosoft must keep constant vigilance over prof-                selves to relatively easy financial analysis.
+itability and earnings per share. The team,                    Most organizations have plenty of information
+therefore, needed two other elements to com-                   on the cost to deliver these rewards to target
+plete the analysis. One was a detailed under-                  populations. The nonfinancial rewards usually
+standing of the cost of turnover. The second                   require more work to quantify, however. For
+was data on the cost to deliver the reward ele-                example, consider the cost associated with lev-
+ments incorporated in the conjoint surveys.                    els of manager effectiveness. This reward often
+Ultimately, the team used the two sets of costs,               shows up as one of the key elements driving
+along with the employee preference data, to                    such employee behaviors as retention and en-
+determine the net benefit to the company of                    gagement in work. To estimate the cost, organ-
+various reward strategies.                                     izations should consider the investment re-
+                                                               quired for such factors as:
+
+      The Microsoft team used an aggressive                        •      Developing manager competency mod-
+       approach to determine turnover cost,                               els, incorporating insightful definitions
+      incorporating both hard and soft items.                             of the knowledge, skills, talents, and be-
+                                                                          haviors of strong managers
+                                                                   •      Defining and applying enhanced proce-
+    Calculating the cost of turnover required                             dures for assessing prospective managers
+delving into both explicit and implicit ex-                               during the hiring and promotion processes
+penses incurred by the organization when an                        •      Developing comprehensive manager
+employee leaves. Turnover costs can vary                                  performance assessment and improve-
+widely, depending on the approach used to                                 ment tools
+compile the cost information. A conservative                       •      Training managers, incorporating trainer
+estimate of turnover cost might include only                              time, program materials, and manager
+such readily quantifiable elements as recruiter                           salaries during training courses
+search fees, job advertising costs, referral                       •      Establishing a mentoring program in
+bonuses, applicant travel expenses, and reloca-                           which executives coach and develop
+tion costs. A broader look at the full cost of fill-                      middle managers
+ing key jobs (which we advocate using) could                       •      Moving managers across projects in
+incorporate additional factors, including:                                units to broaden their experience
+
+  •      Production inefficiencies incurred while                  The Microsoft team adopted a fiscally con-
+         positions are vacant and while newly                  servative posture in its handling of reward costs,
+         hired employees learn their jobs                      using relatively high estimates for reward-related
+  •      Costs associated with manager and re-                 investments. Collecting extensive cost data can
+         cruiter time spent reviewing candidates               seem like a daunting task, but the effort usually
+  •      Expenses incurred to train new employees              provides value beyond the TRO effort itself.
+
+                                                                                    JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002
+50                                   L. Allen Slade, Thomas O. Davenport, Darryl R. Roberts, and Samir Shah
+
+
+
+
+Exhibit 4. Sample Analysis of Total Rewards Portfolios
+
+For example, the cost collection efforts require                          currently 15 percent. Shifting the reward portfo-
+the project team to consider how the company                              lio from the current package (portfolio A) to
+will ultimately implement programs like en-                               portfolio B keeps turnover at the same level, but
+hanced manager development. This information                              saves the company $1,500,000. The savings
+gives the team a head start in its planning.                              come from balancing investments to improve the
+    Armed with the three required data elements—                          internal job market and manager effectiveness
+employee preference, turnover cost, and invest-                           against reduced cost for an expensive but less-
+ment required for each reward element and                                 preferred reward (health care). Portfolio C pro-
+level—team members were ready to complete                                 duces a net benefit by keeping reward costs at the
+their work. They moved on to the final step: the                          current level, but improving perceived value so
+optimization analysis.                                                    much that turnover drops by 4 percentage points.
+    Step 4: Define the optimum total rewards in-                          An $8 million savings in turnover cost results.
+vestment. Exhibit 4 aggregates the three data                             Finally, portfolio D represents a sizable incre-
+sets. The second column (reward levels) shows                             mental investment in rewards ($7.5 million more
+the components for four hypothetical reward                               than the current investment), but yields dramatic
+portfolios (A, B, C, and D). Reward cost data of                          savings from reduced turnover ($14 million, as
+the type the Microsoft team developed through                             turnover drops from 15 to 8 percent). Portfolio D
+the processes described above appear in the third                         thus yields a net benefit of $6.5 million.
+column. The turnover results and related turnover                             Using portfolio optimization tools, the proj-
+cost savings are in the fourth and fifth columns,                         ect team created a curve called the total rewards
+respectively. The far right column, net benefits,                         efficient frontier. A generalized example of an ef-
+shows the financial gain from reducing turnover,                          ficient frontier curve appears in Exhibit 5. The
+net of the increased or decreased cost for each                           horizontal axis represents the change in reward
+portfolio. In this illustrative scenario, turnover is                     investment from switching from the current
+
+JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002
+                          How Microsoft Optimized Its Investment in People after the Dot-Com Era                                  51
+
+
+
+
+Exhibit 5. A Total Rewards Efficient Frontier
+
+reward package (A) to a different one (B, C, or                    •      Maintain the current level of turnover,
+D). The vertical axis illustrates the corresponding                       but reduce the total investment in re-
+changes in turnover (shown as percentage-point                            wards by reallocating that investment to
+increases in retention). In our example, packages                         rewards that employees value most
+B, C, and D lie on the curve. They represent op-                          (portfolio B).
+timal reward packages; at the investment levels                    •      Develop the highest-retention rewards
+reflected in these portfolios, there is no better                         package. Management needs only to de-
+way for the company to spend its money to                                 termine how much incremental invest-
+achieve a given retention goal. The current re-                           ment it is willing to make, find that point
+ward profile (A) lies inside the efficient frontier.                      on the horizontal axis, and then read off
+The company could achieve the same turnover                               the curve the projected retention improve-
+level and spend less money (by offering portfolio                         ment. Portfolio D represents such a point.
+B) or improve retention at no incremental cost
+(portfolio C). Hence, we know that A is not an                      The adaptive conjoint survey also permits an
+optimal reward portfolio.                                      organization to ask additional questions con-
+    Knowing the shape and position of the effi-                cerning employee attitudes and perceptions
+cient frontier allows an organization to define                about topics other than reward values. Microsoft
+several retention strategies:                                  took advantage of this feature to gather informa-
+                                                               tion about the delivery of certain key rewards.
+  •     Maintain the current level of investment,              For instance, the team included a series of ques-
+        but reallocate that investment to empha-               tions soliciting information from sales represen-
+        size the rewards that employees value                  tatives about their relative preferences for incen-
+        most and, thereby, generate savings by                 tives based on team or individual performance,
+        reducing the turnover rate (portfolio C).              and regional or customer-account metrics.
+
+                                                                                    JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002
+52                                   L. Allen Slade, Thomas O. Davenport, Darryl R. Roberts, and Samir Shah
+
+
+
+INSIGHTS GAINED LEAD TO A TOTAL                                                The analytical process itself was valuable
+REWARD STRATEGY                                                           beyond the quantitative results produced. In par-
+                                                                          ticular, the opportunity to forge close working
+At the end of the process, the Microsoft team                             bonds among the HR, finance, and line repre-
+formulated a total rewards strategy to address                            sentatives created and reinforced relationships
+the organization’s retention concerns. The team                           that continued after the completion of the proj-
+found that employees expressed surprisingly                               ect. The team members came to realize that they
+similar reward preferences across job groups,                             would need cross-organizational cooperation
+salary levels, and tenure categories. High-potential                      (from their own units as well as from functions
+employees, however, expressed a particularly                              like line operations, training and development,
+strong preference for stock options, incentive                            information systems, and organizational devel-
+opportunities, and sabbaticals, and a base-pay                            opment) to further refine and deliver the desired
+preference about equal to that of average per-                            reward elements. In effect, the process of gather-
+formers. Using the findings from the TRO proj-                            ing and analyzing total rewards information con-
+ect, the team has recommended such actions as                             stituted the first step in breaking down organiza-
+increased investment in manager effectiveness,                            tional stovepipes that could hinder reward
+elimination of barriers to intraorganization                              definition and delivery. The skills that team
+transfers, and expansion of the company’s leave                           members developed in navigating their organi-
+of absence opportunities. The HR group contin-                            zations and breaching organizational boundaries
+ues to use the TRO modeling capability to an-                             will stand them in good stead as they continue
+swer reward-related questions from senior man-                            with implementation.
+agement and provide data for continuing                                        Perhaps the most important byproduct of the
+dialogue on reward strategy issues.                                       process was the way it raised the sophistication
+                                                                          of human capital analysis to a level commensu-
+                                                                          rate with its importance in the organization. The
+ ... the most important byproduct of the process                          team’s approach and the results produced sent a
+     was the way it raised the sophistication of                          message to senior management: No longer was
+human capital analysis to a level commensurate                            the use of advanced quantitative tools reserved
+      with its importance in the organization.                            for software product design or financial portfo-
+                                                                          lio management.
+                                                                               Does this mean that total rewards optimiza-
+     Members of the team also discovered that                             tion provides a magic formula for solving a chal-
+first-line managers in local work groups deliver                          lenging problem like retention? Certainly not.
+much of what people value most from their work.                           As the analyses demonstrated, successful reten-
+The analysis reinforced the importance of reward                          tion depends far too much on actions taken by
+elements in nonfinancial categories like job mo-                          individual managers to be amenable to an easy
+bility and learning opportunities. The HR repre-                          diagnosis or a quick cure.
+sentatives on the team considered this finding both                            Nevertheless, this approach does a better
+challenging and encouraging, for it meant that                            job than any other we know of to help organi-
+highly engineered, one-dimensional programs                               zations understand and respond to employees’
+would likely do little to reduce turnover. They also                      valuations of total rewards. Consequently, its
+concluded that they needed to work closely with                           use should not be limited to dealing with reten-
+business units to help individual supervisors and                         tion issues. Any challenge that calls for an un-
+managers define and deliver the rewards portfolio                         derstanding of what makes people want to in-
+that would have the greatest commitment-increas-                          vest discretionary effort in a job—in other
+ing power for key employees. Total rewards opti-                          words, any business challenge in which human
+mization helped the team answer the question:                             capital productivity is critical—deserves the
+“What must managers in this organization do to                            kind of thoughtful analysis that goes directly to
+build commitment among the people who have the                            the heart of the relationship between company
+most valuable human capital?”                                             and individual. ■
+
+JOURNAL OF ORGANIZATIONAL EXCELLENCE / Winter 2002

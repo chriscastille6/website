@@ -1,5 +1,5 @@
 ---
-title: Blog
+title: Latest News
 
 # Listing view
 view: card
@@ -16,4 +16,4 @@ filters:
 banner:
   caption: ''
   image: ''
----
+--- 

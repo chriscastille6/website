@@ -2,9 +2,9 @@
 title: "Welcome to the People Analytics Lab of the Bayou"
 authors:
   - admin
-date: "2025-01-25T00:00:00Z"
+date: "2025-07-02T00:00:00Z"
 doi: ""
-publishDate: "2025-01-25T00:00:00Z"
+publishDate: "2025-07-02T00:00:00Z"
 publication_types: ["0"]
 publication: ""
 publication_short: ""

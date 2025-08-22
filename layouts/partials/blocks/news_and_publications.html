@@ -1,0 +1,134 @@
+{{/* Combined News and Publications Block */}}
+{{ $page := .page }}
+{{ $block := .block }}
+
+<div class="container">
+  <div class="row">
+    {{/* News Section - Left Side */}}
+    <div class="col-lg-6 col-md-12 mb-4">
+      <h2 style="text-align: center; font-weight: bold; font-size: 2.2rem; margin-bottom: 2rem; color: #2c3e50;">Latest News</h2>
+      
+      {{/* News Slideshow Container */}}
+      <div id="news-slideshow" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); height: 400px;">
+        
+        {{/* Dynamic slides from news posts */}}
+        {{ range $index, $post := (where site.RegularPages "Type" "news") }}
+        <div class="news-slide {{ if eq $index 0 }}active{{ end }}" style="display: {{ if eq $index 0 }}block{{ else }}none{{ end }}; padding: 2rem; background: white; opacity: {{ if eq $index 0 }}1{{ else }}0{{ end }}; transition: opacity 0.8s ease-in-out; height: 100%;">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.2rem;">
+              <a href="{{ $post.RelPermalink }}" style="color: #2c3e50; text-decoration: none;">
+                {{ $post.Title }}
+              </a>
+            </h5>
+            <small class="text-muted">{{ $post.Date.Format "Jan 2006" }}</small>
+          </div>
+          
+          <p style="color: #555; line-height: 1.6; font-size: 1rem; margin-bottom: 1rem;">
+            {{ $post.Summary | default $post.Params.abstract | truncate 150 }}
+          </p>
+          
+          <div>
+            {{ with $post.Params.tags }}
+              {{ range . }}
+                <span class="badge bg-light text-dark me-1" style="font-size: 0.7rem;">{{ . }}</span>
+              {{ end }}
+            {{ else }}
+              <span class="badge bg-light text-dark me-1" style="font-size: 0.7rem;">News</span>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+
+      {{/* View All News Link */}}
+      <div class="text-center mt-3">
+        <a href="/news/" class="btn btn-outline-primary btn-sm">
+          View All News
+          <i class="fas fa-arrow-right ms-1"></i>
+        </a>
+      </div>
+    </div>
+
+    {{/* Publications Section - Right Side */}}
+    <div class="col-lg-6 col-md-12 mb-4">
+      <h2 style="text-align: center; font-weight: bold; font-size: 2.2rem; margin-bottom: 2rem; color: #2c3e50;">Latest Publications</h2>
+      
+      {{/* Publications Slideshow Container */}}
+      <div id="publications-slideshow" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); height: 400px;">
+        
+        {{/* Sample publications - you can make this dynamic like news */}}
+        <div class="publication-slide active" style="display: block; padding: 2rem; background: white; opacity: 1; transition: opacity 0.8s ease-in-out; height: 100%;">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.2rem;">
+              <a href="https://doi.org/10.1177/01492063251315701" target="_blank" style="color: #2c3e50; text-decoration: none;">
+                Women's and men's authorship experiences: A prospective meta-analysis
+              </a>
+            </h5>
+            <small class="text-muted">2025</small>
+          </div>
+          
+          <p style="color: #555; line-height: 1.6; font-size: 1rem; margin-bottom: 1rem;">
+            Published in <em>Journal of Management</em> - A comprehensive meta-analysis examining gender differences in authorship experiences.
+          </p>
+          
+          <div>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.7rem;">Meta-Analysis</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.7rem;">Gender</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.7rem;">Authorship</span>
+          </div>
+        </div>
+      </div>
+
+      {{/* View All Publications Link */}}
+      <div class="text-center mt-3">
+        <a href="/publication/" class="btn btn-outline-primary btn-sm">
+          View All Publications
+          <i class="fas fa-arrow-right ms-1"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/* Combined JavaScript for both slideshows */}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // News slideshow
+  const newsSlides = document.querySelectorAll('.news-slide');
+  let currentNewsSlide = 0;
+  
+  function showNewsSlide(index) {
+    newsSlides.forEach((slide) => {
+      slide.style.opacity = '0';
+      slide.classList.remove('active');
+    });
+    
+    setTimeout(() => {
+      newsSlides.forEach((slide, i) => {
+        if (i === index) {
+          slide.style.display = 'block';
+          setTimeout(() => {
+            slide.style.opacity = '1';
+            slide.classList.add('active');
+          }, 50);
+        } else {
+          slide.style.display = 'none';
+        }
+      });
+    }, 800);
+  }
+  
+  function nextNewsSlide() {
+    currentNewsSlide = (currentNewsSlide + 1) % newsSlides.length;
+    showNewsSlide(currentNewsSlide);
+  }
+  
+  // Auto-advance news slides every 6 seconds
+  if (newsSlides.length > 1) {
+    setInterval(nextNewsSlide, 6000);
+  }
+  
+  // Initialize first slide
+  showNewsSlide(0);
+});
+</script> 
