@@ -1,0 +1,28 @@
+{{/* /layouts/shortcodes/subscribe.html */}}
+{{/* Subscription box shortcode for blog and news sections */}}
+{{/* Displays RSS and email subscription options with clean, professional styling */}}
+{{/* RELEVANT FILES: content/post/_index.md, content/news/_index.md, config/_default/hugo.yaml */}}
+
+<div style="background:#f8f9fa;padding:1.5rem;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);text-align:center;margin-bottom:2rem;">
+  <h3 style="font-size:1.3rem;margin-bottom:1rem;color:#2c3e50;">{{ .Get "title" }}</h3>
+  <p style="color:#555;margin-bottom:1rem;">Stay updated with our latest research insights and analyses.</p>
+  <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+    <a href="{{ .Get "feed" }}" 
+       class="btn btn-outline-primary" 
+       style="padding:0.5rem 1.5rem;font-weight:500;" 
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Subscribe via RSS feed">
+      <i class="fas fa-rss" aria-hidden="true"></i> Subscribe via RSS
+    </a>
+    <button class="btn btn-primary" 
+            style="padding:0.5rem 1.5rem;font-weight:500;" 
+            onclick="alert('Email subscription coming soon! For now, please use the RSS feed to stay updated.')">
+      <i class="fas fa-envelope" aria-hidden="true"></i> Subscribe via Email
+    </button>
+  </div>
+  <p style="font-size:0.85rem;color:#6c757d;margin-top:1rem;margin-bottom:0;">
+    RSS is a simple way to receive updates in your feed reader (e.g., Feedly, Inoreader, NetNewsWire).
+  </p>
+</div>
+

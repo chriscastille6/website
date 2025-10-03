@@ -4,6 +4,7 @@ authors:
   - admin
 date: 2025-01-27T00:00:00Z
 publishDate: 2025-01-27T00:00:00Z
+draft: true
 publication_types: ["post"]
 publication: ""
 publication_short: ""

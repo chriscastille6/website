@@ -1,5 +1,5 @@
 ---
-title: Blog
+title: Artifacts
 
 # Listing view
 view: card
@@ -17,3 +17,5 @@ banner:
   caption: ''
   image: ''
 ---
+
+{{< subscribe title="Subscribe to Artifacts" feed="/post/index.xml" >}}
