@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 1. Assessment Library (no external CDN) -->
+  <!-- Location: /static/assessments/library/index.html -->
+  <!-- Purpose: Research assessments catalog with card layout and local CSS -->
+  <!-- Why: Works in strict environments (incognito, reader view, blockers) -->
+  <!-- RELEVANT FILES: static/assessments/library/styles.css, content pages linking here -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assessment Library - PAL of the Bayou</title>
+  <link rel="stylesheet" href="/assessments/library/styles.css?v=1" />
+  <!-- Supabase integration (optional - library works without it) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assessments/shared/supabase-client.js"></script>
+  <script src="/assessments/shared/access-control.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="h1">Assessment Library</h1>
+      <p class="p">Research-grade psychological assessments for academic research and organizational applications.</p>
+      <div id="authLinks" style="margin-top: 12px; text-align: center;">
+        <a href="/assessments/auth/login.html" style="color: #667eea; text-decoration: none; margin-right: 16px;">Sign In</a>
+        <a href="/assessments/dashboard/" style="color: #667eea; text-decoration: none;">Dashboard</a>
+      </div>
+      <noscript>
+        <div class="noscript">
+          JavaScript appears to be disabled or Reader View is active. For the best experience, exit Reader View and enable JavaScript.
+        </div>
+      </noscript>
+    </div>
+
+    <div id="loadingMessage" style="text-align: center; padding: 40px; color: #718096;">
+      Loading assessments...
+    </div>
+
+    <div class="grid" id="assessmentsGrid" style="display: none;">
+      <!-- Assessments will be dynamically loaded here -->
+    </div>
+
+    <div id="noAssessments" style="text-align: center; padding: 40px; color: #718096; display: none;">
+      <p>No assessments available. Please contact your lab administrator for access.</p>
+      <p style="margin-top: 12px;">
+        <a href="/assessments/auth/login.html" style="color: #667eea;">Sign in</a> to access assessments.
+      </p>
+    </div>
+
+    <div style="margin-top:2rem; text-align:center; color:#6b7280; font-size:.9rem;">
+      All assessments are designed for research purposes. Data is anonymous unless you explicitly consent.
+      <div style="margin-top:.5rem;">
+        <a class="link" href="/post/assessment-demo-simple/">See embedded demo page</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Supabase components (optional - library works without them)
+    const supabase = window.AssessmentLibrary?.supabase;
+    const accessControl = window.AccessControl ? new AccessControl(supabase) : null;
+
+    // Assessment card templates
+    const assessmentIcons = {
+      'occupational-fit': '🎯',
+      'personality-test': '🧠',
+      'ei-test': '💭',
+      'people-analytics-fit': '📊'
+    };
+
+    const assessmentColors = {
+      'occupational-fit': { header: 'gradient-blue', btn: 'primary' },
+      'personality-test': { header: 'gradient-green', btn: 'primary green' },
+      'ei-test': { header: 'gradient-purple', btn: 'primary purple' },
+      'people-analytics-fit': { header: 'gradient-blue', btn: 'primary' }
+    };
+
+    // Hardcoded assessments (fallback when Supabase not available)
+    const hardcodedAssessments = [
+      {
+        name: 'occupational-fit',
+        title: 'Occupational Fit Assessment',
+        type: 'conjoint',
+        description: 'Adaptive conjoint analysis to determine individual preferences for job attributes and compensation packages. Based on Slade et al. (2002) methodology.',
+        version: 'v1.0',
+        config: { num_tasks: 8, adaptive: true }
+      },
+      {
+        name: 'personality-test',
+        title: 'Research Personality Inventory',
+        type: 'personality',
+        description: 'Comprehensive personality assessment based on the Big Five model with domain-specific workplace traits.',
+        version: 'v1.0',
+        config: { num_items: 75 }
+      },
+      {
+        name: 'people-analytics-fit',
+        title: 'People Analyst Fit Assessment',
+        type: 'fit',
+        description: 'Comprehensive assessment measuring fit with People Analyst role across five key domains: Interests, Work Values, Knowledge, Skills, and Personality. Based on Liu et al. (2024) Integrative Fit Assessment Framework.',
+        version: 'v1.0',
+        config: { num_items: 159, estimated_time: '15-20 minutes' }
+      },
+      {
+        name: 'ei-test',
+        title: 'Emotional Intelligence Assessment',
+        type: 'ei',
+        description: 'Ability-based emotional intelligence measurement using the four-branch model (perceiving, using, understanding, managing emotions).',
+        version: 'v1.0',
+        config: { num_scenarios: 20 }
+      }
+    ];
+
+    // Load accessible assessments
+    async function loadAssessments() {
+      try {
+        // Try to load from Supabase if available, otherwise use hardcoded list
+        let assessments = [];
+        
+        if (accessControl && window.AssessmentLibrary && window.AssessmentLibrary.supabase) {
+          try {
+            assessments = await accessControl.getAccessibleAssessments();
+            // If Supabase returns empty or errors, fall back to hardcoded
+            if (!assessments || assessments.length === 0) {
+              assessments = hardcodedAssessments;
+            }
+          } catch (error) {
+            console.log('Supabase not available, using hardcoded assessments:', error);
+            assessments = hardcodedAssessments;
+          }
+        } else {
+          // No Supabase, use hardcoded assessments
+          assessments = hardcodedAssessments;
+        }
+        
+        document.getElementById('loadingMessage').style.display = 'none';
+
+        if (assessments.length === 0) {
+          document.getElementById('noAssessments').style.display = 'block';
+          return;
+        }
+
+        const grid = document.getElementById('assessmentsGrid');
+        grid.innerHTML = assessments.map((assessment, index) => {
+          const cardId = `card-${index + 1}`;
+          const icon = assessmentIcons[assessment.name] || '📋';
+          const colors = assessmentColors[assessment.name] || { header: 'gradient-blue', btn: 'primary' };
+          const config = assessment.config || {};
+
+          return `
+            <div class="card" id="${cardId}">
+              <div class="card-header ${colors.header}" onclick="toggle('${index + 1}')">
+                <div class="header-row">
+                  <span class="icon">${icon}</span>
+                  <div>
+                    <h3 class="title">${assessment.title}</h3>
+                    <div class="subtitle">${assessment.type}</div>
+                  </div>
+                </div>
+                <div class="badge">${assessment.version || 'v1.0'} <span id="arrow-${index + 1}">▼</span></div>
+              </div>
+              <div class="card-body hidden" id="body-${index + 1}">
+                <p class="muted">${assessment.description || ''}</p>
+                <div class="chips">
+                  ${config.num_tasks ? `<span class="chip">📝 ${config.num_tasks} tasks</span>` : ''}
+                  ${config.num_items ? `<span class="chip">📝 ${config.num_items} items</span>` : ''}
+                  ${config.num_scenarios ? `<span class="chip">📝 ${config.num_scenarios} scenarios</span>` : ''}
+                  ${config.adaptive ? `<span class="chip attn">🎯 Adaptive</span>` : ''}
+                </div>
+                <button class="btn ${colors.btn}" onclick="launch('/assessments/${assessment.name}/')">Launch ${assessment.title}</button>
+              </div>
+              <div class="actions" id="actions-${index + 1}">
+                <span class="hint">Click to view details</span>
+                <button class="btn" onclick="launch('/assessments/${assessment.name}/')">Quick Launch</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        grid.style.display = 'grid';
+
+        // Update auth links if user is logged in (only if Supabase available)
+        if (accessControl && window.AssessmentLibrary) {
+          accessControl.isAuthenticated().then(isAuth => {
+            if (isAuth) {
+              document.getElementById('authLinks').innerHTML = '<a href="/assessments/dashboard/" style="color: #667eea; text-decoration: none;">Dashboard</a>';
+            }
+          }).catch(() => {
+            // Supabase not available, keep default links
+          });
+        }
+      } catch (error) {
+        console.error('Error loading assessments:', error);
+        document.getElementById('loadingMessage').textContent = 'Error loading assessments. Please try again.';
+      }
+    }
+
+    function toggle(id) {
+      var body = document.getElementById('body-' + id);
+      var arrow = document.getElementById('arrow-' + id);
+      var actions = document.getElementById('actions-' + id);
+      var isHidden = body.classList.contains('hidden');
+      if (isHidden) {
+        body.classList.remove('hidden');
+        actions.classList.add('hidden');
+        arrow.style.transform = 'rotate(180deg)';
+      } else {
+        body.classList.add('hidden');
+        actions.classList.remove('hidden');
+        arrow.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    function launch(path) {
+      var url = path + '?v=1';
+      window.open(url, '_blank');
+    }
+
+    // Check 2FA requirement before loading assessments
+    async function checkAccess() {
+      if (accessControl && window.AssessmentLibrary) {
+        try {
+          const isAuth = await accessControl.isAuthenticated();
+          if (isAuth) {
+            const authManager = new AuthManager();
+            const { required, has2FA } = await authManager.require2FA();
+            
+            if (required && !has2FA) {
+              // Redirect to 2FA setup
+              document.getElementById('loadingMessage').innerHTML = `
+                <div style="max-width: 500px; margin: 0 auto; text-align: center; padding: 40px;">
+                  <h2 style="color: #e53e3e; margin-bottom: 16px;">2FA Required</h2>
+                  <p style="color: #4a5568; margin-bottom: 24px;">
+                    Two-factor authentication is required to access assessments, view results, and use AI coaching features.
+                  </p>
+                  <a href="/assessments/auth/setup-2fa.html" 
+                     class="btn btn-primary" 
+                     style="display: inline-block; padding: 12px 24px; background: #667eea; color: white; text-decoration: none; border-radius: 6px; font-weight: 600;">
+                    Setup 2FA Now
+                  </a>
+                  <p style="margin-top: 16px;">
+                    <a href="/assessments/dashboard/" style="color: #667eea;">Go to Dashboard</a>
+                  </p>
+                </div>
+              `;
+              return;
+            }
+          }
+        } catch (error) {
+          console.error('Error checking 2FA:', error);
+          // Continue loading if check fails (fallback to allow access)
+        }
+      }
+      
+      // Load assessments if 2FA check passes or if not authenticated
+      loadAssessments();
+    }
+
+    // Check access on page load
+    checkAccess();
+  </script>
+</body>
+</html>

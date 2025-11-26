@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 2FA Verification Page -->
+    <!-- Location: /static/assessments/auth/verify-2fa.html -->
+    <!-- Purpose: Verify 2FA code during login -->
+    <!-- Why: Provides secure two-factor authentication for account access -->
+    <!-- RELEVANT FILES: static/assessments/shared/auth-manager.js, static/assessments/auth/styles.css -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify 2FA - Assessment Library</title>
+    <link rel="stylesheet" href="/assessments/auth/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/auth-manager.js"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Two-Factor Authentication</h1>
+            <p>Enter the code from your authenticator app</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <form class="auth-form" id="verifyForm">
+            <div class="form-group">
+                <label for="code">6-Digit Code</label>
+                <input 
+                    type="text" 
+                    id="code" 
+                    name="code" 
+                    required 
+                    autocomplete="one-time-code"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    placeholder="000000"
+                    style="text-align: center; font-size: 24px; letter-spacing: 8px; font-family: 'Courier New', monospace;"
+                >
+                <div class="error-message" id="codeError"></div>
+                <small style="color: #718096; font-size: 12px; margin-top: 4px; display: block;">
+                    Open your authenticator app (Google Authenticator, Authy, etc.) and enter the 6-digit code
+                </small>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+                Verify Code
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>
+                <a href="/assessments/auth/login.html">Back to login</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const authManager = new AuthManager();
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = urlParams.get('email');
+        const challengeId = sessionStorage.getItem('2fa_challenge_id');
+
+        // Redirect if no challenge ID
+        if (!challengeId) {
+            window.location.href = '/assessments/auth/login.html';
+        }
+
+        // Auto-focus code input
+        document.getElementById('code').focus();
+
+        // Format code input (numbers only, 6 digits)
+        document.getElementById('code').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
+        });
+
+        document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const code = document.getElementById('code').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const codeError = document.getElementById('codeError');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Clear previous errors
+            codeError.classList.remove('show');
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            document.getElementById('code').classList.remove('error');
+
+            // Validation
+            if (code.length !== 6) {
+                codeError.textContent = 'Please enter a 6-digit code';
+                codeError.classList.add('show');
+                document.getElementById('code').classList.add('error');
+                return;
+            }
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Verifying...';
+
+            // Verify 2FA code
+            const { verified, error } = await authManager.verify2FALogin(challengeId, code);
+
+            if (error || !verified) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Verify Code';
+
+                // Show error message
+                const errorMsg = error?.message || 'Invalid code. Please try again.';
+                codeError.textContent = errorMsg;
+                codeError.classList.add('show');
+                document.getElementById('code').classList.add('error');
+                document.getElementById('code').value = '';
+                document.getElementById('code').focus();
+            } else {
+                // Success - clear challenge ID and redirect
+                sessionStorage.removeItem('2fa_challenge_id');
+                successMessage.textContent = 'Verification successful! Redirecting...';
+                successMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    window.location.href = '/assessments/dashboard/';
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
+

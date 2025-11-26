@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Registration Page -->
+    <!-- Location: /static/assessments/auth/register.html -->
+    <!-- Purpose: User registration interface for assessment library -->
+    <!-- Why: Allows users to create accounts and join PAL lab -->
+    <!-- RELEVANT FILES: static/assessments/shared/auth-manager.js, static/assessments/auth/styles.css -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Assessment Library</title>
+    <link rel="stylesheet" href="/assessments/auth/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/auth-manager.js"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Create Account</h1>
+            <p>Join PAL Lab to access assessments</p>
+        </div>
+
+        <div class="success-message" id="successMessage"></div>
+
+        <form class="auth-form" id="registerForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required autocomplete="name">
+                <div class="error-message" id="nameError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="new-password" minlength="6">
+                <div class="error-message" id="passwordError"></div>
+                <small style="color: #718096; font-size: 12px; margin-top: 4px;">
+                    Must be at least 6 characters
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="new-password">
+                <div class="error-message" id="confirmPasswordError"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+                Create Account
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>
+                Already have an account? <a href="/assessments/auth/login.html">Sign in</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const authManager = new AuthManager();
+
+        // Check if user is already logged in
+        authManager.isAuthenticated().then(isAuth => {
+            if (isAuth) {
+                window.location.href = '/assessments/dashboard/';
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const successMessage = document.getElementById('successMessage');
+
+            // Clear previous errors
+            nameError.classList.remove('show');
+            emailError.classList.remove('show');
+            passwordError.classList.remove('show');
+            confirmPasswordError.classList.remove('show');
+            successMessage.classList.remove('show');
+            document.getElementById('fullName').classList.remove('error');
+            document.getElementById('email').classList.remove('error');
+            document.getElementById('password').classList.remove('error');
+            document.getElementById('confirmPassword').classList.remove('error');
+
+            // Validation
+            let hasError = false;
+
+            if (!fullName) {
+                nameError.textContent = 'Full name is required';
+                nameError.classList.add('show');
+                document.getElementById('fullName').classList.add('error');
+                hasError = true;
+            }
+
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                emailError.classList.add('show');
+                document.getElementById('email').classList.add('error');
+                hasError = true;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.add('show');
+                document.getElementById('email').classList.add('error');
+                hasError = true;
+            }
+
+            if (password.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters';
+                passwordError.classList.add('show');
+                document.getElementById('password').classList.add('error');
+                hasError = true;
+            }
+
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = 'Passwords do not match';
+                confirmPasswordError.classList.add('show');
+                document.getElementById('confirmPassword').classList.add('error');
+                hasError = true;
+            }
+
+            if (hasError) return;
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Creating account...';
+
+            // Attempt registration
+            const { user, error } = await authManager.signUp(email, password, fullName);
+
+            if (error) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Create Account';
+
+                // Show error message
+                if (error.message.includes('email') || error.message.includes('Email')) {
+                    emailError.textContent = error.message;
+                    emailError.classList.add('show');
+                    document.getElementById('email').classList.add('error');
+                } else if (error.message.includes('password') || error.message.includes('Password')) {
+                    passwordError.textContent = error.message;
+                    passwordError.classList.add('show');
+                    document.getElementById('password').classList.add('error');
+                } else {
+                    emailError.textContent = error.message || 'An error occurred. Please try again.';
+                    emailError.classList.add('show');
+                    document.getElementById('email').classList.add('error');
+                }
+            } else {
+                // Success - show message and redirect to 2FA setup
+                successMessage.textContent = 'Account created! Please check your email to verify your account. Setting up 2FA...';
+                successMessage.classList.add('show');
+                
+                // Auto-login after registration (if email confirmation is disabled)
+                // Then redirect to 2FA setup
+                setTimeout(async () => {
+                    // Try to sign in with the credentials
+                    const { user: loginUser } = await authManager.signIn(email, password);
+                    if (loginUser) {
+                        window.location.href = '/assessments/auth/setup-2fa.html?required=true';
+                    } else {
+                        // If auto-login fails (email verification required), redirect to login
+                        window.location.href = '/assessments/auth/login.html?registered=true&setup2fa=true';
+                    }
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+

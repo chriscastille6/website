@@ -1,0 +1,66 @@
+{{/* JavaScript to add DOI links to publication citations */}}
+<script>
+console.log('DOI script loading...');
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOI script ready, searching for publications...');
+  // Publication DOI mappings (excluding TIP articles which don't have DOIs)
+  const publicationDOIs = {
+    'womens-and-mens-authorship-experiences-a-prospecti': '10.1177/01492063251315701',
+    'translational-science-open-science-and-acceleratin': '10.31219/osf.io/p8msx',
+    'shedding-light-on-invisible-influences-reviewing-h': '10.1108/s0742-730120240000042007',
+    'big-team-science-initiatives-a-catalyst-for-trustw': '10.1016/j.actpsy.2023.104101',
+    'a-brighter-vision-of-the-potential-of-open-science': '10.1017/iop.2022.70',
+    'to-partial-or-not-re-examining-the-unmeasured-late': '10.5465/ambpp.2022.10998abstract',
+    'the-open-science-challenge-adopt-one-practice-that': '10.1007/s10869-022-09806-2',
+    'some-key-research-questions-for-mindfulness-interv': '10.1017/iop.2015.86',
+    'prosocial-citizens-without-a-moral-compass-examini': '10.1007/s10551-016-3079-9',
+    'the-five-factor-model-of-personality-and-employees': '10.1016/j.chb.2012.05.014',
+    'the-search-for-meaningful-work-a-network-analysis-': '10.1016/j.paid.2019.109569',
+    'prevailing-to-the-peers-detriment-organizational-c': '10.1016/j.paid.2016.07.026',
+    'disparate-treatment-and-adverse-impact-in-applied-': '10.1017/iop.2019.53',
+    'the-incremental-value-of-controlling-for-covert-in': '10.33423/jop.v21i5.4723',
+    'an-investigation-of-musical-performance-anxiety-in': '10.21091/mppa.2011.1004',
+    'how-does-collaborative-cheating-emerge-a-case-stud': '10.24251/hicss.2018.014',
+    'assessing-ideal-personalities-at-work-is-it-all-ju': '10.31219/osf.io/qan42',
+    'bright-or-dark-or-virtues-and-vices-a-reexaminatio': '10.18297/etd/194'
+  };
+
+  // Find all publication list items
+  const pubItems = document.querySelectorAll('.pub-list-item');
+  console.log('Found publication items:', pubItems.length);
+  
+  pubItems.forEach(function(item) {
+    // Find the publication link to get the slug
+    const pubLink = item.querySelector('a[href^="/publication/"]');
+    if (!pubLink) return;
+    
+    const href = pubLink.getAttribute('href');
+    const slug = href.replace('/publication/', '').replace('/', '');
+    
+    // Get the DOI for this publication
+    const doi = publicationDOIs[slug];
+    if (!doi) return;
+    
+    // Find the end of the citation (after the journal name)
+    const emElement = item.querySelector('em');
+    if (!emElement) return;
+    
+    // Check if DOI link already exists
+    const existingDoiLink = item.querySelector('a[href*="doi.org"]');
+    if (existingDoiLink) return;
+    
+    // Create the DOI link
+    const doiLink = document.createElement('a');
+    doiLink.href = 'https://doi.org/' + doi;
+    doiLink.target = '_blank';
+    doiLink.rel = 'noopener';
+    doiLink.textContent = ' https://doi.org/' + doi;
+    doiLink.style.color = '#007bff';
+    doiLink.style.textDecoration = 'none';
+    
+    // Insert the DOI link after the journal name
+    emElement.parentNode.insertBefore(document.createTextNode('. '), emElement.nextSibling);
+    emElement.parentNode.insertBefore(doiLink, emElement.nextSibling);
+  });
+});
+</script> 

@@ -1,0 +1,10 @@
+{{/* 
+File: layouts/shortcodes/callout.html
+Purpose: Creates a highlighted callout box for important explanatory text
+Why: Makes summary/descriptive text stand out visually on research pages
+RELEVANT FILES: content/publication/_index.md, layouts/shortcodes/assessment.html
+*/}}
+<div class="research-callout" style="background-color: #f8f9fa; border-left: 4px solid #667eea; padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+  {{ .Inner | markdownify }}
+</div>
+

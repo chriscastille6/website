@@ -1,0 +1,24 @@
+# IDEs
+.idea/
+
+# RStudio
+.Rproj.user/
+*.Rproj
+
+# macOS
+.DS_Store
+
+# Hugo
+/resources/
+public/
+assets/jsconfig.json
+assets/jsconfig 2.json
+
+# Cache
+.hugo_build.lock
+
+# Themes (if downloaded/managed separately)
+themes/
+
+# Tenure documents (sensitive)
+Tenure Review Packet/

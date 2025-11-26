@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Coaching Dashboard -->
+    <!-- Location: /static/assessments/coaching/dashboard.html -->
+    <!-- Purpose: Display AI coaching insights from completed assessments -->
+    <!-- Why: Provides users with personalized coaching based on assessment results -->
+    <!-- RELEVANT FILES: static/assessments/shared/ai-coaching.js, supabase-schema.sql -->
+    <!-- NOTE: Prepared for future rollout, currently shows placeholder -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching Dashboard - Assessment Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .coming-soon h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #2d3748;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/ai-coaching.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Coaching Dashboard</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="coming-soon">
+                <h2>AI Coaching Coming Soon</h2>
+                <p>Personalized coaching insights based on your assessment results will be available in a future update.</p>
+                <p style="margin-top: 12px;">
+                    <a href="/assessments/dashboard/" style="color: #667eea;">Return to Dashboard</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Placeholder for future implementation
+        // Will load coaching sessions when feature is rolled out
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Library - Simple</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 mb-8 text-white">
+            <h1 class="text-3xl font-bold mb-4">Assessment Library</h1>
+            <p class="text-lg opacity-90">
+                Research-grade assessments for occupational fit, personality, and emotional intelligence.
+            </p>
+        </div>
+
+        <!-- Cards -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white cursor-pointer" onclick="toggleCard('card1')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🎯</span>
+                            <div>
+                                <h3 class="text-xl font-bold">Occupational Fit Assessment</h3>
+                                <span class="text-sm opacity-90">Occupational Fit</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm opacity-75">v1.0</div>
+                            <div id="arrow1">▼</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="card1" class="hidden p-6">
+                    <p class="text-gray-700 mb-4">
+                        Adaptive conjoint analysis to determine individual preferences for job attributes and compensation packages. Based on Slade et al. (2002) methodology.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-4">
+                        <span class="bg-gray-100 px-2 py-1 rounded-full">📝 8 tasks</span>
+                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">🎯 Adaptive</span>
+                    </div>
+                    <button onclick="window.open('/assessments/occupational-fit/', '_blank')" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 px-6 rounded-md hover:opacity-90">
+                        Launch Occupational Fit Assessment
+                    </button>
+                </div>
+                
+                <div id="quick1" class="p-4 bg-gray-50 border-t">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Click to view details</span>
+                        <button onclick="window.open('/assessments/occupational-fit/', '_blank')" class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm">
+                            Quick Launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white cursor-pointer" onclick="toggleCard('card2')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">🧠</span>
+                            <div>
+                                <h3 class="text-xl font-bold">Research Personality Inventory</h3>
+                                <span class="text-sm opacity-90">Personality</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm opacity-75">v1.0</div>
+                            <div id="arrow2">▼</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="card2" class="hidden p-6">
+                    <p class="text-gray-700 mb-4">
+                        Comprehensive personality assessment based on the Big Five model with domain-specific workplace traits.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-4">
+                        <span class="bg-gray-100 px-2 py-1 rounded-full">📝 75 items</span>
+                    </div>
+                    <button onclick="window.open('/assessments/personality-test/', '_blank')" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-3 px-6 rounded-md hover:opacity-90">
+                        Launch Personality Assessment
+                    </button>
+                </div>
+                
+                <div id="quick2" class="p-4 bg-gray-50 border-t">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Click to view details</span>
+                        <button onclick="window.open('/assessments/personality-test/', '_blank')" class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm">
+                            Quick Launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white cursor-pointer" onclick="toggleCard('card3')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl">💭</span>
+                            <div>
+                                <h3 class="text-xl font-bold">Emotional Intelligence Assessment</h3>
+                                <span class="text-sm opacity-90">Emotional Intelligence</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm opacity-75">v1.0</div>
+                            <div id="arrow3">▼</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="card3" class="hidden p-6">
+                    <p class="text-gray-700 mb-4">
+                        Ability-based emotional intelligence measurement using the four-branch model (perceiving, using, understanding, managing emotions).
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-sm text-gray-600 mb-4">
+                        <span class="bg-gray-100 px-2 py-1 rounded-full">📝 20 scenarios</span>
+                    </div>
+                    <button onclick="window.open('/assessments/ei-test/', '_blank')" class="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-md hover:opacity-90">
+                        Launch EI Assessment
+                    </button>
+                </div>
+                
+                <div id="quick3" class="p-4 bg-gray-50 border-t">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600">Click to view details</span>
+                        <button onclick="window.open('/assessments/ei-test/', '_blank')" class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded text-sm">
+                            Quick Launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleCard(cardId) {
+            const card = document.getElementById(cardId);
+            const arrow = document.getElementById('arrow' + cardId.slice(-1));
+            const quick = document.getElementById('quick' + cardId.slice(-1));
+            
+            if (card.classList.contains('hidden')) {
+                card.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+                quick.classList.add('hidden');
+            } else {
+                card.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+                quick.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

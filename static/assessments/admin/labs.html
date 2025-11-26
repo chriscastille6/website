@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Lab Management Dashboard -->
+    <!-- Location: /static/assessments/admin/labs.html -->
+    <!-- Purpose: Admin interface for managing labs and assigning assessments -->
+    <!-- Why: Allows admins to control which labs have access to which assessments -->
+    <!-- RELEVANT FILES: static/assessments/shared/access-control.js, supabase-schema.sql -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Management - Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .badge-inactive {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .error {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            color: #c53030;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/access-control.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Lab Management</h1>
+            <div>
+                <a href="/assessments/admin/assessments.html" class="btn btn-primary">Manage Assessments</a>
+                <a href="/assessments/dashboard/" class="btn btn-secondary" style="margin-left: 8px;">Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="errorMessage" class="error" style="display: none;"></div>
+
+        <div class="card">
+            <h2>Labs</h2>
+            <table id="labsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Assessments</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="labsTableBody">
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px;">
+                            Loading labs...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Assign Assessments to Labs</h2>
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Select Lab:</label>
+                <select id="labSelect" style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <option value="">Loading...</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Select Assessment:</label>
+                <select id="assessmentSelect" style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <option value="">Loading...</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Access Level:</label>
+                <select id="accessLevelSelect" style="width: 100%; padding: 8px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <option value="full">Full Access</option>
+                    <option value="limited">Limited Access</option>
+                    <option value="demo">Demo Access</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" id="assignBtn">Assign Assessment</button>
+        </div>
+    </div>
+
+    <script>
+        const supabase = window.AssessmentLibrary?.supabase;
+        const accessControl = new AccessControl(supabase);
+
+        // Check if user is admin
+        accessControl.isAdmin().then(async (isAdmin) => {
+            if (!isAdmin) {
+                document.getElementById('errorMessage').textContent = 'Access denied. Admin privileges required.';
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+
+            await loadLabs();
+            await loadAssessments();
+        });
+
+        async function loadLabs() {
+            const { data: labs, error } = await supabase
+                .from('labs')
+                .select('*')
+                .order('name');
+
+            if (error) {
+                document.getElementById('errorMessage').textContent = 'Error loading labs: ' + error.message;
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
+
+            // Populate labs select
+            const labSelect = document.getElementById('labSelect');
+            labSelect.innerHTML = '<option value="">Select a lab...</option>';
+            labs.forEach(lab => {
+                const option = document.createElement('option');
+                option.value = lab.id;
+                option.textContent = lab.name;
+                labSelect.appendChild(option);
+            });
+
+            // Populate labs table
+            const tbody = document.getElementById('labsTableBody');
+            if (labs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px;">No labs found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = await Promise.all(labs.map(async (lab) => {
+                // Get assessment count
+                const { count } = await supabase
+                    .from('lab_assessments')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('lab_id', lab.id)
+                    .eq('is_active', true);
+
+                return `
+                    <tr>
+                        <td><strong>${lab.name}</strong></td>
+                        <td>${lab.description || '-'}</td>
+                        <td>
+                            <span class="badge ${lab.is_active ? 'badge-active' : 'badge-inactive'}">
+                                ${lab.is_active ? 'Active' : 'Inactive'}
+                            </span>
+                        </td>
+                        <td>${count || 0} assessments</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="viewLabAssessments('${lab.id}', '${lab.name}')">
+                                View Assessments
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            })).then(rows => rows.join(''));
+        }
+
+        async function loadAssessments() {
+            const { data: assessments, error } = await supabase
+                .from('assessments')
+                .select('*')
+                .eq('is_active', true)
+                .order('title');
+
+            if (error) {
+                console.error('Error loading assessments:', error);
+                return;
+            }
+
+            const assessmentSelect = document.getElementById('assessmentSelect');
+            assessmentSelect.innerHTML = '<option value="">Select an assessment...</option>';
+            assessments.forEach(assessment => {
+                const option = document.createElement('option');
+                option.value = assessment.id;
+                option.textContent = assessment.title;
+                assessmentSelect.appendChild(option);
+            });
+        }
+
+        document.getElementById('assignBtn').addEventListener('click', async () => {
+            const labId = document.getElementById('labSelect').value;
+            const assessmentId = document.getElementById('assessmentSelect').value;
+            const accessLevel = document.getElementById('accessLevelSelect').value;
+
+            if (!labId || !assessmentId) {
+                alert('Please select both a lab and an assessment');
+                return;
+            }
+
+            const { error } = await supabase
+                .from('lab_assessments')
+                .insert([{
+                    lab_id: labId,
+                    assessment_id: assessmentId,
+                    access_level: accessLevel,
+                    is_active: true
+                }])
+                .select();
+
+            if (error) {
+                if (error.code === '23505') {
+                    alert('This assessment is already assigned to this lab');
+                } else {
+                    alert('Error assigning assessment: ' + error.message);
+                }
+                return;
+            }
+
+            alert('Assessment assigned successfully!');
+            await loadLabs();
+        });
+
+        async function viewLabAssessments(labId, labName) {
+            const { data: labAssessments, error } = await supabase
+                .from('lab_assessments')
+                .select(`
+                    *,
+                    assessments (
+                        name,
+                        title
+                    )
+                `)
+                .eq('lab_id', labId)
+                .eq('is_active', true);
+
+            if (error) {
+                alert('Error loading assessments: ' + error.message);
+                return;
+            }
+
+            const assessmentList = labAssessments.map(la => 
+                `- ${la.assessments.title} (${la.access_level})`
+            ).join('\n');
+
+            alert(`${labName} Assessments:\n\n${assessmentList || 'No assessments assigned'}`);
+        }
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,133 @@
+{{/* 
+File: layouts/publication/list.html
+Purpose: Renders the publication index page with only manual content (no automatic listing)
+Why: Prevents duplicate publication listings - user manually curates publications in _index.md
+RELEVANT FILES: content/publication/_index.md, layouts/publication/single.html
+*/}}
+{{ define "main" }}
+<div class="universal-wrapper" id="publication-manual-content">
+  <h1>{{ .Title }}</h1>
+  {{ with .Content }}
+  <div class="article-style">{{ . }}</div>
+  {{ end }}
+</div>
+<script>
+(function() {
+  function removeDuplicatePublications() {
+    const manualContent = document.getElementById('publication-manual-content');
+    if (!manualContent) {
+      console.log('Manual content not found');
+      return;
+    }
+    
+    // Find the main container - could be parent or a wrapper
+    let container = manualContent.parentElement;
+    while (container && !container.classList.contains('container') && container.tagName !== 'MAIN' && container.tagName !== 'BODY') {
+      container = container.parentElement;
+    }
+    if (!container) container = document.body;
+    
+    // Remove everything after our manual content within the container
+    let element = manualContent.nextSibling;
+    while (element) {
+      const next = element.nextSibling;
+      if (element.nodeType === 1) { // Element node
+        element.remove();
+      } else if (element.nodeType === 3 && element.textContent.trim()) { // Text node with content
+        element.remove();
+      }
+      element = next;
+    }
+    
+    // Also aggressively remove any publication-related elements outside article-style
+    const selectors = [
+      '.pub-list-item',
+      '.view-citation',
+      '.article-metadata.li-cite-author',
+      '[class*="pub-"]',
+      '[class*="citation"]'
+    ];
+    
+    selectors.forEach(function(selector) {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(function(el) {
+        const inArticleStyle = el.closest('.article-style');
+        if (!inArticleStyle) {
+          // Remove the parent row or container
+          const row = el.closest('.row');
+          if (row) {
+            row.remove();
+          } else {
+            el.remove();
+          }
+        }
+      });
+    });
+    
+    // Remove any divs/rows that contain publication titles matching the duplicate pattern
+    const duplicateTitles = [
+      "Women's and Men's Authorship Experiences",
+      "A Primer on Open Science",
+      "Big team science initiatives",
+      "Shedding Light on Invisible Influences",
+      "Translational Science, Open Science",
+      "A brighter vision of the potential of open science",
+      "The open science challenge",
+      "To partial or not",
+      "The Incremental Value of Controlling",
+      "The search for meaningful work",
+      "Assessing ideal personalities at work",
+      "Disparate treatment and adverse impact",
+      "How does collaborative cheating emerge",
+      "Prosocial citizens without a moral compass",
+      "The Psychological Science Accelerator",
+      "Prevailing to the peers' detriment",
+      "Bright or dark, or virtues and vices",
+      "Some key research questions for mindfulness",
+      "The Five Factor Model of personality",
+      "An investigation of musical performance anxiety"
+    ];
+    
+    duplicateTitles.forEach(function(title) {
+      const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let node;
+      while (node = walker.nextNode()) {
+        if (node.textContent.includes(title)) {
+          const parent = node.parentElement;
+          const inArticleStyle = parent.closest('.article-style');
+          if (!inArticleStyle) {
+            // Find the containing row or div and remove it
+            const row = parent.closest('.row') || parent.closest('div[class*="col"]');
+            if (row) {
+              row.remove();
+              break; // Found and removed, move to next title
+            }
+          }
+        }
+      }
+    });
+  }
+  
+  // Run multiple times to ensure we catch everything
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      removeDuplicatePublications();
+      setTimeout(removeDuplicatePublications, 100);
+      setTimeout(removeDuplicatePublications, 500);
+      setTimeout(removeDuplicatePublications, 1000);
+    });
+  } else {
+    removeDuplicatePublications();
+    setTimeout(removeDuplicatePublications, 100);
+    setTimeout(removeDuplicatePublications, 500);
+    setTimeout(removeDuplicatePublications, 1000);
+  }
+})();
+</script>
+{{ end }} 

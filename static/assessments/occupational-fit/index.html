@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Occupational Fit Assessment -->
+    <!-- Location: /static/assessments/occupational-fit/index.html -->
+    <!-- Purpose: React-based adaptive conjoint analysis for employee preferences (Slade et al. 2002) -->
+    <!-- Why: Converts R Shiny app to modern web interface with Supabase backend -->
+    <!-- RELEVANT FILES: employee_preferences_app/app.R, static/assessments/shared/supabase-client.js -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Occupational Fit Assessment - PAL of the Bayou</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Supabase client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Assessment Library components -->
+    <script src="../shared/supabase-client.js"></script>
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .choice-card {
+            transition: all 0.3s ease;
+        }
+        .choice-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div id="occupational-fit-root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback } = React;
+        const { AssessmentData, AssessmentUtils, AssessmentError } = window.AssessmentLibrary;
+
+        // Attribute definitions (from original R app)
+        const ATTRIBUTES = {
+            "Base pay": {
+                levels: ["0%", "10%", "20%"],
+                labels: {
+                    "0%": "No change in current annual base pay (with ongoing merit opportunity)",
+                    "10%": "10% more than the current annual base pay (with ongoing merit opportunity)", 
+                    "20%": "20% more than current annual base pay (with ongoing merit opportunity)"
+                },
+                costs: { "0%": 0.0, "10%": 10.0, "20%": 20.0 }
+            },
+            "Learning": {
+                levels: ["0", "40", "60+Mentor"],
+                labels: {
+                    "0": "You negotiate training opportunities with your manager",
+                    "40": "Managers are held accountable for ensuring at least 40 hours of formal training/yr",
+                    "60+Mentor": "Assurance of at least 60 hours of formal training per year, plus mentoring program"
+                },
+                costs: { "0": 0.0, "40": 1.5, "60+Mentor": 2.5 }
+            },
+            "Manager effectiveness": {
+                levels: ["Average", "Enhanced"],
+                labels: {
+                    "Average": "No change in your manager's effectiveness",
+                    "Enhanced": "Organization invests to ensure your manager excels at delegating, motivating, being fair, and empowering"
+                },
+                costs: { "Average": 0.0, "Enhanced": 1.5 }
+            },
+            "Internal job market": {
+                levels: ["StatusQuo", "ApplyNoPermission", "ActiveRecruit"],
+                labels: {
+                    "StatusQuo": "No change in current internal job market practices (i.e., online career center, current transfer policy)",
+                    "ApplyNoPermission": "You may apply for other internal positions without manager's permission",
+                    "ActiveRecruit": "Managers are allowed to actively recruit employees from other departments"
+                },
+                costs: { "StatusQuo": 0.0, "ApplyNoPermission": 0.5, "ActiveRecruit": 1.0 }
+            },
+            "Health care": {
+                levels: ["Premium25to50", "NoChange", "CashWaiver"],
+                labels: {
+                    "Premium25to50": "You pay a total monthly health care premium between $25–$50 for all dependent coverage",
+                    "NoChange": "No change to current health care program",
+                    "CashWaiver": "You receive cash for waiving portions of health care coverage"
+                },
+                costs: { "Premium25to50": 0.0, "NoChange": 2.0, "CashWaiver": 1.0 }
+            }
+        };
+
+        // Generate all possible profiles
+        const generateProfiles = () => {
+            const attributeNames = Object.keys(ATTRIBUTES);
+            const levelCombinations = [];
+            
+            const generateCombinations = (attrIndex, currentProfile) => {
+                if (attrIndex === attributeNames.length) {
+                    levelCombinations.push({ ...currentProfile });
+                    return;
+                }
+                
+                const attrName = attributeNames[attrIndex];
+                const levels = ATTRIBUTES[attrName].levels;
+                
+                for (const level of levels) {
+                    currentProfile[attrName] = level;
+                    generateCombinations(attrIndex + 1, currentProfile);
+                }
+            };
+            
+            generateCombinations(0, {});
+            
+            return levelCombinations.map((profile, index) => ({
+                id: index,
+                ...profile
+            }));
+        };
+
+        // Simple adaptive choice engine (simplified from R version)
+        class AdaptiveEngine {
+            constructor() {
+                this.profiles = generateProfiles();
+                this.responses = [];
+                this.currentPreferences = this.initializePreferences();
+            }
+
+            initializePreferences() {
+                // Initialize with neutral preferences
+                const prefs = {};
+                Object.keys(ATTRIBUTES).forEach(attr => {
+                    prefs[attr] = {};
+                    ATTRIBUTES[attr].levels.forEach(level => {
+                        prefs[attr][level] = 0.0;
+                    });
+                });
+                return prefs;
+            }
+
+            updatePreferences(chosenProfile, rejectedProfile) {
+                // Simple preference learning: increase weights for chosen attributes
+                Object.keys(ATTRIBUTES).forEach(attr => {
+                    const chosenLevel = chosenProfile[attr];
+                    const rejectedLevel = rejectedProfile[attr];
+                    
+                    if (chosenLevel !== rejectedLevel) {
+                        this.currentPreferences[attr][chosenLevel] += 0.1;
+                        this.currentPreferences[attr][rejectedLevel] -= 0.05;
+                    }
+                });
+            }
+
+            calculateUtility(profile) {
+                let utility = 0;
+                Object.keys(ATTRIBUTES).forEach(attr => {
+                    const level = profile[attr];
+                    utility += this.currentPreferences[attr][level] || 0;
+                });
+                return utility + Math.random() * 0.1; // Add noise
+            }
+
+            getNextChoiceTask() {
+                // Select two profiles with different utilities for good discrimination
+                const shuffled = [...this.profiles].sort(() => Math.random() - 0.5);
+                
+                let profileA = shuffled[0];
+                let profileB = shuffled[1];
+                
+                // Try to find profiles with meaningful differences
+                for (let i = 0; i < Math.min(20, shuffled.length - 1); i++) {
+                    for (let j = i + 1; j < Math.min(20, shuffled.length); j++) {
+                        const utilA = this.calculateUtility(shuffled[i]);
+                        const utilB = this.calculateUtility(shuffled[j]);
+                        
+                        if (Math.abs(utilA - utilB) > 0.1) {
+                            profileA = shuffled[i];
+                            profileB = shuffled[j];
+                            break;
+                        }
+                    }
+                }
+
+                return { profileA, profileB };
+            }
+
+            recordChoice(chosenProfile, rejectedProfile) {
+                this.responses.push({ chosen: chosenProfile, rejected: rejectedProfile });
+                this.updatePreferences(chosenProfile, rejectedProfile);
+            }
+
+            getBestProfile() {
+                return this.profiles.reduce((best, profile) => {
+                    const utility = this.calculateUtility(profile);
+                    return utility > this.calculateUtility(best) ? profile : best;
+                });
+            }
+        }
+
+        // Profile display component
+        const ProfileCard = ({ profile, onSelect, label, isSelected = false }) => {
+            const totalCost = Object.keys(ATTRIBUTES).reduce((sum, attr) => {
+                return sum + ATTRIBUTES[attr].costs[profile[attr]];
+            }, 0);
+
+            return (
+                <div className={`choice-card bg-white rounded-lg border-2 p-6 cursor-pointer ${
+                    isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-blue-300'
+                }`} onClick={onSelect}>
+                    <h3 className="text-xl font-semibold mb-4 text-center text-gray-800">
+                        {label}
+                    </h3>
+                    
+                    <div className="space-y-4">
+                        {Object.keys(ATTRIBUTES).map(attr => (
+                            <div key={attr} className="border-b border-gray-100 pb-3 last:border-b-0">
+                                <div className="font-medium text-gray-700 mb-1">{attr}:</div>
+                                <div className="text-sm text-gray-600 leading-relaxed">
+                                    {ATTRIBUTES[attr].labels[profile[attr]]}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                        <div className="text-sm text-gray-500 text-center">
+                            Estimated annual cost: <span className="font-semibold">${totalCost.toFixed(1)}K per employee</span>
+                        </div>
+                    </div>
+                    
+                    <button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md transition-colors duration-200">
+                        Choose {label}
+                    </button>
+                </div>
+            );
+        };
+
+        // Main assessment component
+        const OccupationalFitAssessment = () => {
+            const [stage, setStage] = useState('intro'); // intro, tasks, assessment, results
+            const [taskNumber, setTaskNumber] = useState(0);
+            const [engine, setEngine] = useState(null);
+            const [currentTask, setCurrentTask] = useState(null);
+            const [assessmentData, setAssessmentData] = useState(null);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+            const [assessmentResponses, setAssessmentResponses] = useState({});
+            const [results, setResults] = useState(null);
+
+            const MAX_TASKS = 8;
+
+            useEffect(() => {
+                initializeAssessment();
+            }, []);
+
+            const initializeAssessment = async () => {
+                try {
+                    setLoading(true);
+                    // Demo mode - skip database initialization
+                    // const data = new AssessmentData('occupational-fit');
+                    // await data.initialize();
+                    // setAssessmentData(data);
+                    
+                    const adaptiveEngine = new AdaptiveEngine();
+                    setEngine(adaptiveEngine);
+                    
+                    // Simulate loading delay
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                } catch (err) {
+                    console.error('Initialization error:', err);
+                    setError({ user: 'Failed to initialize assessment. This is a demo version.' });
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            const startTasks = () => {
+                if (engine) {
+                    const task = engine.getNextChoiceTask();
+                    setCurrentTask(task);
+                    setStage('tasks');
+                    setTaskNumber(1);
+                }
+            };
+
+            const handleChoice = async (chosenProfile, rejectedProfile) => {
+                if (!engine) return;
+
+                try {
+                    // Record choice in engine
+                    engine.recordChoice(chosenProfile, rejectedProfile);
+
+                    // Demo mode - skip database save
+                    // await assessmentData.saveResponse(...)
+                    console.log('Demo: Choice recorded', { chosenProfile, rejectedProfile });
+
+                    // Move to next task or assessment
+                    if (taskNumber < MAX_TASKS) {
+                        const nextTask = engine.getNextChoiceTask();
+                        setCurrentTask(nextTask);
+                        setTaskNumber(prev => prev + 1);
+                    } else {
+                        setStage('assessment');
+                    }
+                } catch (err) {
+                    console.error('Choice handling error:', err);
+                    setError({ user: 'Error processing choice. This is a demo version.' });
+                }
+            };
+
+            const handleAssessmentResponse = (questionId, value) => {
+                setAssessmentResponses(prev => ({
+                    ...prev,
+                    [questionId]: value
+                }));
+            };
+
+            const completeAssessment = async () => {
+                if (!engine) return;
+
+                try {
+                    setLoading(true);
+
+                    // Demo mode - skip database saves
+                    console.log('Demo: Assessment responses', assessmentResponses);
+
+                    // Calculate results
+                    const bestProfile = engine.getBestProfile();
+                    const preferences = engine.currentPreferences;
+                    
+                    const scores = {
+                        best_profile: bestProfile,
+                        preferences: preferences,
+                        total_tasks: MAX_TASKS,
+                        assessment_responses: assessmentResponses
+                    };
+
+                    // Demo mode - skip database save
+                    console.log('Demo: Results calculated', scores);
+
+                    setResults(scores);
+                    setStage('results');
+                } catch (err) {
+                    console.error('Completion error:', err);
+                    setError({ user: 'Error completing assessment. This is a demo version.' });
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            if (loading) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center">
+                        <div className="text-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                            <p className="text-gray-600">Loading assessment...</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (error) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center">
+                        <div className="text-center max-w-md">
+                            <div className="text-red-600 text-xl mb-4">⚠️</div>
+                            <p className="text-gray-600 mb-4">{error.user}</p>
+                            <button 
+                                onClick={initializeAssessment}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+                            >
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Intro stage
+            if (stage === 'intro') {
+                return (
+                    <div className="min-h-screen bg-gray-50">
+                        <div className="gradient-bg text-white py-12">
+                            <div className="max-w-4xl mx-auto px-6 text-center">
+                                <h1 className="text-4xl font-bold mb-4">Occupational Fit Assessment</h1>
+                                <p className="text-xl opacity-90">
+                                    Discover your preferences for workplace benefits and compensation
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div className="max-w-4xl mx-auto px-6 py-12">
+                            <div className="bg-white rounded-lg shadow-md p-8">
+                                <h2 className="text-2xl font-semibold mb-6">About This Assessment</h2>
+                                
+                                <div className="prose max-w-none">
+                                    <p className="text-gray-700 mb-4">
+                                        This assessment uses <strong>adaptive conjoint analysis</strong> to understand your preferences 
+                                        for different workplace benefits and compensation packages. Based on the methodology from 
+                                        Slade et al. (2002), this approach helps organizations optimize their total rewards offerings.
+                                    </p>
+                                    
+                                    <h3 className="text-lg font-semibold mb-3">What You'll Do:</h3>
+                                    <ul className="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                                        <li>Compare {MAX_TASKS} pairs of job packages</li>
+                                        <li>Choose your preferred option in each comparison</li>
+                                        <li>Answer a few questions about the assessment</li>
+                                        <li>Receive your personalized preference profile</li>
+                                    </ul>
+                                    
+                                    <h3 className="text-lg font-semibold mb-3">Time Required:</h3>
+                                    <p className="text-gray-700 mb-6">Approximately 10-15 minutes</p>
+                                    
+                                    <h3 className="text-lg font-semibold mb-3">Privacy:</h3>
+                                    <p className="text-gray-700 mb-6">
+                                        Your responses are anonymous and used for research purposes. 
+                                        No personally identifiable information is collected.
+                                    </p>
+                                </div>
+                                
+                                <div className="text-center">
+                                    <button
+                                        onClick={startTasks}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-md text-lg transition-colors duration-200"
+                                    >
+                                        Begin Assessment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Choice tasks stage
+            if (stage === 'tasks' && currentTask) {
+                return (
+                    <div className="min-h-screen bg-gray-50">
+                        <div className="max-w-6xl mx-auto px-6 py-8">
+                            {/* Progress bar */}
+                            <div className="mb-8">
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-sm font-medium text-gray-700">Progress</span>
+                                    <span className="text-sm text-gray-500">
+                                        {taskNumber} of {MAX_TASKS} ({Math.round((taskNumber / MAX_TASKS) * 100)}%)
+                                    </span>
+                                </div>
+                                <div className="w-full bg-gray-200 rounded-full h-2">
+                                    <div 
+                                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                                        style={{ width: `${(taskNumber / MAX_TASKS) * 100}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <div className="text-center mb-8">
+                                <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                                    Choose Your Preferred Job Package
+                                </h2>
+                                <p className="text-gray-600">
+                                    Compare these two options and select the one you would prefer:
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <ProfileCard
+                                    profile={currentTask.profileA}
+                                    label="Option A"
+                                    onSelect={() => handleChoice(currentTask.profileA, currentTask.profileB)}
+                                />
+                                <ProfileCard
+                                    profile={currentTask.profileB}
+                                    label="Option B"
+                                    onSelect={() => handleChoice(currentTask.profileB, currentTask.profileA)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Assessment questions stage
+            if (stage === 'assessment') {
+                const questions = [
+                    { id: 'interesting', text: 'How interesting did you find this assessment?', scale: [1, 7] },
+                    { id: 'useful', text: 'How useful do you think this assessment is for understanding employee preferences?', scale: [1, 7] },
+                    { id: 'share_employer', text: 'How likely would you be to share these results with your employer?', scale: [1, 7] }
+                ];
+
+                const allAnswered = questions.every(q => assessmentResponses[q.id] !== undefined);
+
+                return (
+                    <div className="min-h-screen bg-gray-50">
+                        <div className="max-w-4xl mx-auto px-6 py-12">
+                            <div className="bg-white rounded-lg shadow-md p-8">
+                                <h2 className="text-2xl font-semibold mb-6">Assessment Questions</h2>
+                                <p className="text-gray-600 mb-8">
+                                    Please answer these brief questions about your experience:
+                                </p>
+
+                                <div className="space-y-8">
+                                    {questions.map(question => (
+                                        <div key={question.id}>
+                                            <h3 className="text-lg font-medium mb-4">{question.text}</h3>
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-sm text-gray-500">Strongly Disagree</span>
+                                                <div className="flex space-x-2">
+                                                    {[1, 2, 3, 4, 5, 6, 7].map(value => (
+                                                        <button
+                                                            key={value}
+                                                            onClick={() => handleAssessmentResponse(question.id, value)}
+                                                            className={`w-10 h-10 rounded-full border-2 font-semibold transition-all duration-200 ${
+                                                                assessmentResponses[question.id] === value
+                                                                    ? 'border-blue-500 bg-blue-500 text-white'
+                                                                    : 'border-gray-300 bg-white hover:border-blue-300'
+                                                            }`}
+                                                        >
+                                                            {value}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                                <span className="text-sm text-gray-500">Strongly Agree</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="text-center mt-8">
+                                    <button
+                                        onClick={completeAssessment}
+                                        disabled={!allAnswered || loading}
+                                        className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold px-8 py-3 rounded-md transition-colors duration-200"
+                                    >
+                                        {loading ? 'Processing...' : 'Complete Assessment'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Results stage
+            if (stage === 'results' && results) {
+                const bestProfile = results.best_profile;
+                const totalCost = Object.keys(ATTRIBUTES).reduce((sum, attr) => {
+                    return sum + ATTRIBUTES[attr].costs[bestProfile[attr]];
+                }, 0);
+
+                return (
+                    <div className="min-h-screen bg-gray-50">
+                        <div className="gradient-bg text-white py-12">
+                            <div className="max-w-4xl mx-auto px-6 text-center">
+                                <h1 className="text-4xl font-bold mb-4">Your Results</h1>
+                                <p className="text-xl opacity-90">
+                                    Based on your choices, here's your optimal job package
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div className="max-w-4xl mx-auto px-6 py-12">
+                            <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+                                <h2 className="text-2xl font-semibold mb-6">Your Optimal Job Package</h2>
+                                
+                                <div className="space-y-4 mb-6">
+                                    {Object.keys(ATTRIBUTES).map(attr => (
+                                        <div key={attr} className="border-b border-gray-100 pb-4 last:border-b-0">
+                                            <div className="font-medium text-gray-700 mb-2">{attr}:</div>
+                                            <div className="text-gray-600 bg-blue-50 p-3 rounded">
+                                                {ATTRIBUTES[attr].labels[bestProfile[attr]]}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                <div className="bg-gray-50 p-4 rounded-lg">
+                                    <div className="text-center">
+                                        <div className="text-lg font-semibold text-gray-700">
+                                            Estimated Annual Cost per Employee
+                                        </div>
+                                        <div className="text-3xl font-bold text-blue-600">
+                                            ${totalCost.toFixed(1)}K
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-lg shadow-md p-8">
+                                <h3 className="text-xl font-semibold mb-4">What This Means</h3>
+                                <div className="prose max-w-none text-gray-700">
+                                    <p>
+                                        This assessment used adaptive conjoint analysis to learn your preferences 
+                                        through your choices. The package above represents the combination of 
+                                        benefits and compensation that best matches your revealed preferences.
+                                    </p>
+                                    <p>
+                                        Organizations can use this type of analysis to design total rewards 
+                                        packages that maximize employee satisfaction while managing costs effectively.
+                                    </p>
+                                </div>
+                                
+                                <div className="text-center mt-6">
+                                    <button
+                                        onClick={() => window.location.reload()}
+                                        className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md mr-4"
+                                    >
+                                        Take Again
+                                    </button>
+                                    <a
+                                        href="/assessments/library/"
+                                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md inline-block"
+                                    >
+                                        Browse Other Assessments
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return null;
+        };
+
+        ReactDOM.render(<OccupationalFitAssessment />, document.getElementById('occupational-fit-root'));
+    </script>
+</body>
+</html>

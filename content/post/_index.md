@@ -1,5 +1,5 @@
 ---
-title: Artifacts
+title: In the Weeds
 
 # Listing view
 view: card
@@ -18,4 +18,4 @@ banner:
   image: ''
 ---
 
-{{< subscribe title="Subscribe to Artifacts" feed="/post/index.xml" >}}
+{{< subscribe title="Subscribe to In the Weeds" feed="/post/index.xml" >}}

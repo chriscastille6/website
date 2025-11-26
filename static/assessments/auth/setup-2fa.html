@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 2FA Setup Page -->
+    <!-- Location: /static/assessments/auth/setup-2fa.html -->
+    <!-- Purpose: Setup two-factor authentication for user accounts -->
+    <!-- Why: Provides secure two-factor authentication setup for enhanced account security -->
+    <!-- RELEVANT FILES: static/assessments/shared/auth-manager.js, static/assessments/auth/styles.css -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup 2FA - Assessment Library</title>
+    <link rel="stylesheet" href="/assessments/auth/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/auth-manager.js"></script>
+    <style>
+        .qr-container {
+            text-align: center;
+            margin: 24px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        #qrCode {
+            display: inline-block;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .secret-display {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            letter-spacing: 2px;
+            background: #edf2f7;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 12px 0;
+            word-break: break-all;
+        }
+
+        .setup-steps {
+            text-align: left;
+            margin: 20px 0;
+            padding: 16px;
+            background: #f7fafc;
+            border-radius: 8px;
+        }
+
+        .setup-steps ol {
+            margin: 12px 0;
+            padding-left: 24px;
+        }
+
+        .setup-steps li {
+            margin: 8px 0;
+            color: #4a5568;
+        }
+
+        .step-section {
+            display: none;
+        }
+
+        .step-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Setup Two-Factor Authentication</h1>
+            <p id="setupDescription">Secure your account with 2FA</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <!-- Step 1: Show QR Code and Secret -->
+        <div class="step-section active" id="step1">
+            <div class="setup-steps">
+                <h3 style="margin-bottom: 12px;">Step 1: Scan QR Code</h3>
+                <ol>
+                    <li>Install an authenticator app on your phone (Google Authenticator, Authy, Microsoft Authenticator, etc.)</li>
+                    <li>Scan the QR code below with your authenticator app</li>
+                    <li>Or manually enter the secret key if you can't scan</li>
+                </ol>
+            </div>
+
+            <div class="qr-container">
+                <div id="qrCode"></div>
+            </div>
+
+            <div style="margin: 16px 0;">
+                <p style="font-size: 14px; color: #4a5568; margin-bottom: 8px;">
+                    <strong>Secret Key (for manual entry):</strong>
+                </p>
+                <div class="secret-display" id="secretDisplay"></div>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="continueBtn" style="width: 100%;">
+                I've scanned the code, continue
+            </button>
+        </div>
+
+        <!-- Step 2: Verify Code -->
+        <div class="step-section" id="step2">
+            <form class="auth-form" id="verifyForm">
+                <div class="setup-steps">
+                    <h3 style="margin-bottom: 12px;">Step 2: Verify Setup</h3>
+                    <p style="color: #4a5568; margin-bottom: 16px;">
+                        Enter the 6-digit code from your authenticator app to complete setup.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="code">6-Digit Code</label>
+                    <input 
+                        type="text" 
+                        id="code" 
+                        name="code" 
+                        required 
+                        autocomplete="one-time-code"
+                        maxlength="6"
+                        pattern="[0-9]{6}"
+                        placeholder="000000"
+                        style="text-align: center; font-size: 24px; letter-spacing: 8px; font-family: 'Courier New', monospace;"
+                    >
+                    <div class="error-message" id="codeError"></div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="verifyBtn">
+                    Verify & Enable 2FA
+                </button>
+            </form>
+
+            <button type="button" class="btn btn-secondary" id="backBtn" style="width: 100%; margin-top: 12px;">
+                Back
+            </button>
+        </div>
+
+        <div class="auth-footer">
+            <p>
+                <a href="/assessments/dashboard/">Cancel and return to dashboard</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const authManager = new AuthManager();
+        let factorId = null;
+        let secret = null;
+        const urlParams = new URLSearchParams(window.location.search);
+        const isRequired = urlParams.get('required') === 'true';
+
+        // Check authentication
+        authManager.isAuthenticated().then(async (isAuth) => {
+            if (!isAuth) {
+                window.location.href = '/assessments/auth/login.html';
+                return;
+            }
+
+            // Update description if required
+            if (isRequired) {
+                document.getElementById('setupDescription').innerHTML = 
+                    '<strong style="color: #e53e3e;">Required:</strong> 2FA is required to access assessments, view results, and use AI coaching features.';
+            }
+
+            // Check if 2FA is already enabled
+            const { enabled } = await authManager.check2FAStatus();
+            if (enabled) {
+                document.getElementById('errorMessage').textContent = '2FA is already enabled for your account.';
+                document.getElementById('errorMessage').classList.add('show');
+                setTimeout(() => {
+                    window.location.href = '/assessments/dashboard/';
+                }, 2000);
+                return;
+            }
+
+            // Setup 2FA
+            await initialize2FA();
+        });
+
+        async function initialize2FA() {
+            try {
+                const { secret: setupSecret, qrCode, error } = await authManager.setup2FA();
+                
+                if (error) throw error;
+
+                secret = setupSecret;
+                
+                // Display secret
+                document.getElementById('secretDisplay').textContent = secret;
+
+                // Generate QR code
+                const qrData = `otpauth://totp/Assessment%20Library?secret=${secret}&issuer=Assessment%20Library`;
+                QRCode.toCanvas(document.getElementById('qrCode'), qrData, {
+                    width: 256,
+                    margin: 2,
+                    color: {
+                        dark: '#000000',
+                        light: '#FFFFFF'
+                    }
+                }, (err) => {
+                    if (err) {
+                        console.error('QR code generation error:', err);
+                        document.getElementById('qrCode').innerHTML = '<p style="color: #e53e3e;">Could not generate QR code. Please use the secret key above.</p>';
+                    }
+                });
+
+                // Get factor ID from the enrollment
+                const { data: factors } = await authManager.supabase.auth.mfa.listFactors();
+                if (factors && factors.totp && factors.totp.length > 0) {
+                    factorId = factors.totp[factors.totp.length - 1].id;
+                }
+            } catch (error) {
+                console.error('2FA setup error:', error);
+                document.getElementById('errorMessage').textContent = error.message || 'Failed to setup 2FA. Please try again.';
+                document.getElementById('errorMessage').classList.add('show');
+            }
+        }
+
+        // Continue to verification step
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('code').focus();
+        });
+
+        // Back to QR code step
+        document.getElementById('backBtn').addEventListener('click', () => {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+        });
+
+        // Format code input
+        document.getElementById('code').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6);
+        });
+
+        // Verify 2FA setup
+        document.getElementById('verifyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const code = document.getElementById('code').value;
+            const verifyBtn = document.getElementById('verifyBtn');
+            const codeError = document.getElementById('codeError');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+
+            // Clear previous errors
+            codeError.classList.remove('show');
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            document.getElementById('code').classList.remove('error');
+
+            // Validation
+            if (code.length !== 6) {
+                codeError.textContent = 'Please enter a 6-digit code';
+                codeError.classList.add('show');
+                document.getElementById('code').classList.add('error');
+                return;
+            }
+
+            if (!factorId) {
+                errorMessage.textContent = 'Setup error. Please refresh the page and try again.';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            // Disable submit button
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '<span class="loading"></span>Verifying...';
+
+            // Verify 2FA code
+            const { verified, error } = await authManager.verify2FASetup(code, factorId);
+
+            if (error || !verified) {
+                verifyBtn.disabled = false;
+                verifyBtn.innerHTML = 'Verify & Enable 2FA';
+
+                // Show error message
+                const errorMsg = error?.message || 'Invalid code. Please try again.';
+                codeError.textContent = errorMsg;
+                codeError.classList.add('show');
+                document.getElementById('code').classList.add('error');
+                document.getElementById('code').value = '';
+                document.getElementById('code').focus();
+            } else {
+                // Success - redirect to dashboard
+                successMessage.textContent = '2FA enabled successfully! Redirecting...';
+                successMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    window.location.href = '/assessments/dashboard/';
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>
+

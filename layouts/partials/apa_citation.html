@@ -1,0 +1,41 @@
+{{/* APA Citation Format */}}
+{{ $taxonomy := "authors" }}
+{{ if .Param $taxonomy }}
+  {{ $authors := .GetTerms $taxonomy }}
+  {{ $authorCount := len $authors }}
+  {{ range $index, $author := $authors }}
+    {{- $authorName := .LinkTitle -}}
+    {{- $parts := split $authorName ", " -}}
+    {{- $last := index $parts 0 -}}
+    {{- $firsts := (index $parts 1 | default "") -}}
+    {{- $firstInitial := (substr $firsts 0 1) -}}
+    {{- $formatted := printf "%s, %s." $last $firstInitial -}}
+    {{- if or (eq $authorName "Castille, Christopher M") (eq $authorName "Castille, Christopher") (eq $authorName "Christopher M Castille") (eq $authorName "Christopher Castille") (eq $authorName "Castille, C. M.") (eq $authorName "C. M. Castille") -}}
+      <strong>{{ $formatted }}</strong>
+    {{- else -}}
+      {{ $formatted }}
+    {{- end -}}
+    {{- if lt (add $index 1) $authorCount -}}
+      {{- if and (gt $authorCount 1) (eq (add $index 1) (sub $authorCount 1)) -}}
+        , &nbsp;
+      {{- else -}}
+        ,&nbsp;
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{ end }}
+ ({{ .Date.Format "2006" }}). 
+{{ $title := (replaceRE "[.]+$" "." .Title) }}
+{{ if .Params.url_source }}
+  <a href="{{ .Params.url_source }}" target="_blank" rel="noopener">{{ $title }}</a>
+{{ else if .Params.doi }}
+  <a href="https://doi.org/{{ .Params.doi }}" target="_blank" rel="noopener">{{ $title }}</a>
+{{ else }}
+  {{ $title }}
+{{ end }} 
+{{ if .Params.publication_short }}
+  <em>{{ .Params.publication_short | markdownify | plainify }}</em>.
+{{ else if .Params.publication }}
+  <em>{{ .Params.publication | markdownify | plainify }}</em>.
+{{ end }}
+{{ with .Params.doi }} <a href="https://doi.org/{{ . }}" target="_blank" rel="noopener">https://doi.org/{{ . }}</a>{{ end }} 

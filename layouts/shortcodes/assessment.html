@@ -1,0 +1,90 @@
+<!-- Hugo Shortcode for Embedding Assessments -->
+<!-- Location: /layouts/shortcodes/assessment.html -->
+<!-- Purpose: Hugo shortcode to embed individual assessments in content pages -->
+<!-- Why: Allows seamless integration of React assessments into Hugo static site -->
+<!-- RELEVANT FILES: static/assessments/library/index.html, content/post/*/index.md -->
+
+{{ $assessment_name := .Get 0 }}
+{{ $height := .Get 1 | default "800px" }}
+{{ $title := .Get 2 | default (printf "%s Assessment" ($assessment_name | title)) }}
+
+<div class="assessment-embed-container" style="margin: 2rem 0;">
+    <div class="assessment-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem; border-radius: 8px 8px 0 0;">
+        <h3 style="margin: 0; font-size: 1.25rem; font-weight: 600;">{{ $title }}</h3>
+        <p style="margin: 0.5rem 0 0 0; opacity: 0.9; font-size: 0.9rem;">
+            Interactive assessment - opens in full screen for best experience
+        </p>
+    </div>
+    
+    <div class="assessment-iframe-wrapper" style="position: relative; background: #f8f9fa; border: 1px solid #e9ecef; border-top: none; border-radius: 0 0 8px 8px;">
+        <iframe 
+            src="/assessments/{{ $assessment_name }}/"
+            width="100%" 
+            height="{{ $height }}"
+            frameborder="0"
+            title="{{ $title }}"
+            style="border-radius: 0 0 8px 8px; display: block;"
+            loading="lazy">
+        </iframe>
+        
+        <!-- Fallback for browsers that don't support iframes -->
+        <noscript>
+            <div style="padding: 2rem; text-align: center;">
+                <p>This assessment requires JavaScript to function properly.</p>
+                <a href="/assessments/{{ $assessment_name }}/" 
+                   target="_blank" 
+                   style="display: inline-block; background: #007bff; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; margin-top: 1rem;">
+                    Open Assessment in New Tab
+                </a>
+            </div>
+        </noscript>
+    </div>
+    
+    <!-- Launch in new tab button -->
+    <div class="assessment-actions" style="text-align: center; margin-top: 1rem;">
+        <a href="/assessments/{{ $assessment_name }}/" 
+           target="_blank" 
+           style="display: inline-block; background: #28a745; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; font-size: 0.9rem;">
+            🚀 Launch in Full Screen
+        </a>
+        <a href="/assessments/library/" 
+           target="_blank" 
+           style="display: inline-block; background: #6c757d; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 4px; font-size: 0.9rem; margin-left: 0.5rem;">
+            📚 Browse All Assessments
+        </a>
+    </div>
+</div>
+
+<!-- Responsive styles -->
+<style>
+    .assessment-embed-container {
+        max-width: 100%;
+        overflow: hidden;
+    }
+    
+    @media (max-width: 768px) {
+        .assessment-iframe-wrapper iframe {
+            height: 600px;
+        }
+        
+        .assessment-actions a {
+            display: block;
+            margin: 0.25rem 0;
+            text-align: center;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .assessment-iframe-wrapper iframe {
+            height: 500px;
+        }
+        
+        .assessment-header h3 {
+            font-size: 1.1rem;
+        }
+        
+        .assessment-header p {
+            font-size: 0.8rem;
+        }
+    }
+</style>

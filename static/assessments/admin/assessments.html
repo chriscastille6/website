@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Assessment Assignment Admin -->
+    <!-- Location: /static/assessments/admin/assessments.html -->
+    <!-- Purpose: Admin interface for assigning assessments to labs -->
+    <!-- Why: Provides centralized management of assessment access -->
+    <!-- RELEVANT FILES: static/assessments/admin/labs.html, static/assessments/shared/access-control.js -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Assignment - Admin</title>
+    <link rel="stylesheet" href="/assessments/admin/labs.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            font-weight: 600;
+            color: #4a5568;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/access-control.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Assessment Assignment</h1>
+            <div>
+                <a href="/assessments/admin/labs.html" class="btn btn-primary">Manage Labs</a>
+                <a href="/assessments/dashboard/" class="btn btn-secondary" style="margin-left: 8px;">Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Assessments</h2>
+            <table id="assessmentsTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Assigned Labs</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="assessmentsTableBody">
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 40px;">
+                            Loading assessments...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const supabase = window.AssessmentLibrary?.supabase;
+        const accessControl = new AccessControl(supabase);
+
+        accessControl.isAdmin().then(async (isAdmin) => {
+            if (!isAdmin) {
+                document.body.innerHTML = '<div class="container"><div class="card"><h2>Access Denied</h2><p>Admin privileges required.</p></div></div>';
+                return;
+            }
+
+            await loadAssessments();
+        });
+
+        async function loadAssessments() {
+            const { data: assessments, error } = await supabase
+                .from('assessments')
+                .select('*')
+                .eq('is_active', true)
+                .order('title');
+
+            if (error) {
+                console.error('Error loading assessments:', error);
+                return;
+            }
+
+            const tbody = document.getElementById('assessmentsTableBody');
+            if (assessments.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 40px;">No assessments found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = await Promise.all(assessments.map(async (assessment) => {
+                // Get lab assignments
+                const { data: labAssignments } = await supabase
+                    .from('lab_assessments')
+                    .select(`
+                        *,
+                        labs (
+                            name
+                        )
+                    `)
+                    .eq('assessment_id', assessment.id)
+                    .eq('is_active', true);
+
+                const labList = labAssignments && labAssignments.length > 0
+                    ? labAssignments.map(la => la.labs.name).join(', ')
+                    : 'No labs assigned';
+
+                return `
+                    <tr>
+                        <td><strong>${assessment.title}</strong></td>
+                        <td>${assessment.type}</td>
+                        <td>${labList}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="assignToLabs('${assessment.id}', '${assessment.title}')">
+                                Assign to Labs
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            })).then(rows => rows.join(''));
+        }
+
+        async function assignToLabs(assessmentId, assessmentTitle) {
+            // Get all labs
+            const { data: labs } = await supabase
+                .from('labs')
+                .select('*')
+                .eq('is_active', true)
+                .order('name');
+
+            // Get current assignments
+            const { data: currentAssignments } = await supabase
+                .from('lab_assessments')
+                .select('lab_id')
+                .eq('assessment_id', assessmentId)
+                .eq('is_active', true);
+
+            const assignedLabIds = currentAssignments ? currentAssignments.map(ca => ca.lab_id) : [];
+
+            // Simple prompt-based assignment (could be enhanced with modal)
+            const labNames = labs.map(lab => `${lab.name}${assignedLabIds.includes(lab.id) ? ' (assigned)' : ''}`).join('\n');
+            const selectedLabName = prompt(`Assign "${assessmentTitle}" to a lab:\n\n${labNames}\n\nEnter lab name:`);
+
+            if (!selectedLabName) return;
+
+            const selectedLab = labs.find(lab => lab.name.toLowerCase() === selectedLabName.toLowerCase());
+            if (!selectedLab) {
+                alert('Lab not found');
+                return;
+            }
+
+            // Check if already assigned
+            if (assignedLabIds.includes(selectedLab.id)) {
+                alert('Assessment is already assigned to this lab');
+                return;
+            }
+
+            // Assign
+            const { error } = await supabase
+                .from('lab_assessments')
+                .insert([{
+                    lab_id: selectedLab.id,
+                    assessment_id: assessmentId,
+                    access_level: 'full',
+                    is_active: true
+                }]);
+
+            if (error) {
+                alert('Error assigning assessment: ' + error.message);
+                return;
+            }
+
+            alert('Assessment assigned successfully!');
+            await loadAssessments();
+        }
+    </script>
+</body>
+</html>
+
+
+
+

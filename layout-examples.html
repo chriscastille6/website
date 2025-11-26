@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Layout Examples for Blog Post</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1400px; margin: 0 auto; padding: 20px; }
+        .example { margin: 40px 0; padding: 20px; border: 2px solid #ddd; }
+        h3 { color: #2c3e50; }
+        .row { display: flex; gap: 20px; margin: 20px 0; }
+        .col-6 { flex: 1; }
+        .col-4 { flex: 0 0 33.33%; }
+        .col-8 { flex: 0 0 66.66%; }
+        img { width: 100%; border: 1px solid #ccc; }
+        @media (max-width: 768px) { .row { flex-direction: column; } }
+    </style>
+</head>
+<body>
+    <h1>Blog Post Layout Examples</h1>
+
+    <!-- Example 1: Two-Column Side-by-Side -->
+    <div class="example">
+        <h3>Example 1: Side-by-Side Text and Image</h3>
+        <div class="row">
+            <div class="col-6">
+                <p>This is the text content. It flows alongside the image, making better use of horizontal space. The image sits on the right, text on the left.</p>
+                <p>You can have multiple paragraphs here. The layout adapts on mobile.</p>
+            </div>
+            <div class="col-6">
+                <img src="placeholder.jpg" alt="Example image" style="height: 200px; background: #f0f0f0;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 2: Three-Column Grid -->
+    <div class="example">
+        <h3>Example 2: Three-Column Grid for Research Streams</h3>
+        <div class="row">
+            <div class="col-4">
+                <h4>Research Theme 1</h4>
+                <p>Content for first research area goes here.</p>
+            </div>
+            <div class="col-4">
+                <h4>Research Theme 2</h4>
+                <p>Content for second research area goes here.</p>
+            </div>
+            <div class="col-4">
+                <h4>Research Theme 3</h4>
+                <p>Content for third research area goes here.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 3: Image with Text Wrapped Around -->
+    <div class="example">
+        <h3>Example 3: Image with Wrapped Text</h3>
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+            <img src="placeholder.jpg" alt="Example" style="width: 300px; height: 200px; background: #f0f0f0; flex-shrink: 0;">
+            <div>
+                <p>Text wraps around the image. The image is fixed width, text flows beside it. Good for smaller visuals that don't need full width.</p>
+                <p>More text continues here, making efficient use of space.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 4: Full-Width with Narrow Text Column -->
+    <div class="example">
+        <h3>Example 4: Full-Width Image, Narrow Text</h3>
+        <img src="placeholder.jpg" alt="Full width" style="width: 100%; height: 200px; background: #f0f0f0; margin-bottom: 20px;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <p>Text is constrained to a readable width (800px) even though the image is full-width. This prevents text from being too wide to read comfortably.</p>
+        </div>
+    </div>
+
+    <!-- Example 5: Asymmetric Layout -->
+    <div class="example">
+        <h3>Example 5: Asymmetric (Text Heavy, Small Image)</h3>
+        <div class="row">
+            <div class="col-8">
+                <p>Most of the space is used for text content. This is good when you have a lot to say and the image is supplementary.</p>
+                <p>More paragraphs can go here, making full use of the wider column.</p>
+            </div>
+            <div class="col-4">
+                <img src="placeholder.jpg" alt="Small image" style="height: 200px; background: #f0f0f0;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 6: Image Grid -->
+    <div class="example">
+        <h3>Example 6: Image Grid (2x2 or 3 columns)</h3>
+        <div class="row">
+            <div class="col-4">
+                <img src="placeholder.jpg" alt="Grid 1" style="height: 150px; background: #f0f0f0;">
+            </div>
+            <div class="col-4">
+                <img src="placeholder.jpg" alt="Grid 2" style="height: 150px; background: #f0f0f0;">
+            </div>
+            <div class="col-4">
+                <img src="placeholder.jpg" alt="Grid 3" style="height: 150px; background: #f0f0f0;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 7: Wide Content with Sidebar -->
+    <div class="example">
+        <h3>Example 7: Wide Main Content + Sidebar</h3>
+        <div class="row">
+            <div class="col-8">
+                <p>Main content takes up 2/3 of the width. This is your primary text and images.</p>
+                <p>More content flows here, using the wider space effectively.</p>
+            </div>
+            <div class="col-4" style="background: #f8f9fa; padding: 15px;">
+                <h4>Sidebar</h4>
+                <p>Key points, links, or supplementary info can go in a sidebar.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Example 8: Magazine Style -->
+    <div class="example">
+        <h3>Example 8: Magazine Style (Mixed Widths)</h3>
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+            <div>
+                <h4>Main Article</h4>
+                <p>Wider column for main content. Takes up more space.</p>
+            </div>
+            <div>
+                <h4>Callout Box</h4>
+                <p>Narrower column for highlights or key information.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

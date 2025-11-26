@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Login Page -->
+    <!-- Location: /static/assessments/auth/login.html -->
+    <!-- Purpose: User login interface for assessment library -->
+    <!-- Why: Provides secure authentication for users to access assessments -->
+    <!-- RELEVANT FILES: static/assessments/shared/auth-manager.js, static/assessments/auth/styles.css -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Assessment Library</title>
+    <link rel="stylesheet" href="/assessments/auth/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/auth-manager.js"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to access your assessments</p>
+            <p style="font-size: 14px; color: #718096; margin-top: 8px;">
+                <strong>Note:</strong> Two-factor authentication (2FA) is required to access assessments, view results, and use AI coaching.
+            </p>
+        </div>
+
+        <div class="success-message" id="successMessage"></div>
+
+        <form class="auth-form" id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required autocomplete="email">
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+                Sign In
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>
+                <a href="/assessments/auth/reset-password.html">Forgot your password?</a>
+            </p>
+            <p style="margin-top: 12px;">
+                Don't have an account? <a href="/assessments/auth/register.html">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const authManager = new AuthManager();
+
+        // Check if user is already logged in
+        authManager.isAuthenticated().then(async (isAuth) => {
+            if (isAuth) {
+                // Check if 2FA is enabled
+                const { enabled: has2FA } = await authManager.check2FAStatus();
+                if (!has2FA) {
+                    // Redirect to 2FA setup if not enabled
+                    const urlParams = new URLSearchParams(window.location.search);
+                    if (urlParams.get('setup2fa') === 'true') {
+                        window.location.href = '/assessments/auth/setup-2fa.html?required=true';
+                    } else {
+                        window.location.href = '/assessments/dashboard/';
+                    }
+                } else {
+                    window.location.href = '/assessments/dashboard/';
+                }
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submitBtn');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const successMessage = document.getElementById('successMessage');
+
+            // Clear previous errors
+            emailError.classList.remove('show');
+            passwordError.classList.remove('show');
+            successMessage.classList.remove('show');
+            document.getElementById('email').classList.remove('error');
+            document.getElementById('password').classList.remove('error');
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Signing in...';
+
+            // Attempt login
+            const { user, requires2FA, challengeId, error } = await authManager.signInWithPassword(email, password);
+
+            if (error) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Sign In';
+
+                // Show error message
+                if (error.message.includes('email') || error.message.includes('Email')) {
+                    emailError.textContent = error.message;
+                    emailError.classList.add('show');
+                    document.getElementById('email').classList.add('error');
+                } else if (error.message.includes('password') || error.message.includes('Password')) {
+                    passwordError.textContent = error.message;
+                    passwordError.classList.add('show');
+                    document.getElementById('password').classList.add('error');
+                } else {
+                    passwordError.textContent = error.message || 'Invalid email or password';
+                    passwordError.classList.add('show');
+                    document.getElementById('password').classList.add('error');
+                }
+            } else if (requires2FA) {
+                // Redirect to 2FA verification page
+                sessionStorage.setItem('2fa_challenge_id', challengeId);
+                window.location.href = `/assessments/auth/verify-2fa.html?email=${encodeURIComponent(email)}`;
+            } else {
+                // Success - redirect to dashboard
+                successMessage.textContent = 'Login successful! Redirecting...';
+                successMessage.classList.add('show');
+                setTimeout(() => {
+                    window.location.href = '/assessments/dashboard/';
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+

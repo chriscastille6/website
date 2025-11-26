@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- User Dashboard -->
+    <!-- Location: /static/assessments/dashboard/index.html -->
+    <!-- Purpose: User dashboard showing profile, assessment history, and research opt-in -->
+    <!-- Why: Provides users with access to their assessment data and account management -->
+    <!-- RELEVANT FILES: static/assessments/shared/auth-manager.js, static/assessments/shared/participant-id-generator.js -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Assessment Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f7fafc;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #2d3748;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #2d3748;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .profile-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .profile-item:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .profile-value {
+            color: #2d3748;
+        }
+
+        .assessment-list {
+            list-style: none;
+        }
+
+        .assessment-item {
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .assessment-item:hover {
+            background: #f7fafc;
+        }
+
+        .assessment-info h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .assessment-info p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .assessment-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .research-opt-in {
+            background: #edf2f7;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .research-opt-in h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .research-opt-in p {
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 16px;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e0;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .participant-id-display {
+            background: #c6f6d5;
+            border: 1px solid #9ae6b4;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #22543d;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .error {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            color: #c53030;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/auth-manager.js"></script>
+    <script src="/assessments/shared/participant-id-generator.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Assessment Library Dashboard</h1>
+            <div class="header-actions">
+                <a href="/assessments/library/" class="btn btn-primary">Browse Assessments</a>
+                <button class="btn btn-secondary" id="logoutBtn">Sign Out</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="loadingMessage" class="loading">Loading dashboard...</div>
+        <div id="errorMessage" class="error" style="display: none;"></div>
+        <div id="dashboardContent" style="display: none;">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h2>Profile Information</h2>
+                    <div class="profile-info" id="profileInfo">
+                        <!-- Profile data will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Assessment History</h2>
+                    <ul class="assessment-list" id="assessmentHistory">
+                        <!-- Assessment history will be loaded here -->
+                    </ul>
+                    <p id="noAssessments" style="color: #718096; display: none;">
+                        You haven't completed any assessments yet.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Security Settings</h2>
+                <div class="profile-info">
+                    <div class="profile-item">
+                        <span class="profile-label">Two-Factor Authentication:</span>
+                        <span class="profile-value" id="2faStatus">Loading...</span>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <button class="btn btn-primary" id="manage2FABtn" style="display: none;">
+                            Setup 2FA
+                        </button>
+                        <button class="btn btn-secondary" id="disable2FABtn" style="display: none;">
+                            Disable 2FA
+                        </button>
+                    </div>
+                    <p style="font-size: 14px; color: #718096; margin-top: 12px;">
+                        2FA is required to access assessments, view results, and use AI coaching features.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Research Participation</h2>
+                <div class="research-opt-in">
+                    <h3>Opt into Research</h3>
+                    <p>
+                        By opting into research, your assessment data will be tagged with a participant ID 
+                        for research purposes. Your name will never be stored with your participant ID.
+                    </p>
+                    <div class="toggle-switch">
+                        <label class="switch">
+                            <input type="checkbox" id="researchOptIn">
+                            <span class="slider"></span>
+                        </label>
+                        <span id="optInLabel">Opt into research participation</span>
+                    </div>
+                    <div id="participantIdDisplay" class="participant-id-display" style="display: none;">
+                        <strong>Your Participant ID:</strong> <span id="participantIdValue"></span>
+                        <p style="margin-top: 8px; font-size: 12px;">
+                            Save this ID if you want to request data removal later.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const authManager = new AuthManager();
+        const supabase = window.AssessmentLibrary?.supabase;
+
+        // Check authentication
+        authManager.isAuthenticated().then(async (isAuth) => {
+            if (!isAuth) {
+                window.location.href = '/assessments/auth/login.html';
+                return;
+            }
+
+            await loadDashboard();
+        });
+
+        async function loadDashboard() {
+            try {
+                // Load user profile
+                const profile = await authManager.getUserProfile();
+                if (!profile) {
+                    throw new Error('Could not load user profile');
+                }
+
+                // Display profile
+                document.getElementById('profileInfo').innerHTML = `
+                    <div class="profile-item">
+                        <span class="profile-label">Name:</span>
+                        <span class="profile-value">${profile.full_name || 'Not set'}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="profile-label">Email:</span>
+                        <span class="profile-value">${profile.email}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="profile-label">Lab:</span>
+                        <span class="profile-value">${profile.lab_id ? 'PAL' : 'Not assigned'}</span>
+                    </div>
+                    <div class="profile-item">
+                        <span class="profile-label">Role:</span>
+                        <span class="profile-value">${profile.role}</span>
+                    </div>
+                `;
+
+                // Load assessment history
+                const { data: results, error: resultsError } = await supabase
+                    .from('results')
+                    .select(`
+                        id,
+                        completed_at,
+                        scores,
+                        assessments (
+                            name,
+                            title
+                        )
+                    `)
+                    .eq('participant_id', (await supabase.from('participants').select('id').eq('user_id', profile.id).single()).data?.id)
+                    .order('completed_at', { ascending: false })
+                    .limit(10);
+
+                if (resultsError) {
+                    console.error('Error loading assessment history:', resultsError);
+                } else if (results && results.length > 0) {
+                    const historyList = document.getElementById('assessmentHistory');
+                    historyList.innerHTML = results.map(result => `
+                        <li class="assessment-item">
+                            <div class="assessment-info">
+                                <h3>${result.assessments?.title || 'Unknown Assessment'}</h3>
+                                <p>Completed: ${new Date(result.completed_at).toLocaleDateString()}</p>
+                            </div>
+                            <div class="assessment-actions">
+                                <a href="/assessments/${result.assessments?.name}/" class="btn btn-primary btn-small">View</a>
+                            </div>
+                        </li>
+                    `).join('');
+                } else {
+                    document.getElementById('noAssessments').style.display = 'block';
+                }
+
+                // Load research opt-in status
+                const { data: participant } = await supabase
+                    .from('participants')
+                    .select('participant_id, user_id')
+                    .eq('user_id', profile.id)
+                    .single();
+
+                if (participant) {
+                    document.getElementById('researchOptIn').checked = !!participant.participant_id;
+                    if (participant.participant_id) {
+                        document.getElementById('participantIdValue').textContent = participant.participant_id;
+                        document.getElementById('participantIdDisplay').style.display = 'block';
+                        document.getElementById('optInLabel').textContent = 'Opted into research';
+                    }
+                }
+
+                // Load 2FA status
+                await load2FAStatus();
+
+                // Show dashboard
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('dashboardContent').style.display = 'block';
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('errorMessage').textContent = error.message || 'An error occurred loading the dashboard.';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+
+        // Research opt-in toggle
+        document.getElementById('researchOptIn').addEventListener('change', async (e) => {
+            const isOptedIn = e.target.checked;
+            const profile = await authManager.getUserProfile();
+            
+            if (isOptedIn) {
+                // Generate participant ID (requires name input)
+                const name = profile.full_name || prompt('Please enter your full name to generate a participant ID:');
+                if (!name) {
+                    e.target.checked = false;
+                    return;
+                }
+
+                const participantId = ParticipantIdGenerator.generate(name);
+                if (!participantId) {
+                    alert('Could not generate participant ID. Please try again.');
+                    e.target.checked = false;
+                    return;
+                }
+
+                // Store participant ID
+                ParticipantIdGenerator.store(participantId, name);
+
+                // Update participant record
+                const { data: participant } = await supabase
+                    .from('participants')
+                    .select('id')
+                    .eq('user_id', profile.id)
+                    .single();
+
+                if (participant) {
+                    await supabase
+                        .from('participants')
+                        .update({ participant_id: participantId })
+                        .eq('id', participant.id);
+                }
+
+                document.getElementById('participantIdValue').textContent = participantId;
+                document.getElementById('participantIdDisplay').style.display = 'block';
+                document.getElementById('optInLabel').textContent = 'Opted into research';
+            } else {
+                // Remove participant ID
+                const { data: participant } = await supabase
+                    .from('participants')
+                    .select('id')
+                    .eq('user_id', profile.id)
+                    .single();
+
+                if (participant) {
+                    await supabase
+                        .from('participants')
+                        .update({ participant_id: null })
+                        .eq('id', participant.id);
+                }
+
+                localStorage.removeItem('participant_id');
+                localStorage.removeItem('participant_name_hash');
+                document.getElementById('participantIdDisplay').style.display = 'none';
+                document.getElementById('optInLabel').textContent = 'Opt into research participation';
+            }
+        });
+
+        // Load 2FA status
+        async function load2FAStatus() {
+            try {
+                const { enabled, factors } = await authManager.check2FAStatus();
+                const statusElement = document.getElementById('2faStatus');
+                const setupBtn = document.getElementById('manage2FABtn');
+                const disableBtn = document.getElementById('disable2FABtn');
+
+                if (enabled) {
+                    statusElement.textContent = 'Enabled';
+                    statusElement.style.color = '#38a169';
+                    setupBtn.style.display = 'none';
+                    disableBtn.style.display = 'inline-block';
+                } else {
+                    statusElement.textContent = 'Not Enabled';
+                    statusElement.style.color = '#e53e3e';
+                    setupBtn.style.display = 'inline-block';
+                    disableBtn.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading 2FA status:', error);
+                document.getElementById('2faStatus').textContent = 'Error loading status';
+            }
+        }
+
+        // Setup 2FA
+        document.getElementById('manage2FABtn').addEventListener('click', () => {
+            window.location.href = '/assessments/auth/setup-2fa.html';
+        });
+
+        // Disable 2FA
+        document.getElementById('disable2FABtn').addEventListener('click', async () => {
+            if (!confirm('Are you sure you want to disable 2FA? This will reduce your account security.')) {
+                return;
+            }
+
+            try {
+                const { enabled, factors } = await authManager.check2FAStatus();
+                if (factors && factors.totp && factors.totp.length > 0) {
+                    const factorId = factors.totp[0].id;
+                    const { error } = await authManager.disable2FA(factorId);
+                    
+                    if (error) {
+                        alert('Error disabling 2FA: ' + error.message);
+                    } else {
+                        alert('2FA has been disabled. Please reload the page.');
+                        await load2FAStatus();
+                    }
+                }
+            } catch (error) {
+                console.error('Error disabling 2FA:', error);
+                alert('Error disabling 2FA. Please try again.');
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await authManager.signOut();
+            window.location.href = '/assessments/auth/login.html';
+        });
+    </script>
+</body>
+</html>
+
+
+
+

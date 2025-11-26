@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- IRB Access Dashboard -->
+    <!-- Location: /static/assessments/admin/irb-dashboard.html -->
+    <!-- Purpose: Read-only dashboard for IRB to view study records and assessment data -->
+    <!-- Why: Provides IRB access to approved studies and their assessment usage -->
+    <!-- RELEVANT FILES: static/assessments/shared/sona-integration.js, supabase-schema.sql -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRB Dashboard - Assessment Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .export-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/assessments/shared/supabase-client.js"></script>
+    <script src="/assessments/shared/sona-integration.js"></script>
+    <script src="/assessments/shared/access-control.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>IRB Access Dashboard</h1>
+            <p style="color: #718096; margin-top: 4px;">Read-only access to study records and assessment data</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Filter Studies</h2>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="irbFilter">IRB Approval Number</label>
+                    <input type="text" id="irbFilter" placeholder="Enter IRB number">
+                </div>
+                <div class="filter-group">
+                    <label for="studyIdFilter">SONA Study ID</label>
+                    <input type="text" id="studyIdFilter" placeholder="Enter study ID">
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">Status</label>
+                    <select id="statusFilter">
+                        <option value="">All</option>
+                        <option value="active">Active</option>
+                        <option value="completed">Completed</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="filterStudies()">Apply Filters</button>
+            <button class="btn btn-secondary" onclick="clearFilters()" style="margin-left: 8px;">Clear</button>
+        </div>
+
+        <div class="card">
+            <h2>Approved Studies</h2>
+            <table id="studiesTable">
+                <thead>
+                    <tr>
+                        <th>SONA Study ID</th>
+                        <th>IRB Approval</th>
+                        <th>Title</th>
+                        <th>PI</th>
+                        <th>Status</th>
+                        <th>Assessments</th>
+                        <th>Participants</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studiesTableBody">
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px;">
+                            Loading studies...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const supabase = window.AssessmentLibrary?.supabase;
+        const accessControl = new AccessControl(supabase);
+        const sonaIntegration = new SONAIntegration(supabase);
+
+        accessControl.isResearcher().then(async (isResearcher) => {
+            if (!isResearcher) {
+                document.body.innerHTML = '<div class="container"><div class="card"><h2>Access Denied</h2><p>Researcher or admin privileges required for IRB access.</p></div></div>';
+                return;
+            }
+
+            await loadStudies();
+        });
+
+        async function loadStudies(filters = {}) {
+            let query = supabase
+                .from('sona_studies')
+                .select('*');
+
+            if (filters.irbApprovalNumber) {
+                query = query.eq('irb_approval_number', filters.irbApprovalNumber);
+            }
+            if (filters.sonaStudyId) {
+                query = query.eq('sona_study_id', filters.sonaStudyId);
+            }
+            if (filters.status) {
+                query = query.eq('status', filters.status);
+            }
+
+            const { data: studies, error } = await query.order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error loading studies:', error);
+                return;
+            }
+
+            const tbody = document.getElementById('studiesTableBody');
+            if (studies.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px;">No studies found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = await Promise.all(studies.map(async (study) => {
+                // Get assessment count
+                const { count: assessmentCount } = await supabase
+                    .from('study_assessments')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('study_id', study.id);
+
+                // Get participant count
+                const { count: participantCount } = await supabase
+                    .from('study_participants')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('study_id', study.id);
+
+                return `
+                    <tr>
+                        <td><strong>${study.sona_study_id}</strong></td>
+                        <td>${study.irb_approval_number}</td>
+                        <td>${study.title}</td>
+                        <td>${study.principal_investigator || '-'}</td>
+                        <td>${study.status}</td>
+                        <td>${assessmentCount || 0}</td>
+                        <td>${participantCount || 0}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="viewStudyDetails('${study.id}', '${study.sona_study_id}')">
+                                View Details
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            })).then(rows => rows.join(''));
+
+            // Log IRB access
+            studies.forEach(study => {
+                sonaIntegration.logIRBAccess(study.id, 'view', 'irb_dashboard');
+            });
+        }
+
+        function filterStudies() {
+            const filters = {
+                irbApprovalNumber: document.getElementById('irbFilter').value.trim(),
+                sonaStudyId: document.getElementById('studyIdFilter').value.trim(),
+                status: document.getElementById('statusFilter').value
+            };
+
+            // Remove empty filters
+            Object.keys(filters).forEach(key => {
+                if (!filters[key]) delete filters[key];
+            });
+
+            loadStudies(filters);
+        }
+
+        function clearFilters() {
+            document.getElementById('irbFilter').value = '';
+            document.getElementById('studyIdFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            loadStudies();
+        }
+
+        async function viewStudyDetails(studyId, sonaStudyId) {
+            // Get study details
+            const { data: study } = await supabase
+                .from('sona_studies')
+                .select('*')
+                .eq('id', studyId)
+                .single();
+
+            // Get assessments
+            const { data: assessments } = await supabase
+                .from('study_assessments')
+                .select(`
+                    *,
+                    assessments (
+                        name,
+                        title
+                    )
+                `)
+                .eq('study_id', studyId);
+
+            // Get participant count
+            const { count: participantCount } = await supabase
+                .from('study_participants')
+                .select('*', { count: 'exact', head: true })
+                .eq('study_id', studyId);
+
+            const assessmentList = assessments.map(sa => sa.assessments.title).join(', ');
+
+            alert(`Study: ${study.title}\n\n` +
+                  `SONA Study ID: ${study.sona_study_id}\n` +
+                  `IRB Approval: ${study.irb_approval_number}\n` +
+                  `PI: ${study.principal_investigator}\n` +
+                  `Status: ${study.status}\n` +
+                  `Participants: ${participantCount || 0}\n\n` +
+                  `Assessments Used:\n${assessmentList || 'None'}`);
+
+            // Log export access
+            sonaIntegration.logIRBAccess(studyId, 'export', 'irb_dashboard');
+        }
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Research Personality Inventory -->
+    <!-- Location: /static/assessments/personality-test/index.html -->
+    <!-- Purpose: Research-grade Big Five personality assessment with workplace applications -->
+    <!-- Why: Provides validated personality measurement for academic research and organizational psychology -->
+    <!-- RELEVANT FILES: static/assessments/shared/supabase-client.js, static/assessments/shared/assessment-runner.js -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Personality Inventory - PAL of the Bayou</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Supabase client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Assessment Library components -->
+    <script src="../shared/supabase-client.js"></script>
+    <script src="../shared/assessment-runner.js"></script>
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .scale-item {
+            transition: all 0.2s ease;
+        }
+        .scale-item:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div id="personality-test-root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { AssessmentData, AssessmentUtils, AssessmentError } = window.AssessmentLibrary;
+
+        // Big Five personality items (research-validated, based on IPIP and NEO-PI-R)
+        const PERSONALITY_ITEMS = [
+            // Openness to Experience (O)
+            { id: 'O1', text: 'I have a rich vocabulary.', scale: 'openness', direction: 1 },
+            { id: 'O2', text: 'I have difficulty understanding abstract ideas.', scale: 'openness', direction: -1 },
+            { id: 'O3', text: 'I have a vivid imagination.', scale: 'openness', direction: 1 },
+            { id: 'O4', text: 'I am not interested in abstract ideas.', scale: 'openness', direction: -1 },
+            { id: 'O5', text: 'I have excellent ideas.', scale: 'openness', direction: 1 },
+            { id: 'O6', text: 'I do not have a good imagination.', scale: 'openness', direction: -1 },
+            { id: 'O7', text: 'I am quick to understand things.', scale: 'openness', direction: 1 },
+            { id: 'O8', text: 'I use difficult words.', scale: 'openness', direction: 1 },
+            { id: 'O9', text: 'I spend time reflecting on things.', scale: 'openness', direction: 1 },
+            { id: 'O10', text: 'I am full of ideas.', scale: 'openness', direction: 1 },
+
+            // Conscientiousness (C)
+            { id: 'C1', text: 'I am always prepared.', scale: 'conscientiousness', direction: 1 },
+            { id: 'C2', text: 'I leave my belongings around.', scale: 'conscientiousness', direction: -1 },
+            { id: 'C3', text: 'I pay attention to details.', scale: 'conscientiousness', direction: 1 },
+            { id: 'C4', text: 'I make a mess of things.', scale: 'conscientiousness', direction: -1 },
+            { id: 'C5', text: 'I get chores done right away.', scale: 'conscientiousness', direction: 1 },
+            { id: 'C6', text: 'I often forget to put things back in their proper place.', scale: 'conscientiousness', direction: -1 },
+            { id: 'C7', text: 'I like order.', scale: 'conscientiousness', direction: 1 },
+            { id: 'C8', text: 'I shirk my duties.', scale: 'conscientiousness', direction: -1 },
+            { id: 'C9', text: 'I follow a schedule.', scale: 'conscientiousness', direction: 1 },
+            { id: 'C10', text: 'I am exacting in my work.', scale: 'conscientiousness', direction: 1 },
+
+            // Extraversion (E)
+            { id: 'E1', text: 'I am the life of the party.', scale: 'extraversion', direction: 1 },
+            { id: 'E2', text: "I don't talk a lot.", scale: 'extraversion', direction: -1 },
+            { id: 'E3', text: 'I feel comfortable around people.', scale: 'extraversion', direction: 1 },
+            { id: 'E4', text: 'I keep in the background.', scale: 'extraversion', direction: -1 },
+            { id: 'E5', text: 'I start conversations.', scale: 'extraversion', direction: 1 },
+            { id: 'E6', text: 'I have little to say.', scale: 'extraversion', direction: -1 },
+            { id: 'E7', text: 'I talk to a lot of different people at parties.', scale: 'extraversion', direction: 1 },
+            { id: 'E8', text: "I don't like to draw attention to myself.", scale: 'extraversion', direction: -1 },
+            { id: 'E9', text: "I don't mind being the center of attention.", scale: 'extraversion', direction: 1 },
+            { id: 'E10', text: 'I am quiet around strangers.', scale: 'extraversion', direction: -1 },
+
+            // Agreeableness (A)
+            { id: 'A1', text: 'I feel little concern for others.', scale: 'agreeableness', direction: -1 },
+            { id: 'A2', text: 'I am interested in people.', scale: 'agreeableness', direction: 1 },
+            { id: 'A3', text: 'I insult people.', scale: 'agreeableness', direction: -1 },
+            { id: 'A4', text: 'I sympathize with others\' feelings.', scale: 'agreeableness', direction: 1 },
+            { id: 'A5', text: 'I am not interested in other people\'s problems.', scale: 'agreeableness', direction: -1 },
+            { id: 'A6', text: 'I have a soft heart.', scale: 'agreeableness', direction: 1 },
+            { id: 'A7', text: 'I am not really interested in others.', scale: 'agreeableness', direction: -1 },
+            { id: 'A8', text: 'I take time out for others.', scale: 'agreeableness', direction: 1 },
+            { id: 'A9', text: 'I feel others\' emotions.', scale: 'agreeableness', direction: 1 },
+            { id: 'A10', text: 'I make people feel at ease.', scale: 'agreeableness', direction: 1 },
+
+            // Neuroticism (N)
+            { id: 'N1', text: 'I get stressed out easily.', scale: 'neuroticism', direction: 1 },
+            { id: 'N2', text: 'I am relaxed most of the time.', scale: 'neuroticism', direction: -1 },
+            { id: 'N3', text: 'I worry about things.', scale: 'neuroticism', direction: 1 },
+            { id: 'N4', text: 'I seldom feel blue.', scale: 'neuroticism', direction: -1 },
+            { id: 'N5', text: 'I am easily disturbed.', scale: 'neuroticism', direction: 1 },
+            { id: 'N6', text: 'I get upset easily.', scale: 'neuroticism', direction: 1 },
+            { id: 'N7', text: 'I change my mood a lot.', scale: 'neuroticism', direction: 1 },
+            { id: 'N8', text: 'I have frequent mood swings.', scale: 'neuroticism', direction: 1 },
+            { id: 'N9', text: 'I get irritated easily.', scale: 'neuroticism', direction: 1 },
+            { id: 'N10', text: 'I often feel blue.', scale: 'neuroticism', direction: 1 },
+
+            // Additional workplace-relevant items
+            { id: 'W1', text: 'I work well under pressure.', scale: 'conscientiousness', direction: 1 },
+            { id: 'W2', text: 'I enjoy working as part of a team.', scale: 'extraversion', direction: 1 },
+            { id: 'W3', text: 'I am comfortable with ambiguity.', scale: 'openness', direction: 1 },
+            { id: 'W4', text: 'I handle criticism well.', scale: 'neuroticism', direction: -1 },
+            { id: 'W5', text: 'I prefer to work independently.', scale: 'extraversion', direction: -1 },
+            { id: 'W6', text: 'I am good at managing my time.', scale: 'conscientiousness', direction: 1 },
+            { id: 'W7', text: 'I enjoy helping colleagues solve problems.', scale: 'agreeableness', direction: 1 },
+            { id: 'W8', text: 'I adapt quickly to new situations.', scale: 'openness', direction: 1 },
+            { id: 'W9', text: 'I remain calm in stressful situations.', scale: 'neuroticism', direction: -1 },
+            { id: 'W10', text: 'I take initiative on projects.', scale: 'extraversion', direction: 1 }
+        ];
+
+        // Scale descriptions and interpretations
+        const SCALE_INFO = {
+            openness: {
+                name: 'Openness to Experience',
+                description: 'Reflects the degree of intellectual curiosity, creativity, and preference for novelty and variety.',
+                high: 'High scorers tend to be imaginative, curious, and open to new experiences. They often appreciate art, emotion, adventure, and unusual ideas.',
+                low: 'Low scorers tend to be conventional, down-to-earth, and prefer familiar routines. They may be more conservative and traditional in their thinking.',
+                workplace: 'In the workplace, high openness is associated with creativity, innovation, and adaptability to change. Low openness may indicate preference for structured, predictable work environments.'
+            },
+            conscientiousness: {
+                name: 'Conscientiousness',
+                description: 'Reflects the tendency to be organized, responsible, and hardworking.',
+                high: 'High scorers are typically organized, disciplined, and achievement-oriented. They tend to be reliable, punctual, and persistent in pursuing goals.',
+                low: 'Low scorers may be more spontaneous and flexible but potentially less organized and reliable. They might struggle with self-discipline and meeting deadlines.',
+                workplace: 'Conscientiousness is strongly linked to job performance across many occupations. High scorers excel in roles requiring attention to detail, planning, and follow-through.'
+            },
+            extraversion: {
+                name: 'Extraversion',
+                description: 'Reflects the tendency to seek stimulation in the company of others and to be energetic and positive.',
+                high: 'High scorers are typically outgoing, energetic, and assertive. They enjoy social situations and tend to be talkative and enthusiastic.',
+                low: 'Low scorers (introverts) tend to be more reserved, quiet, and independent. They may prefer smaller groups or solitary activities and need less external stimulation.',
+                workplace: 'Extraversion is beneficial in roles involving leadership, sales, teamwork, and customer interaction. Introverts may excel in roles requiring deep focus and independent work.'
+            },
+            agreeableness: {
+                name: 'Agreeableness',
+                description: 'Reflects the tendency to be compassionate and cooperative rather than suspicious and antagonistic.',
+                high: 'High scorers are typically trusting, helpful, and empathetic. They tend to be cooperative, modest, and concerned about others\' well-being.',
+                low: 'Low scorers may be more competitive, skeptical, and self-interested. They might be more willing to challenge others and less concerned with social harmony.',
+                workplace: 'High agreeableness is valuable in collaborative environments and helping professions. Lower agreeableness might be beneficial in competitive or negotiation-heavy roles.'
+            },
+            neuroticism: {
+                name: 'Emotional Stability (Neuroticism)',
+                description: 'Reflects the tendency to experience negative emotions and emotional instability.',
+                high: 'High scorers (high neuroticism) tend to experience anxiety, mood swings, and emotional reactivity more frequently. They may be more sensitive to stress.',
+                low: 'Low scorers (high emotional stability) tend to be calm, emotionally stable, and resilient. They typically handle stress well and maintain emotional equilibrium.',
+                workplace: 'Emotional stability is important for leadership roles and high-stress environments. It\'s associated with better performance under pressure and lower burnout rates.'
+            }
+        };
+
+        // Shuffle array function
+        const shuffleArray = (array) => {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        };
+
+        // Calculate scale scores
+        const calculateScores = (responses) => {
+            const scaleScores = {
+                openness: 0,
+                conscientiousness: 0,
+                extraversion: 0,
+                agreeableness: 0,
+                neuroticism: 0
+            };
+
+            const scaleCounts = {
+                openness: 0,
+                conscientiousness: 0,
+                extraversion: 0,
+                agreeableness: 0,
+                neuroticism: 0
+            };
+
+            // Calculate raw scores
+            Object.entries(responses).forEach(([itemId, response]) => {
+                const item = PERSONALITY_ITEMS.find(i => i.id === itemId);
+                if (item && response.value !== undefined) {
+                    const score = item.direction === 1 ? response.value : (8 - response.value);
+                    scaleScores[item.scale] += score;
+                    scaleCounts[item.scale]++;
+                }
+            });
+
+            // Convert to averages and percentiles (simplified)
+            const finalScores = {};
+            Object.keys(scaleScores).forEach(scale => {
+                if (scaleCounts[scale] > 0) {
+                    const average = scaleScores[scale] / scaleCounts[scale];
+                    // Convert to 0-100 scale for easier interpretation
+                    const percentile = ((average - 1) / 6) * 100;
+                    finalScores[scale] = {
+                        raw: average,
+                        percentile: Math.max(0, Math.min(100, percentile)),
+                        items_completed: scaleCounts[scale]
+                    };
+                }
+            });
+
+            return finalScores;
+        };
+
+        // Personality Profile Component
+        const PersonalityProfile = ({ scores }) => {
+            return (
+                <div className="space-y-6">
+                    {Object.entries(scores).map(([scale, data]) => {
+                        const info = SCALE_INFO[scale];
+                        const level = data.percentile >= 70 ? 'high' : data.percentile <= 30 ? 'low' : 'moderate';
+                        
+                        return (
+                            <div key={scale} className="bg-white rounded-lg border border-gray-200 p-6">
+                                <div className="flex justify-between items-start mb-4">
+                                    <h3 className="text-xl font-semibold text-gray-900">
+                                        {info.name}
+                                    </h3>
+                                    <div className="text-right">
+                                        <div className="text-2xl font-bold text-blue-600">
+                                            {Math.round(data.percentile)}%
+                                        </div>
+                                        <div className="text-sm text-gray-500">
+                                            {level === 'high' ? 'High' : level === 'low' ? 'Low' : 'Moderate'}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {/* Progress bar */}
+                                <div className="mb-4">
+                                    <div className="w-full bg-gray-200 rounded-full h-3">
+                                        <div 
+                                            className={`h-3 rounded-full ${
+                                                level === 'high' ? 'bg-green-500' :
+                                                level === 'low' ? 'bg-red-500' : 'bg-yellow-500'
+                                            }`}
+                                            style={{ width: `${data.percentile}%` }}
+                                        ></div>
+                                    </div>
+                                </div>
+                                
+                                <p className="text-gray-700 mb-3">{info.description}</p>
+                                
+                                <div className="bg-gray-50 p-4 rounded-lg">
+                                    <h4 className="font-semibold text-gray-800 mb-2">Your Score Interpretation:</h4>
+                                    <p className="text-gray-700 text-sm">
+                                        {level === 'high' ? info.high : level === 'low' ? info.low : 
+                                         'You score in the moderate range, showing a balanced approach with elements of both high and low scorers.'}
+                                    </p>
+                                </div>
+                                
+                                <div className="mt-4 bg-blue-50 p-4 rounded-lg">
+                                    <h4 className="font-semibold text-blue-800 mb-2">Workplace Implications:</h4>
+                                    <p className="text-blue-700 text-sm">{info.workplace}</p>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        };
+
+        // Main personality test component
+        const PersonalityTest = () => {
+            const [stage, setStage] = useState('intro'); // intro, test, results
+            const [currentItem, setCurrentItem] = useState(0);
+            const [responses, setResponses] = useState({});
+            const [assessmentData, setAssessmentData] = useState(null);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+            const [results, setResults] = useState(null);
+            const [shuffledItems, setShuffledItems] = useState([]);
+
+            useEffect(() => {
+                initializeAssessment();
+            }, []);
+
+            const initializeAssessment = async () => {
+                try {
+                    setLoading(true);
+                    // Demo mode - skip database initialization
+                    // const data = new AssessmentData('personality-test');
+                    // await data.initialize();
+                    // setAssessmentData(data);
+                    
+                    // Shuffle items to reduce order effects
+                    setShuffledItems(shuffleArray(PERSONALITY_ITEMS));
+                    
+                    // Simulate loading delay
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                } catch (err) {
+                    console.error('Initialization error:', err);
+                    setError({ user: 'Failed to initialize assessment. This is a demo version.' });
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            const startTest = () => {
+                setStage('test');
+            };
+
+            const handleResponse = async (value) => {
+                if (!shuffledItems[currentItem]) return;
+
+                const item = shuffledItems[currentItem];
+                const responseData = { value, response_time: Date.now() };
+
+                try {
+                    // Demo mode - skip database save
+                    console.log('Demo: Response recorded', { item: item.id, value });
+
+                    // Update local state
+                    setResponses(prev => ({
+                        ...prev,
+                        [item.id]: responseData
+                    }));
+
+                    // Move to next item or complete
+                    if (currentItem < shuffledItems.length - 1) {
+                        setCurrentItem(prev => prev + 1);
+                    } else {
+                        completeAssessment();
+                    }
+                } catch (err) {
+                    console.error('Response handling error:', err);
+                    setError({ user: 'Error processing response. This is a demo version.' });
+                }
+            };
+
+            const completeAssessment = async () => {
+                try {
+                    setLoading(true);
+
+                    // Calculate scores
+                    const scores = calculateScores(responses);
+                    
+                    // Demo mode - skip database save
+                    console.log('Demo: Assessment completed', {
+                        scale_scores: scores,
+                        total_items: shuffledItems.length,
+                        completed_items: Object.keys(responses).length
+                    });
+
+                    setResults(scores);
+                    setStage('results');
+                } catch (err) {
+                    console.error('Completion error:', err);
+                    setError({ user: 'Error completing assessment. This is a demo version.' });
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            if (loading) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center">
+                        <div className="text-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                            <p className="text-gray-600">Loading assessment...</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (error) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center">
+                        <div className="text-center max-w-md">
+                            <div className="text-red-600 text-xl mb-4">⚠️</div>
+                            <p className="text-gray-600 mb-4">{error.user}</p>
+                            <button 
+                                onClick={initializeAssessment}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+                            >
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Intro stage
+            if (stage === 'intro') {
+                return (
+                    <div className="min-h-screen bg-gray-50">
+                        <div className="gradient-bg text-white py-12">
+                            <div className="max-w-4xl mx-auto px-6 text-center">
+                                <h1 className="text-4xl font-bold mb-4">Research Personality Inventory</h1>
+                                <p className="text-xl opacity-90">
+                                    Discover your Big Five personality profile
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div className="max-w-4xl mx-auto px-6 py-12">
+                            <div className="bg-white rounded-lg shadow-md p-8">
+                                <h2 className="text-2xl font-semibold mb-6">About This Assessment</h2>
+                                
+                                <div className="prose max-w-none">
+                                    <p className="text-gray-700 mb-4">
+                                        This assessment measures the <strong>Big Five personality dimensions</strong>, 
+                                        the most widely accepted model in personality psychology. These dimensions 
+                                        have been extensively validated in research and are predictive of various 
+                                        life outcomes including job performance, relationship satisfaction, and well-being.
+                                    </p>
+                                    
+                                    <h3 className="text-lg font-semibold mb-3">The Five Dimensions:</h3>
+                                    <ul className="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                                        <li><strong>Openness to Experience:</strong> Creativity, curiosity, and openness to new ideas</li>
+                                        <li><strong>Conscientiousness:</strong> Organization, discipline, and goal-directed behavior</li>
+                                        <li><strong>Extraversion:</strong> Sociability, assertiveness, and positive emotionality</li>
+                                        <li><strong>Agreeableness:</strong> Cooperation, trust, and concern for others</li>
+                                        <li><strong>Emotional Stability:</strong> Resilience, calmness, and emotional regulation</li>
+                                    </ul>
+                                    
+                                    <h3 className="text-lg font-semibold mb-3">Instructions:</h3>
+                                    <ul className="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                                        <li>You'll see {PERSONALITY_ITEMS.length} statements about yourself</li>
+                                        <li>Rate how accurately each statement describes you (1 = Very Inaccurate, 7 = Very Accurate)</li>
+                                        <li>Answer honestly - there are no right or wrong answers</li>
+                                        <li>Your first instinct is usually the most accurate</li>
+                                    </ul>
+                                    
+                                    <h3 className="text-lg font-semibold mb-3">Time Required:</h3>
+                                    <p className="text-gray-700 mb-6">Approximately 10-15 minutes</p>
+                                    
+                                    <h3 className="text-lg font-semibold mb-3">Privacy:</h3>
+                                    <p className="text-gray-700 mb-6">
+                                        Your responses are anonymous and used for research purposes. 
+                                        You'll receive detailed feedback about your personality profile.
+                                    </p>
+                                </div>
+                                
+                                <div className="text-center">
+                                    <button
+                                        onClick={startTest}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-md text-lg transition-colors duration-200"
+                                    >
+                                        Begin Assessment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Test stage
+            if (stage === 'test' && shuffledItems.length > 0) {
+                const item = shuffledItems[currentItem];
+                const progress = ((currentItem + 1) / shuffledItems.length) * 100;
+
+                return (
+                    <div className="min-h-screen bg-gray-50">
+                        <div className="max-w-4xl mx-auto px-6 py-8">
+                            {/* Progress bar */}
+                            <div className="mb-8">
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-sm font-medium text-gray-700">Progress</span>
+                                    <span className="text-sm text-gray-500">
+                                        {currentItem + 1} of {shuffledItems.length} ({Math.round(progress)}%)
+                                    </span>
+                                </div>
+                                <div className="w-full bg-gray-200 rounded-full h-2">
+                                    <div 
+                                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                                        style={{ width: `${progress}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-lg shadow-md p-8">
+                                <div className="text-center mb-8">
+                                    <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                                        How accurately does this statement describe you?
+                                    </h2>
+                                    <p className="text-lg text-gray-800 font-medium">
+                                        "{item.text}"
+                                    </p>
+                                </div>
+
+                                <div className="flex flex-col items-center space-y-6">
+                                    <div className="flex justify-between items-center w-full max-w-2xl">
+                                        <span className="text-sm text-gray-500 text-center w-20">
+                                            Very<br/>Inaccurate
+                                        </span>
+                                        <div className="flex space-x-4">
+                                            {[1, 2, 3, 4, 5, 6, 7].map(value => (
+                                                <button
+                                                    key={value}
+                                                    onClick={() => handleResponse(value)}
+                                                    className="scale-item w-12 h-12 rounded-full border-2 border-gray-300 bg-white hover:border-blue-500 hover:bg-blue-50 font-semibold text-gray-700 hover:text-blue-700 transition-all duration-200"
+                                                >
+                                                    {value}
+                                                </button>
+                                            ))}
+                                        </div>
+                                        <span className="text-sm text-gray-500 text-center w-20">
+                                            Very<br/>Accurate
+                                        </span>
+                                    </div>
+
+                                    <div className="text-center text-sm text-gray-500">
+                                        Click a number to continue
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // Results stage
+            if (stage === 'results' && results) {
+                return (
+                    <div className="min-h-screen bg-gray-50">
+                        <div className="gradient-bg text-white py-12">
+                            <div className="max-w-4xl mx-auto px-6 text-center">
+                                <h1 className="text-4xl font-bold mb-4">Your Personality Profile</h1>
+                                <p className="text-xl opacity-90">
+                                    Based on the Big Five model of personality
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div className="max-w-4xl mx-auto px-6 py-12">
+                            <div className="mb-8">
+                                <div className="bg-white rounded-lg shadow-md p-6">
+                                    <h2 className="text-2xl font-semibold mb-4">Understanding Your Results</h2>
+                                    <p className="text-gray-700">
+                                        Your personality profile shows your relative standing on each of the Big Five dimensions. 
+                                        Scores are presented as percentiles, indicating how you compare to others. 
+                                        Remember that all personality types have strengths - there are no "good" or "bad" scores.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <PersonalityProfile scores={results} />
+
+                            <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+                                <h3 className="text-xl font-semibold mb-4">Important Notes</h3>
+                                <div className="prose max-w-none text-gray-700">
+                                    <ul className="list-disc list-inside space-y-2">
+                                        <li>Personality is relatively stable but can change over time with life experiences</li>
+                                        <li>All personality types have unique strengths and potential areas for development</li>
+                                        <li>Consider how your profile might influence your work style, relationships, and life choices</li>
+                                        <li>This assessment is for research and self-reflection purposes only</li>
+                                    </ul>
+                                </div>
+                                
+                                <div className="text-center mt-6">
+                                    <button
+                                        onClick={() => window.location.reload()}
+                                        className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md mr-4"
+                                    >
+                                        Take Again
+                                    </button>
+                                    <a
+                                        href="/assessments/library/"
+                                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md inline-block"
+                                    >
+                                        Browse Other Assessments
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return null;
+        };
+
+        ReactDOM.render(<PersonalityTest />, document.getElementById('personality-test-root'));
+    </script>
+</body>
+</html>

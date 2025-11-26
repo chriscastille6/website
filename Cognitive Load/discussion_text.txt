@@ -1,0 +1,129 @@
+From: Christopher Castille christopher.castille@nicholls.edu
+Subject: Re: Experimental Condition Review
+Date: July 31, 2025 at 9:44 AM
+To: Juliann Allen juliann.allen@nicholls.edu
+No worries – I decided to make the app anyway.
+
+Cognitive Load Analysis Tool
+christopher-m-castille.shinyapps.io
+
+You can insert new text input and get a comprehensive analysis.
+If something seems off, let me know.
+Chris
+——
+Christopher M. Castille, Ph.D.
+Gerald Gaston Endowed Associate Prof. of Management
+Al Danos College of Business Administration
+Nicholls State University
+Office: 985-449-7015
+Email: christopher.castille@nicholls.edu
+On Jul 30, 2025, at 9:13 PM, Juliann Allen <juliann.allen@nicholls.edu> wrote:
+Hi Chris,
+Okay, there is an error when I run the code, and I'm sure I did something wrong. The error reads: " Error: corpus() only works on
+character, corpus, Corpus, data.frame, kwic objects." If you don't have any time to help further, it is totally okay. I understand things are
+busy!
+Juliann
+On Wed, Jul 30, 2025 at 7:20 PM Christopher Castille <christopher.castille@nicholls.edu> wrote:
+That should work. Let me know if it doesn’t.
+Chris
+On Jul 29, 2025, at 4:54 PM, Juliann Allen <juliann.allen@nicholls.edu> wrote:
+Hi Chris,
+I hope you had an awesome trip. Wow, this is great! Thank you so much for running these analyses for us. I appreciate your
+feedback.
+I can see that this would be very helpful for experiments in the future (especially to further demonstrate equality across conditions),
+and I would be curious about the web app. I opened the codebook in R Studio—would I just need to change the Christian values and
+non-Christian values text in the code to re-run the analysis? Thank you so much!
+Juliann
+On Tue, Jul 29, 2025 at 2:04 PM Christopher Castille <christopher.castille@nicholls.edu> wrote:
+Hi Juliann,
+I played around with your work a bit and can see the point that the reviewer is making in this case. It's probably fair to state that
+non-traditional (liberal?) values are more sophisticated or complex and nuanced. Naturally, cognitive load will be higher for text
+reflecting these values, so equating the text on for different values statements on cognitive load may be necessary to minimize the
+influence of a confound (here, verbal ability, which I’m suspecting would also be associate with a more liberal orientation).
+I used AI (Cursor) to both measure cognitive load using standard R packages for doing so and create new alternatives worth
+considering further (about 30). I was able to find a text sample that minimizes cognitive load but you may wish to play with it some
+more. I created a codebook for measuring and assessing cognitive load (it's in R). If you prefer, the HTML file contains what you
+need (no need to use Rin that case). If you like, I can probably give you a web app that helps you to play with different language
+sets and assess readability – just let me know. Alternatively, Microsoft Word contains some readability indices that you can use but
+if you want R’s functionality or reproducibility, I can help with that.
+I hope this helps but if you need more, please let me know.
+Chris
+
+On Jul 27, 2025, at 5:55 PM, Juliann Allen <juliann.allen@nicholls.edu> wrote:
+Hi Chris,
+Thank you for being willing to look at our experimental conditions! Each participant will see one of the two conditions, and all
+participants will then see the section titled "prompt" appear after seeing one of the two conditions. We've attached a document
+with the conditions.
+The reviewer wants each condition to require the same cognitive load and be semantically similar. Also, any piece of information
+
+The reviewer wants each condition to require the same cognitive load and be semantically similar. Also, any piece of information
+that is exclusive to one condition must relate directly to the theoretical contribution. I understand what the reviewer wants, but I
+am not as skilled when it comes to putting the condition on paper. So, I appreciate you looking at these for us. I have copied my
+co-author on the email to keep her in the loop.
+Juliann
+On Sat, Jul 26, 2025 at 11:50 AM Juliann Allen <juliann.allen@nicholls.edu> wrote:
+Thanks so much, Chris! How about the Saturday after you get back for the deadline? I appreciate your willingness to take a
+look at it. Congratulations on your presentation!
+Juliann
+On Sat, Jul 26, 2025 at 3:21 AM Christopher Castille <christopher.castille@nicholls.edu> wrote:
+Happy to help. Deadline?
+I’m in Copenhagen till Tuesday so I hope this can wait till after I come back.
+Chris
+Christopher M. Castille, Ph.D.
+Associate Professor of Management
+Nicholls State University
+Sent from my iPhone, so please excuse typos
+On Jul 25, 2025, at 11:17 PM, Juliann Allen <juliann.allen@nicholls.edu> wrote:
+Hi Chris,
+I hope you've had an awesome summer! I have a favor to ask of you. My colleague and I have been offered a chance to
+redo a study for a manuscript that is under review. Our study contains two experimental conditions. The reviewer and
+editor are not happy with the way the experimental conditions were written the first time we ran the study, as they argue
+that additional information in one of the conditions is confounding. My colleague and I are going to rewrite the conditions
+to rerun the study, and I was wondering if you would be able to take a quick look at the rewritten conditions to offer
+feedback before we spend additional money to run the study. The conditions are not very long (less than five minutes to
+read both of them), and I would provide the original conditions we had so that you can see what the reviewer is talking
+about. Given your background, I thought you would be great to ask! We can send them to you in the next few days.
+Would you be willing to take a look?
+Juliann
+-Juliann Allen
+Assistant Professor of Marketing
+Argent Bank Endowed Professorship
+Al Danos College of Business Administration
+Nicholls State University
+juliann.allen@nicholls.edu
+985-449-(7118)
+-Juliann Allen
+Assistant Professor of Marketing
+Argent Bank Endowed Professorship
+Al Danos College of Business Administration
+Nicholls State University
+juliann.allen@nicholls.edu
+985-449-(7118)
+-Juliann Allen
+Assistant Professor of Marketing
+Argent Bank Endowed Professorship
+Al Danos College of Business Administration
+Nicholls State University
+juliann.allen@nicholls.edu
+985-449-(7118)
+<Appendix 1_ Experimental Conditions.docx>
+
+-Juliann Allen
+Assistant Professor of Marketing
+Argent Bank Endowed Professorship
+Al Danos College of Business Administration
+Nicholls State University
+juliann.allen@nicholls.edu
+985-449-(7118)
+
+--
+
+-Juliann Allen
+Assistant Professor of Marketing
+Argent Bank Endowed Professorship
+Al Danos College of Business Administration
+Nicholls State University
+juliann.allen@nicholls.edu
+985-449-(7118)
+
+

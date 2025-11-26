@@ -1,0 +1,154 @@
+{{/* Custom Latest Publications Block with Slideshow */}}
+{{ $page := .page }}
+{{ $block := .block }}
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-12">
+      <h2 style="text-align: center; font-weight: bold; font-size: 2.5rem; margin-bottom: 2rem; color: #2c3e50;">{{ $block.content.title | default "Latest Publications" }}</h2>
+      
+      {{/* Publications Slideshow Container */}}
+      <div id="publications-slideshow" style="position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        
+        {{/* Slide 1 - Women's and Men's Authorship Experiences */}}
+        <div class="publication-slide active" style="display: block; padding: 2rem; background: white; opacity: 1; transition: opacity 0.8s ease-in-out;">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
+              <a href="https://doi.org/10.1177/01492063251315701" target="_blank" style="color: #2c3e50; text-decoration: none;">
+                Women's and men's authorship experiences: A prospective meta-analysis
+              </a>
+            </h5>
+            <small class="text-muted">2025</small>
+          </div>
+          
+          <p style="color: #555; line-height: 1.6; font-size: 1.1rem; margin-bottom: 1rem;">
+            Published in <em>Journal of Management</em> - A comprehensive meta-analysis examining gender differences in authorship experiences across multiple studies.
+          </p>
+          
+          <div>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Meta-Analysis</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Gender</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Authorship</span>
+          </div>
+        </div>
+
+        {{/* Slide 2 - Translational Science */}}
+        <div class="publication-slide" style="display: none; padding: 2rem; background: white; opacity: 0; transition: opacity 0.8s ease-in-out;">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
+              <a href="https://www.siop.org/tip-article/translational-science-open-science-and-accelerating-practical-impact/" target="_blank" style="color: #2c3e50; text-decoration: none;">
+                Translational science, open science, and accelerating practical impact
+              </a>
+            </h5>
+            <small class="text-muted">2024</small>
+          </div>
+          
+          <p style="color: #555; line-height: 1.6; font-size: 1.1rem; margin-bottom: 1rem;">
+            Published in <em>The Industrial-Organizational Psychologist</em> - Exploring the intersection of translational science and open science practices.
+          </p>
+          
+          <div>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Translational Science</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Open Science</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Practice</span>
+          </div>
+        </div>
+
+        {{/* Slide 3 - Big Team Science */}}
+        <div class="publication-slide" style="display: none; padding: 2rem; background: white; opacity: 0; transition: opacity 0.8s ease-in-out;">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
+              <a href="https://doi.org/10.1016/j.actpsy.2023.104101" target="_blank" style="color: #2c3e50; text-decoration: none;">
+                Big team science initiatives: A catalyst for trustworthy advancements in IO psychology
+              </a>
+            </h5>
+            <small class="text-muted">2024</small>
+          </div>
+          
+          <p style="color: #555; line-height: 1.6; font-size: 1.1rem; margin-bottom: 1rem;">
+            Published in <em>Acta Psychologica</em> - Research on collaborative science initiatives and their impact on organizational psychology.
+          </p>
+          
+          <div>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Open Science</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Collaboration</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Research</span>
+          </div>
+        </div>
+
+        {{/* Slide 4 - Shedding Light on Invisible Influences */}}
+        <div class="publication-slide" style="display: none; padding: 2rem; background: white; opacity: 0; transition: opacity 0.8s ease-in-out;">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h5 class="mb-0" style="color: #2c3e50; font-weight: 600; font-size: 1.3rem;">
+              <a href="https://doi.org/10.1108/s0742-730120240000042007" target="_blank" style="color: #2c3e50; text-decoration: none;">
+                Shedding light on invisible influences: Reviewing HROB scholars' use of unmeasured latent method factors
+              </a>
+            </h5>
+            <small class="text-muted">2024</small>
+          </div>
+          
+          <p style="color: #555; line-height: 1.6; font-size: 1.1rem; margin-bottom: 1rem;">
+            Published in <em>Research in Personnel and Human Resources Management</em> - Methodological review of unmeasured latent method factors in HROB research.
+          </p>
+          
+          <div>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Methodology</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">HROB</span>
+            <span class="badge bg-light text-dark me-1" style="font-size: 0.8rem;">Research Methods</span>
+          </div>
+        </div>
+
+      </div>
+
+      {{/* View All Publications Link */}}
+      <div class="text-center mt-4">
+        <a href="/publication/" class="btn btn-outline-primary">
+          View All Publications
+          <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/* Publications Slideshow JavaScript */}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('.publication-slide');
+  let currentSlide = 0;
+  
+  function showSlide(index) {
+    // Fade out all slides
+    slides.forEach(slide => {
+      slide.style.opacity = '0';
+      slide.classList.remove('active');
+    });
+    
+    // After fade out, show current slide and fade in
+    setTimeout(() => {
+      slides.forEach(slide => {
+        slide.style.display = 'none';
+      });
+      
+      slides[index].style.display = 'block';
+      slides[index].classList.add('active');
+      
+      // Trigger fade in
+      setTimeout(() => {
+        slides[index].style.opacity = '1';
+      }, 50);
+    }, 400); // Half of the transition time
+  }
+  
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+  
+  // Auto-advance every 4 seconds
+  setInterval(nextSlide, 4000);
+  
+  // Initialize first slide
+  showSlide(0);
+});
+</script> 

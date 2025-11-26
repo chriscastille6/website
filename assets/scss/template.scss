@@ -1,0 +1,248 @@
+// Make page header alignment consistent with widget page header alignment
+.universal-wrapper h1 {
+  text-align: center;
+}
+
+// Expand blog post content width for better desktop experience
+// Target all possible wrapper and container classes
+.universal-wrapper,
+.container,
+.article-container {
+  max-width: 100% !important;
+}
+
+// Specifically for blog post pages - make content wider but with more margin
+body[class*="post"] .universal-wrapper,
+section[class*="post"] .universal-wrapper,
+.page-section[class*="post"] .universal-wrapper,
+[class*="post"] .universal-wrapper {
+  max-width: 90% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  
+  @media (min-width: 768px) {
+    max-width: 85% !important;
+  }
+  
+  @media (min-width: 992px) {
+    max-width: 80% !important;
+  }
+  
+  @media (min-width: 1200px) {
+    max-width: 75% !important;
+  }
+  
+  @media (min-width: 1400px) {
+    max-width: 70% !important;
+  }
+}
+
+// Make article content use full available width
+.article-style {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+// Expand Bootstrap containers on blog post pages with more margin
+body[class*="post"] .container,
+section[class*="post"] .container,
+[class*="post"] .container {
+  max-width: 90% !important;
+  
+  @media (min-width: 768px) {
+    max-width: 85% !important;
+  }
+  
+  @media (min-width: 992px) {
+    max-width: 80% !important;
+  }
+  
+  @media (min-width: 1200px) {
+    max-width: 75% !important;
+  }
+  
+  @media (min-width: 1400px) {
+    max-width: 70% !important;
+  }
+}
+
+// Override any theme-specific max-width constraints with more margin
+main .universal-wrapper,
+.page-wrapper .universal-wrapper,
+.content-wrapper .universal-wrapper {
+  max-width: 90% !important;
+  
+  @media (min-width: 992px) {
+    max-width: 80% !important;
+  }
+  
+  @media (min-width: 1200px) {
+    max-width: 75% !important;
+  }
+}
+
+// Center the CTA shortcode button
+.cta-group {
+  justify-content: center;
+}
+
+// Style research theme headings with bold and theme color
+.article-style h2.research-theme-paid,
+.article-style h2.research-theme-methods,
+.article-style h2.research-theme-hr {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+// Add white space back to blog posts (more readable paragraphs)
+.article-style {
+  // More readable spacing between paragraphs
+  p {
+    margin-bottom: 1.5rem !important;
+    line-height: 1.7 !important;
+  }
+  
+  // Better spacing between sections
+  h2 {
+    margin-top: 2.5rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  
+  h3 {
+    margin-top: 2rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  // Better spacing for lists
+  ul, ol {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  // Better spacing around figures
+  figure {
+    margin: 2rem 0 !important;
+    
+    // Make featured.png larger
+    img[src*="featured.png"] {
+      width: 120% !important;
+      max-width: 120% !important;
+      margin-left: -10% !important;
+      margin-right: -10% !important;
+    }
+  }
+  
+  // Better spacing in Bootstrap rows
+  .row {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  // Full-width images when in full-width containers
+  .full-width-image {
+    width: 100%;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    max-width: 100vw;
+  }
+}
+
+// Side-by-side layout for image and text
+.image-text-side-by-side {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin: 2rem 0;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  
+  .image-col {
+    flex: 0 0 45%;
+    
+    @media (max-width: 768px) {
+      flex: 1 1 100%;
+    }
+    
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+  }
+  
+  .text-col {
+    flex: 1 1 auto;
+  }
+}
+
+// Grid layout for multiple images
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+  
+  figure {
+    margin: 0;
+    
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+  }
+}
+
+// Compact section spacing
+.compact-section {
+  margin-bottom: 1.5rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Hide automatic publication listings on publication index page
+#publication-manual-content ~ * {
+  display: none !important;
+}
+div:not(.article-style) .pub-list-item,
+div:not(.article-style) .view-citation,
+div:not(.article-style) .article-metadata.li-cite-author {
+  display: none !important;
+}
+.row:has(.pub-list-item):not(.article-style .row),
+.row:has(.view-citation):not(.article-style .row) {
+  display: none !important;
+}
+
+// Economist-style figure formatting (primary and secondary titles)
+.article-style figure {
+  figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+    
+    // Primary title (bold, larger)
+    strong:first-child,
+    .primary-title {
+      display: block;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #2c3e50;
+      margin-bottom: 0.25rem;
+    }
+    
+    // Secondary title (lighter, smaller)
+    .secondary-title {
+      display: block;
+      font-size: 0.85rem;
+      color: #777;
+      font-style: italic;
+      margin-top: 0.25rem;
+    }
+  }
+}
