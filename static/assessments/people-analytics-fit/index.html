@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- People Analyst Fit Assessment -->
+    <!-- Location: /static/assessments/people-analytics-fit/index.html -->
+    <!-- Purpose: Comprehensive assessment measuring fit with People Analyst role across five key domains -->
+    <!-- Why: Provides validated person-occupation fit measurement based on Liu et al. (2024) framework -->
+    <!-- RELEVANT FILES: content/assessments.md, static/assessments/library/index.html -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Analyst Fit Assessment - PAL of the Bayou</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+        .likert-scale {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .likert-option {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+        .likert-option input[type="radio"] {
+            display: none;
+        }
+        .likert-option label {
+            display: block;
+            padding: 0.75rem 0.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .likert-option input[type="radio"]:checked + label {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            font-weight: 600;
+        }
+        .likert-option label:hover {
+            border-color: #93c5fd;
+        }
+        /* Results Display Styles */
+        .outcome-content {
+            display: none;
+        }
+        .outcome-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        .nav-item {
+            transition: all 0.2s ease;
+        }
+        .nav-item.active {
+            background-color: #1e40af;
+            color: white;
+            border-left: 4px solid #1e3a8a;
+        }
+        .nav-item:hover:not(.active) {
+            background-color: #f3f4f6;
+        }
+        .radar-chart {
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .radar-area {
+            fill: rgba(37, 99, 235, 0.25);
+            stroke: #2563eb;
+            stroke-width: 2;
+            transition: all 0.5s ease;
+        }
+        .radar-line {
+            stroke: #2563eb;
+            stroke-width: 2;
+            fill: none;
+        }
+        .radar-point {
+            fill: #2563eb;
+            stroke: white;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .radar-point:hover {
+            r: 5;
+            fill: #1e40af;
+        }
+        .radar-axis {
+            stroke: #d1d5db;
+            stroke-width: 1;
+        }
+        .radar-grid {
+            stroke: #e5e7eb;
+            stroke-width: 1;
+            stroke-dasharray: 2 2;
+        }
+        .radar-label {
+            font-size: 11px;
+            fill: #374151;
+            font-weight: 500;
+        }
+        .domain-bar {
+            transition: width 0.8s ease-in-out;
+        }
+        .explanation-toggle {
+            cursor: pointer;
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        .explanation-toggle:hover {
+            color: #1e40af;
+        }
+        /* Unique colors for each domain */
+        .domain-basic-interests { --color: #3b82f6; --color-light: #dbeafe; } /* Blue */
+        .domain-knowledge { --color: #8b5cf6; --color-light: #ede9fe; } /* Indigo/Purple */
+        .domain-values { --color: #ec4899; --color-light: #fce7f3; } /* Pink */
+        .domain-skills { --color: #10b981; --color-light: #d1fae5; } /* Green/Teal */
+        .domain-personality { --color: #f59e0b; --color-light: #fef3c7; } /* Amber */
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="min-h-screen flex items-center justify-center px-4 py-12">
+        <div class="max-w-2xl w-full">
+            <div class="text-center space-y-8">
+                <div class="space-y-4">
+                    <h1 class="text-5xl font-semibold text-gray-900 tracking-tight">
+                        People Analyst<br>Fit Assessment
+                    </h1>
+                    <p class="text-xl text-gray-600 max-w-xl mx-auto">
+                        Based on Liu et al. (2025) Integrative Fit Assessment Framework
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 text-left space-y-6">
+                    <h2 class="text-2xl font-semibold text-gray-900">About This Assessment</h2>
+                    <div class="space-y-3 text-gray-700">
+                        <p>This assessment measures your fit with the People Analyst role across <strong>five key domains</strong>:</p>
+                        <ul class="list-disc list-inside space-y-1 ml-4 text-sm">
+                            <li><strong>Interests</strong> (60 items) - Basic interests & RIASEC categories</li>
+                            <li><strong>Work Values</strong> (24 items) - What you find meaningful in work</li>
+                            <li><strong>Knowledge</strong> (27 items) - Your knowledge areas</li>
+                            <li><strong>Skills</strong> (19 items) - Your abilities and competencies</li>
+                            <li><strong>Personality</strong> (29 items) - Personality traits relevant to work</li>
+                        </ul>
+                        <p class="text-sm text-gray-600 mt-4">
+                            <strong>Total:</strong> 159 items • <strong>Estimated time:</strong> 15-20 minutes<br>
+                            Your responses are private and processed locally in your browser
+                        </p>
+                    </div>
+                    <div id="loading-status" class="hidden text-sm text-blue-600">
+                        Loading assessment data...
+                    </div>
+                    <button 
+                        id="start-btn"
+                        onclick="startAssessment()"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                        disabled
+                    >
+                        Begin Assessment
+                    </button>
+                </div>
+
+                <div class="text-sm text-gray-500 space-y-2">
+                    <p class="text-xs leading-relaxed">
+                        Liu, Z., Hoff, K. A., Chu, C., Oswald, F. L., & Rounds, J. (2025). Toward whole-person fit assessment: Integrating interests, values, skills, knowledge, and personality using the Occupational Information Network (O*NET). <em>Journal of Applied Psychology</em>, <em>110</em>(5), 623–647. https://doi.org/10.1037/apl0001232
+                    </p>
+                    <p class="mt-4">Your responses are private and not stored</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assessment Screen -->
+    <div id="assessment-screen" class="hidden min-h-screen bg-gray-50 py-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span><span id="section-name"></span> - Item <span id="item-num">1</span> of <span id="total-items">0</span></span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div id="progress-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="mt-2 text-xs text-gray-500">
+                    Section <span id="section-num">1</span> of 5: <span id="current-section-name"></span>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 fade-in mb-8">
+                <div id="section-instructions" class="mb-6 p-4 bg-gray-50 rounded-lg">
+                    <p id="instructions-text" class="text-gray-700"></p>
+                </div>
+                <div id="scale-legend" class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <p class="text-sm font-medium text-blue-900 mb-2">Response Scale:</p>
+                    <div id="scale-options" class="flex flex-wrap gap-3 text-sm text-blue-800"></div>
+                </div>
+                <div id="question-container" class="space-y-6"></div>
+            </div>
+
+            <!-- Section Navigation -->
+            <div id="section-nav" class="mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+                <div id="section-nav-buttons" class="flex flex-wrap gap-2 justify-center">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex justify-between items-center">
+                <button 
+                    id="back-btn"
+                    onclick="goBack()"
+                    class="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
+                >
+                    ← Previous Section
+                </button>
+                <button 
+                    id="next-btn"
+                    onclick="nextSection()"
+                    class="px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                >
+                    Continue to Next Section →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="hidden min-h-screen bg-gray-50">
+        <div class="flex flex-col md:flex-row max-w-7xl mx-auto">
+            <!-- Sidebar Navigation -->
+            <aside class="w-full md:w-64 bg-white border-r border-gray-200 md:min-h-screen">
+                <div class="sticky top-0 p-6">
+                    <!-- Summary Card in Sidebar -->
+                    <div id="sidebar-summary" class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-5 mb-6 border border-blue-100"></div>
+
+                    <nav class="space-y-1">
+                        <a href="#" class="nav-item active block px-4 py-3 rounded-lg text-sm font-medium text-gray-700" data-outcome="overview">
+                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            Overview
+                        </a>
+                        <a href="#" class="nav-item block px-4 py-3 rounded-lg text-sm font-medium text-gray-700" data-outcome="career-satisfaction">
+                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Career Satisfaction
+                        </a>
+                        <a href="#" class="nav-item block px-4 py-3 rounded-lg text-sm font-medium text-gray-700" data-outcome="job-satisfaction">
+                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            Job Satisfaction
+                        </a>
+                        <a href="#" class="nav-item block px-4 py-3 rounded-lg text-sm font-medium text-gray-700" data-outcome="needs-supplies">
+                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Needs-Supplies Fit
+                        </a>
+                        <a href="#" class="nav-item block px-4 py-3 rounded-lg text-sm font-medium text-gray-700" data-outcome="demands-abilities">
+                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            Demands-Abilities Fit
+                        </a>
+                        <a href="#" class="nav-item block px-4 py-3 rounded-lg text-sm font-medium text-gray-700" data-outcome="income">
+                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            Income Potential
+                        </a>
+                        <a href="#" class="nav-item block px-4 py-3 rounded-lg text-sm font-medium text-gray-700" data-outcome="career-prospects">
+                            <svg class="inline-block w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            Career Prospects
+                        </a>
+                    </nav>
+
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <button 
+                            onclick="restartAssessment()"
+                            class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-800 transition-colors text-sm font-medium"
+                        >
+                            Take Assessment Again
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 p-6 md:p-8">
+                <div id="results-content"></div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Embedded assessment data (from Liu et al., 2024)
+        // This makes the file fully standalone - no server needed!
+        const embeddedItemBank = JSON.parse(`{"interests": {"description": "The Comprehensive Assessments of Basic Interests\u2014O*NET (CABIN-NET)", "instructions": "Read each question carefully and decide how you would feel about doing each type of work. When making your selection, please do not consider how much education/training is needed or how much money you will make in each job.", "scale": [{"value": 1, "label": "strongly dislike"}, {"value": 2, "label": "dislike"}, {"value": 3, "label": "neutral"}, {"value": 4, "label": "like"}, {"value": 5, "label": "strongly like"}], "items": [{"id": "I1", "text": "Build a fence", "basic_interest": "construction", "riasec": "realistic"}, {"id": "I2", "text": "Build kitchen cabinets", "basic_interest": "construction", "riasec": "realistic"}, {"id": "I3", "text": "Sand and refinish a piece of furniture", "basic_interest": "construction", "riasec": "realistic"}, {"id": "I4", "text": "Design a structure that can withstand heavy wind", "basic_interest": "engineering", "riasec": "realistic"}, {"id": "I5", "text": "Develop lighter and stronger materials for new products", "basic_interest": "engineering", "riasec": "realistic"}, {"id": "I6", "text": "Redesign a production line to improve its efficiency", "basic_interest": "engineering", "riasec": "realistic"}, {"id": "I7", "text": "Repair car engines", "basic_interest": "mechanics", "riasec": "realistic"}, {"id": "I8", "text": "Perform aircraft maintenance", "basic_interest": "mechanics", "riasec": "realistic"}, {"id": "I9", "text": "Maintain wind turbine generators", "basic_interest": "mechanics", "riasec": "realistic"}, {"id": "I10", "text": "Drive a bus", "basic_interest": "transportation", "riasec": "realistic"}, {"id": "I11", "text": "Drive a delivery truck", "basic_interest": "transportation", "riasec": "realistic"}, {"id": "I12", "text": "Operate a train", "basic_interest": "transportation", "riasec": "realistic"}, {"id": "I13", "text": "Solve mathematical problems", "basic_interest": "math", "riasec": "investigative"}, {"id": "I14", "text": "Learn about a new theory in geometry", "basic_interest": "math", "riasec": "investigative"}, {"id": "I15", "text": "Use mathematical equations to solve practical problems", "basic_interest": "math", "riasec": "investigative"}, {"id": "I16", "text": "Investigate the cause of a chronic health problem", "basic_interest": "medical_science", "riasec": "investigative"}, {"id": "I17", "text": "Research the side effects of a medicine", "basic_interest": "medical_science", "riasec": "investigative"}, {"id": "I18", "text": "Investigate prevention methods for diseases", "basic_interest": "medical_science", "riasec": "investigative"}, {"id": "I19", "text": "Study the formation and evolution of galaxies", "basic_interest": "physical_science", "riasec": "investigative"}, {"id": "I20", "text": "Analyze a mineral sample found on Mars", "basic_interest": "physical_science", "riasec": "investigative"}, {"id": "I21", "text": "Study the causes for earthquakes and tsunamis", "basic_interest": "physical_science", "riasec": "investigative"}, {"id": "I22", "text": "Investigate how poverty influences educational attainment", "basic_interest": "social_science", "riasec": "investigative"}, {"id": "I23", "text": "Study the effects of public policy on violence reduction", "basic_interest": "social_science", "riasec": "investigative"}, {"id": "I24", "text": "Research why people have stereotypes and prejudice", "basic_interest": "social_science", "riasec": "investigative"}, {"id": "I25", "text": "Sketch a picture", "basic_interest": "arts", "riasec": "artistic"}, {"id": "I26", "text": "Paint a landscape", "basic_interest": "arts", "riasec": "artistic"}, {"id": "I27", "text": "Draw illustrations for a book", "basic_interest": "arts", "riasec": "artistic"}, {"id": "I28", "text": "Create a piece of artistic and functional furniture", "basic_interest": "design", "riasec": "artistic"}, {"id": "I29", "text": "Create the set for a movie or stage play", "basic_interest": "design", "riasec": "artistic"}, {"id": "I30", "text": "Design the layout and lighting of an exhibition", "basic_interest": "design", "riasec": "artistic"}, {"id": "I31", "text": "Write a novel", "basic_interest": "writing", "riasec": "artistic"}, {"id": "I32", "text": "Write short stories", "basic_interest": "writing", "riasec": "artistic"}, {"id": "I33", "text": "Study creative writing", "basic_interest": "writing", "riasec": "artistic"}, {"id": "I34", "text": "Help people with family problems", "basic_interest": "counseling", "riasec": "social"}, {"id": "I35", "text": "Help conduct a group therapy session", "basic_interest": "counseling", "riasec": "social"}, {"id": "I36", "text": "Helping kids through interpersonal problems", "basic_interest": "counseling", "riasec": "social"}, {"id": "I37", "text": "Greet customers and answer questions", "basic_interest": "customer_service", "riasec": "social"}, {"id": "I38", "text": "Assist clients planning for special occasions", "basic_interest": "customer_service", "riasec": "social"}, {"id": "I39", "text": "Work in customer service", "basic_interest": "customer_service", "riasec": "social"}, {"id": "I40", "text": "Teach students a new set of skills", "basic_interest": "teaching", "riasec": "social"}, {"id": "I41", "text": "Explain a topic to someone with no prior knowledge", "basic_interest": "teaching", "riasec": "social"}, {"id": "I42", "text": "Teach a beginner how to perform a task", "basic_interest": "teaching", "riasec": "social"}, {"id": "I43", "text": "Present arguments in a courtroom", "basic_interest": "law_government", "riasec": "enterprising"}, {"id": "I44", "text": "Resolve legal disputes between parties", "basic_interest": "law_government", "riasec": "enterprising"}, {"id": "I45", "text": "Lead a committee to make policy decisions", "basic_interest": "management", "riasec": "enterprising"}, {"id": "I46", "text": "Manage a medium-sized organization", "basic_interest": "management", "riasec": "enterprising"}, {"id": "I47", "text": "Supervise a large number of employees", "basic_interest": "management", "riasec": "enterprising"}, {"id": "I48", "text": "Serve as the leader of a work team", "basic_interest": "management", "riasec": "enterprising"}, {"id": "I49", "text": "Persuade customers to try a new product", "basic_interest": "sales_marketing", "riasec": "enterprising"}, {"id": "I50", "text": "Increase sales for a company during a promotion week", "basic_interest": "sales_marketing", "riasec": "enterprising"}, {"id": "I51", "text": "Sell services to a target group of people", "basic_interest": "sales_marketing", "riasec": "enterprising"}, {"id": "I52", "text": "Create a new computer database", "basic_interest": "computers", "riasec": "conventional"}, {"id": "I53", "text": "Monitor the daily performance of computer systems", "basic_interest": "computers", "riasec": "conventional"}, {"id": "I54", "text": "Diagnose and resolve computer hardware or software problems", "basic_interest": "computers", "riasec": "conventional"}, {"id": "I55", "text": "Analyze the financial statements of a company", "basic_interest": "finance_accounting", "riasec": "conventional"}, {"id": "I56", "text": "Monitor account balance and prepare monthly statements", "basic_interest": "finance_accounting", "riasec": "conventional"}, {"id": "I57", "text": "Calculate tax deductions for a business", "basic_interest": "finance_accounting", "riasec": "conventional"}, {"id": "I58", "text": "Enter personnel records into a computer program", "basic_interest": "office_work", "riasec": "conventional"}, {"id": "I59", "text": "Catalog files in an office", "basic_interest": "office_work", "riasec": "conventional"}, {"id": "I60", "text": "Print and disseminate documents to be used at a conference", "basic_interest": "office_work", "riasec": "conventional"}], "sources": ["Su, R., Tay, L., Liao, H.-Y., Zhang, Q., & Rounds, J. (2019). Toward a dimensional model of vocational interests. Journal of Applied Psychology, 104, 690\u2013714."]}, "values": {"description": "Occupational Values Inventory (OVI)", "instructions": "These statements are designed to find out what you consider important in a career. Please evaluate the extent to which each statement is important in your ideal career. In a career that would be ideal for me, it would be important to\u2026", "scale": [{"value": 1, "label": "not important"}, {"value": 2, "label": "a little important"}, {"value": 3, "label": "important"}, {"value": 4, "label": "very important"}, {"value": 5, "label": "most important"}], "items": [{"id": "V1", "text": "Provide personal care to others", "value_type": "altruism"}, {"id": "V2", "text": "Build and maintain personal relationships", "value_type": "altruism"}, {"id": "V3", "text": "Provide service to others", "value_type": "altruism"}, {"id": "V4", "text": "Help others develop and grow", "value_type": "altruism"}, {"id": "V5", "text": "Set my own schedule", "value_type": "independence"}, {"id": "V6", "text": "Plan my own work", "value_type": "independence"}, {"id": "V7", "text": "Work independently", "value_type": "independence"}, {"id": "V8", "text": "Supervise other people's work", "value_type": "leadership"}, {"id": "V9", "text": "Coordinate or lead others", "value_type": "leadership"}, {"id": "V10", "text": "Be responsible for others' work", "value_type": "leadership"}, {"id": "V11", "text": "Work outside", "value_type": "outdoors"}, {"id": "V12", "text": "Be out in nature while I work", "value_type": "outdoors"}, {"id": "V13", "text": "Perform physical work tasks", "value_type": "physical_work"}, {"id": "V14", "text": "Get exercise while I work", "value_type": "physical_work"}, {"id": "V15", "text": "Have a prestigious career", "value_type": "prestige_salary"}, {"id": "V16", "text": "Have a high-status career", "value_type": "prestige_salary"}, {"id": "V17", "text": "Have a high salary", "value_type": "prestige_salary"}, {"id": "V18", "text": "Make enough money to buy expensive things", "value_type": "prestige_salary"}, {"id": "V19", "text": "Build on relevant work knowledge", "value_type": "knowledge_utilization"}, {"id": "V20", "text": "Use the knowledge that I have learned", "value_type": "knowledge_utilization"}, {"id": "V21", "text": "Use my strongest skills", "value_type": "knowledge_utilization"}, {"id": "V22", "text": "Have a wide variety of work activities", "value_type": "variety"}, {"id": "V23", "text": "Have a work environment that is always new or unpredictable", "value_type": "variety"}, {"id": "V24", "text": "Do something different every day", "value_type": "variety"}], "sources": ["Abessolo, M., Hirschi, A., & Rossier, J. (2021). Development and validation of a multidimensional career values questionnaire: A measure integrating work values, career orientations, and career anchors. Journal of Career Development, 48, 243-259."]}, "knowledge": {"description": "Occupational Skills and Knowledge Inventory (OSKI) - Knowledge Section (Student Version)", "instructions": "Rate yourself honestly compared to OTHER COLLEGE STUDENTS at your level. It's normal to be developing this knowledge during your education. How much do you know about\u2026", "reference_group": "college students, not working professionals", "note": "Most students will rate themselves 2-3 on most items. Levels 4-5 represent top 20% and top 5% of students respectively.", "scale": [{"value": 1, "label": "No exposure", "description": "Haven't studied this area in coursework", "professional_benchmark": "Below professional entry level"}, {"value": 2, "label": "Familiar", "description": "Covered in 1-2 courses; understand basic concepts", "professional_benchmark": "O*NET Level 1-2 tasks (entry-level professional)"}, {"value": 3, "label": "Comfortable", "description": "Completed relevant courses with good grades (B+); can apply concepts", "professional_benchmark": "O*NET Level 3-4 tasks (mid-level professional)"}, {"value": 4, "label": "Strong", "description": "Excelled in relevant coursework (A grades); have practical experience", "professional_benchmark": "O*NET Level 4-5 tasks (advanced professional)"}, {"value": 5, "label": "Exceptional", "description": "Top of class; extensive hands-on experience; concentration or minor in this area", "professional_benchmark": "O*NET Level 6+ tasks (expert professional)"}], "items": [{"id": "K1", "text": "Biology: plant, animal and cell functions", "knowledge_type": "biology", "student_context": "BIOL 101/102, anatomy, physiology, ecology courses"}, {"id": "K2", "text": "Chemistry: chemical processes and their applications", "knowledge_type": "chemistry", "student_context": "CHEM 101/102, organic chemistry, biochemistry courses"}, {"id": "K3", "text": "Communications and Media: conveying information using written, oral, and visual media", "knowledge_type": "communications_media", "student_context": "BSAD 310, ENGL 310, COMM courses, journalism, public speaking"}, {"id": "K4", "text": "Computers and Electronics: computer hardware and software, including applications and programming", "knowledge_type": "computers_electronics", "student_context": "OIS 200, programming courses, IT courses, hands-on tech experience"}, {"id": "K5", "text": "Construction: building materials, methods, and tools", "knowledge_type": "construction", "student_context": "Construction management, engineering technology, hands-on building"}, {"id": "K6", "text": "Customer Service: handling customer needs and resolving service problems", "knowledge_type": "customer_service", "student_context": "Retail/service work, MNGT 367, hospitality courses"}, {"id": "K7", "text": "Design: designing techniques, tools, and principles", "knowledge_type": "design", "student_context": "Graphic design, architecture, product design, CAD experience"}, {"id": "K8", "text": "Economics and Accounting: principles and practices of accounting, economics, and financial markets", "knowledge_type": "economics_accounting", "student_context": "ECON 211/212, ACCT 205/206, finance courses"}, {"id": "K9", "text": "Engineering & Technology: practical applications of engineering science and technology", "knowledge_type": "engineering_technology", "student_context": "Engineering courses, applied technology, hands-on engineering projects"}, {"id": "K10", "text": "Fine Arts: developing art forms, such as music, painting, or drama", "knowledge_type": "fine_arts", "student_context": "Art, music, theater courses; performance experience"}, {"id": "K11", "text": "Food Production: planting, growing, and harvesting food products", "knowledge_type": "food_production", "student_context": "Agriculture, culinary arts, farming/gardening experience"}, {"id": "K12", "text": "Law & Government: legal codes, court procedures, government regulations, and political processes", "knowledge_type": "law_government", "student_context": "BSAD 221, political science, pre-law studies, government internships"}, {"id": "K13", "text": "Managing others: leading other people and business planning", "knowledge_type": "management", "student_context": "MNGT 301, organizational behavior, leadership roles in clubs/work"}, {"id": "K14", "text": "Mathematics: using arithmetic, algebra, geometry, calculus, and statistics", "knowledge_type": "mathematics", "student_context": "MATH courses, statistics, quantitative analysis experience"}, {"id": "K15", "text": "Mechanics: designing, using, repairing, and maintaining machines", "knowledge_type": "mechanics", "student_context": "Automotive courses, mechanical engineering, hands-on repair"}, {"id": "K16", "text": "Medicine and Dentistry: providing health care", "knowledge_type": "medicine_dentistry", "student_context": "Pre-med courses, nursing, health sciences, clinical shadowing/volunteering"}, {"id": "K17", "text": "Office Work: completing administrative and clerical work, such as word processing and managing records", "knowledge_type": "office_work", "student_context": "Office work experience, administrative roles, OIS 200"}, {"id": "K18", "text": "Personnel and Human Resources: principles and procedures for recruiting, hiring, and training employees", "knowledge_type": "personnel_hr", "student_context": "MNGT 367, I-O psychology, HR internship experience"}, {"id": "K19", "text": "Physics: physical principles, laws, and their applications", "knowledge_type": "physics", "student_context": "PHYS courses, engineering physics, applied physics experience"}, {"id": "K20", "text": "Production and Processing: overseeing manufacturing and distribution processes", "knowledge_type": "production_processing", "student_context": "Operations management, supply chain courses, manufacturing experience"}, {"id": "K21", "text": "Psychology: methods of research, assessment, and treatment of human behavior", "knowledge_type": "psychology", "student_context": "PSYC 101+, I-O psychology, research methods, Dr. Castille's lab"}, {"id": "K22", "text": "Public Safety and Security: equipment, procedures, and strategies to promote security operations", "knowledge_type": "public_safety", "student_context": "Criminal justice, security work, military/ROTC experience"}, {"id": "K23", "text": "Sales and Marketing: promoting and selling products or services", "knowledge_type": "sales_marketing", "student_context": "Marketing courses, sales experience, advertising/promotion projects"}, {"id": "K24", "text": "Sociology and Anthropology: theories of group behavior, societal trends, and human culture", "knowledge_type": "sociology_anthropology", "student_context": "SOCI courses, ANTH courses, social science electives"}, {"id": "K25", "text": "Teaching and Course Design: applying methods and principles of instruction", "knowledge_type": "teaching", "student_context": "Education courses, tutoring experience, teaching assistant roles"}, {"id": "K26", "text": "Therapy and Counseling: applying principles and methods used in counseling", "knowledge_type": "therapy_counseling", "student_context": "Counseling psychology, peer counseling, mental health volunteer work"}, {"id": "K27", "text": "Transportation: principles and methods for moving people or goods by air, rail, sea, or road", "knowledge_type": "transportation", "student_context": "Logistics courses, transportation experience, supply chain management"}], "sources": ["U.S. Department of Labor Employment and Training Administration. CareerOneStop, Retrieved July 29, 2022 from https://www.careeronestop.org/.", "O*NET Level Scale Anchors (Version 30.0, August 2025)", "Adapted for college student assessment by Dr. Christopher Castille, Nicholls State University, 2025"]}, "skills": {"description": "Occupational Skills and Knowledge Inventory (OSKI) - Skills Section (Student Version)", "instructions": "Rate yourself honestly compared to OTHER COLLEGE STUDENTS at your level. Skills develop through practice and experience. How skilled are you at\u2026", "reference_group": "college students, not working professionals", "note": "Most students will rate themselves 2-3 on most items. Levels 4-5 represent top 20% and top 5% of students respectively.", "scale": [{"value": 1, "label": "Developing", "description": "Still learning; usually need guidance or support", "professional_benchmark": "Below professional entry level"}, {"value": 2, "label": "Basic", "description": "Can perform with some support; building competence", "professional_benchmark": "O*NET Level 2 tasks (entry-level professional)"}, {"value": 3, "label": "Competent", "description": "Can perform independently; above-average for students", "professional_benchmark": "O*NET Level 3-4 tasks (mid-level professional)"}, {"value": 4, "label": "Strong", "description": "Consistently excel; top 20% of students in this skill", "professional_benchmark": "O*NET Level 4-5 tasks (advanced professional)"}, {"value": 5, "label": "Exceptional", "description": "Top 5% of students; recognized by peers and professors as outstanding", "professional_benchmark": "O*NET Level 6+ tasks (expert professional)"}], "items": [{"id": "S1", "text": "Body Coordination: moving your arms, legs, and body together", "skill_type": "body_coordination", "student_context": "Sports, dance, physical activities requiring coordination"}, {"id": "S2", "text": "Complex Problem Solving: figuring out the best way to solve a difficult problem", "skill_type": "complex_problem_solving", "student_context": "Challenging class projects, research problems, real-world case studies"}, {"id": "S3", "text": "Creative Thinking: developing original ways to solve a problem", "skill_type": "creative_thinking", "student_context": "Novel solutions, innovative projects, artistic/design work"}, {"id": "S4", "text": "Financial Management: determining how money will be spent to get work done", "skill_type": "financial_management", "student_context": "Managing budgets for clubs/organizations, personal finance, work budgets"}, {"id": "S5", "text": "Finger Dexterity: controlling your fingers to precisely to manipulate small objects", "skill_type": "finger_dexterity", "student_context": "Musical instruments, crafts, lab work, technical assembly"}, {"id": "S6", "text": "Helping People: understanding how to help others in need", "skill_type": "helping_people", "student_context": "Volunteer work, peer tutoring, customer service, counseling roles"}, {"id": "S7", "text": "Instructing: teaching people how to do something", "skill_type": "instructing", "student_context": "Tutoring, teaching assistant, training others at work, explaining to peers"}, {"id": "S8", "text": "Persuasion: convincing others to change their minds or behavior", "skill_type": "persuasion", "student_context": "Presentations, debates, sales experience, student organization leadership"}, {"id": "S9", "text": "Physical Strength: using muscle force to lift, push, pull, or carry objects", "skill_type": "physical_strength", "student_context": "Labor jobs, athletics, physically demanding work/activities"}, {"id": "S10", "text": "Programming: writing computer programs for various purposes", "skill_type": "programming", "student_context": "Coding classes, personal projects, software development, hackathons"}, {"id": "S11", "text": "Repairing: fixing machines using tools", "skill_type": "repairing", "student_context": "Auto repair, electronics repair, mechanical troubleshooting, maintenance work"}, {"id": "S12", "text": "Science: using scientific rules and methods to solve problems", "skill_type": "science", "student_context": "Lab work, research projects, applying scientific method, data analysis"}, {"id": "S13", "text": "Social Coordination: adjusting actions in relation to others' actions", "skill_type": "social_coordination", "student_context": "Teamwork in sports/projects, group coordination, synchronizing with others"}, {"id": "S14", "text": "Social Perceptiveness: understanding others' reactions and behaviors", "skill_type": "social_perceptiveness", "student_context": "Reading social cues, empathy, understanding group dynamics, conflict awareness"}, {"id": "S15", "text": "Speaking: talking to others to convey information effectively", "skill_type": "speaking", "student_context": "Class presentations, public speaking, professional communication, meetings"}, {"id": "S16", "text": "Technology Design: building and adapting new technology", "skill_type": "technology_design", "student_context": "Engineering projects, building apps/websites, prototyping, tech innovation"}, {"id": "S17", "text": "Time Management: managing your own time and the time of others", "skill_type": "time_management", "student_context": "Balancing coursework/work/life, meeting deadlines, coordinating group schedules"}, {"id": "S18", "text": "Troubleshooting: identifying and fixing problems in machines or technology", "skill_type": "troubleshooting", "student_context": "Diagnosing tech issues, systematic problem-solving, IT support experience"}, {"id": "S19", "text": "Writing: communicating effectively in writing", "skill_type": "writing", "student_context": "Essays, research papers, reports, professional emails, creative writing"}], "sources": ["U.S. Department of Labor Employment and Training Administration. CareerOneStop, Retrieved July 29, 2022 from https://www.careeronestop.org/.", "O*NET Level Scale Anchors (Version 30.0, August 2025)", "Adapted for college student assessment by Dr. Christopher Castille, Nicholls State University, 2025"]}, "personality": {"description": "Personality Items and Scales Mapped into O*NET Work Styles", "instructions": "Please indicate the extent to which you agree or disagree with the statement. I am someone who\u2026", "scale": [{"value": 1, "label": "disagree strongly"}, {"value": 2, "label": "disagree a little"}, {"value": 3, "label": "no opinion"}, {"value": 4, "label": "agree a little"}, {"value": 5, "label": "agree strongly"}], "items": [{"id": "P1", "text": "Is compassionate, has a soft heart", "facet": "compassion", "reverse_coded": false}, {"id": "P2", "text": "Can be cold and uncaring", "facet": "compassion", "reverse_coded": true}, {"id": "P3", "text": "Is respectful, treats others with respect", "facet": "respectfulness", "reverse_coded": false}, {"id": "P4", "text": "Is sometimes rude to others", "facet": "respectfulness", "reverse_coded": true}, {"id": "P5", "text": "Tends to find fault with others", "facet": "trust", "reverse_coded": true}, {"id": "P6", "text": "Assumes the best about people", "facet": "trust", "reverse_coded": false}, {"id": "P7", "text": "Tends to be disorganized", "facet": "organization", "reverse_coded": true}, {"id": "P8", "text": "Keeps things neat and tidy", "facet": "organization", "reverse_coded": false}, {"id": "P9", "text": "Has difficulty getting started on tasks", "facet": "productiveness", "reverse_coded": true}, {"id": "P10", "text": "Is persistent, works until the task is finished", "facet": "productiveness", "reverse_coded": false}, {"id": "P11", "text": "Can be somewhat careless", "facet": "responsibility", "reverse_coded": true}, {"id": "P12", "text": "Is reliable, can always be counted on", "facet": "responsibility", "reverse_coded": false}, {"id": "P13", "text": "Is relaxed, handles stress well", "facet": "anxiety", "reverse_coded": true}, {"id": "P14", "text": "Worries a lot", "facet": "anxiety", "reverse_coded": false}, {"id": "P15", "text": "Is emotionally stable, not easily upset", "facet": "emotional_volatility", "reverse_coded": true}, {"id": "P16", "text": "Is temperamental, gets emotional easily", "facet": "emotional_volatility", "reverse_coded": false}, {"id": "P17", "text": "Is outgoing, sociable", "facet": "sociability", "reverse_coded": false}, {"id": "P18", "text": "Tends to be quiet", "facet": "sociability", "reverse_coded": true}, {"id": "P19", "text": "Is dominant, acts as a leader", "facet": "assertiveness", "reverse_coded": false}, {"id": "P20", "text": "Prefers to have others take charge", "facet": "assertiveness", "reverse_coded": true}, {"id": "P21", "text": "Is less active than other people", "facet": "energy_level", "reverse_coded": true}, {"id": "P22", "text": "Is full of energy", "facet": "energy_level", "reverse_coded": false}, {"id": "P23", "text": "Is complex, a deep thinker", "facet": "intellectual_curiosity", "reverse_coded": false}, {"id": "P24", "text": "Has little interest in abstract ideas", "facet": "intellectual_curiosity", "reverse_coded": true}, {"id": "P25", "text": "Has little creativity", "facet": "creative_imagination", "reverse_coded": true}, {"id": "P26", "text": "Is original, comes up with new ideas", "facet": "creative_imagination", "reverse_coded": false}, {"id": "P27", "text": "Would never steal, even if I knew I could get away with it", "facet": "integrity", "reverse_coded": false}, {"id": "P28", "text": "Always follows the rules", "facet": "integrity", "reverse_coded": false}, {"id": "P29", "text": "Would cheat to win a game", "facet": "integrity", "reverse_coded": true}], "sources": ["Soto, C. J., & John, O. P. (2017). The next Big Five Inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. Journal of Personality and Social Psychology, 113, 117\u2013143.", "Ashton, M. C., & Lee, K. (2009). The HEXACO-60: A short measure of the major dimensions of personality. Journal of Personality Assessment, 91, 340\u2013345."]}}`);
+        const embeddedOccupationData = JSON.parse(`{"metadata": {"description": "People Analyst profile blending HR Analyst and I-O Psychologist characteristics", "version": "2.0", "note": "Combined profile from O*NET HR Specialist (13-1071.00) and I-O Psychologist (19-3032.00)", "blend_strategy": "Average of HR Analyst and I-O Psychologist with emphasis on I-O Psych for research-oriented attributes"}, "occupations": [{"onet_code": "13-1071.00 & 19-3032.00", "title": "People Analyst / I-O Psychologist", "description": "Apply psychological principles to workforce analytics, HR metrics, and organizational research. Conduct data analysis and research to develop insights for HR decision-making and organizational improvement.", "domain_vectors": {"interests_basic": {"construction": 1.0, "engineering": 2.0, "mechanics": 1.0, "transportation": 1.0, "math": 3.5, "medical_science": 1.5, "physical_science": 2.0, "social_science": 4.0, "arts": 2.0, "design": 2.5, "writing": 3.5, "counseling": 3.5, "customer_service": 3.5, "teaching": 3.0, "law_government": 4.0, "management": 4.0, "sales_marketing": 2.5, "computers": 4.0, "finance_accounting": 3.5, "office_work": 4.0}, "interests_riasec": {"realistic": 1.23, "investigative": 4.92, "artistic": 3.03, "social": 4.13, "enterprising": 4.3, "conventional": 4.18}, "values": {"altruism": 3.5, "independence": 3.5, "leadership": 3.0, "outdoors": 1.0, "physical_work": 1.0, "prestige_salary": 3.5, "knowledge_utilization": 4.5, "variety": 4.0}, "knowledge": {"biology": 1.43, "chemistry": 1.04, "communications_media": 3.19, "computers_electronics": 3.62, "construction": 1.04, "customer_service": 3.81, "design": 1.96, "economics_accounting": 2.66, "engineering_technology": 1.84, "fine_arts": 1.34, "food_production": 1.04, "law_government": 3.93, "management": 4.27, "mathematics": 3.75, "mechanics": 1.07, "medicine_dentistry": 1.36, "office_work": 2.5, "personnel_hr": 4.96, "physics": 1.04, "production_processing": 1.79, "psychology": 4.57, "public_safety": 2.09, "sales_marketing": 2.5, "sociology_anthropology": 3.54, "teaching": 4.02, "therapy_counseling": 2.84, "transportation": 1.18}, "skills": {"body_coordination": 1.25, "complex_problem_solving": 4.25, "creative_thinking": 2.25, "financial_management": 2.81, "finger_dexterity": 1.5, "helping_people": 3.69, "instructing": 3.58, "persuasion": 3.88, "physical_strength": 1.0, "programming": 3.12, "repairing": 1.25, "science": 3.23, "social_coordination": 4.12, "social_perceptiveness": 4.19, "speaking": 4.06, "technology_design": 2.44, "time_management": 4.06, "troubleshooting": 2.5, "writing": 4.38}, "personality": {"compassion": 4.0, "respectfulness": 4.5, "trust": 4.5, "organization": 4.5, "productiveness": 4.5, "responsibility": 5.0, "anxiety": 3.5, "emotional_volatility": 3.5, "sociability": 3.5, "assertiveness": 3.5, "energy_level": 3.5, "intellectual_curiosity": 4.5, "creative_imagination": 3.5, "integrity": 5.0}}}]}`);
+
+        // Global state
+        let itemBank = null;
+        let occupationProfile = null;
+        let responses = {
+            interests: {},
+            values: {},
+            knowledge: {},
+            skills: {},
+            personality: {}
+        };
+        let currentSectionIndex = 0;
+        const sections = ['interests', 'values', 'knowledge', 'skills', 'personality'];
+        const sectionNames = {
+            interests: 'Interests',
+            values: 'Work Values',
+            knowledge: 'Knowledge',
+            skills: 'Skills',
+            personality: 'Personality'
+        };
+
+        // Load data on page load
+        function loadAssessmentData() {
+            try {
+                document.getElementById('loading-status').classList.remove('hidden');
+                
+                // Use embedded data
+                itemBank = embeddedItemBank;
+                occupationProfile = embeddedOccupationData.occupations[0];
+
+                document.getElementById('loading-status').classList.add('hidden');
+                document.getElementById('start-btn').disabled = false;
+                document.getElementById('start-btn').textContent = 'Begin Assessment';
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('loading-status').innerHTML = `
+                    <div class="text-red-600 mb-3">
+                        <strong>Error loading assessment data.</strong>
+                    </div>
+                    <div class="text-sm text-gray-700">
+                        <p>Please refresh the page. If the error persists, contact support.</p>
+                    </div>
+                `;
+                document.getElementById('loading-status').classList.remove('hidden');
+                document.getElementById('loading-status').classList.remove('text-blue-600');
+                document.getElementById('loading-status').classList.add('text-red-600');
+            }
+        }
+
+        function startAssessment() {
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('assessment-screen').classList.remove('hidden');
+            updateSectionNavigation();
+            showSection(0);
+        }
+
+        function updateSectionNavigation() {
+            const navButtons = document.getElementById('section-nav-buttons');
+            navButtons.innerHTML = sections.map((section, idx) => {
+                const isActive = currentSectionIndex === idx;
+                const isComplete = itemBank && itemBank[section] && 
+                    itemBank[section].items.every(item => responses[section][item.id] !== undefined);
+                const btnClass = isActive 
+                    ? 'bg-blue-600 text-white' 
+                    : isComplete 
+                        ? 'bg-green-100 text-green-700 hover:bg-green-200 border border-green-300'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200';
+                const checkmark = isComplete ? '✓ ' : '';
+                return `
+                    <button 
+                        onclick="showSection(${idx})"
+                        class="px-4 py-2 rounded-lg text-sm font-medium transition-colors ${btnClass}"
+                    >
+                        ${checkmark}${idx + 1}. ${sectionNames[section]}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function showSection(index) {
+            // Validate index
+            if (index < 0 || index >= sections.length) return;
+            
+            currentSectionIndex = index;
+            const section = sections[index];
+            const sectionData = itemBank[section];
+            const items = sectionData.items;
+
+            // Update section navigation
+            updateSectionNavigation();
+
+            // Update section info
+            document.getElementById('section-name').textContent = sectionNames[section];
+            document.getElementById('current-section-name').textContent = sectionNames[section];
+            document.getElementById('section-num').textContent = index + 1;
+            document.getElementById('total-items').textContent = items.length;
+
+            // Update instructions - transform to interest-based for Knowledge and Skills
+            let instructions = sectionData.instructions;
+            let scaleData = sectionData.scale;
+            
+            if (section === 'knowledge') {
+                instructions = "The following questions ask about your interest in learning different knowledge areas. Think about whether you'd be motivated to take courses or learn about these topics. Your interest level indicates how well these areas align with your career goals, even if you haven't studied them yet. How interested are you in learning about…";
+                scaleData = [
+                    {value: 1, label: "Not interested", description: "I don't want to learn about this area"},
+                    {value: 2, label: "Slightly interested", description: "I might take a course if it fits my schedule"},
+                    {value: 3, label: "Moderately interested", description: "I'm curious and would like to learn more"},
+                    {value: 4, label: "Very interested", description: "I actively want to take courses in this area"},
+                    {value: 5, label: "Extremely interested", description: "I'm passionate about learning this; considering it as a focus area"}
+                ];
+            } else if (section === 'skills') {
+                instructions = "The following questions ask about your interest in developing different skills. Think about whether you'd be motivated to practice and improve in these areas. Your interest level shows your willingness to develop these capabilities. How interested are you in developing your…";
+                scaleData = [
+                    {value: 1, label: "Not interested", description: "I don't want to develop this skill"},
+                    {value: 2, label: "Slightly interested", description: "I'm okay with improving this if needed"},
+                    {value: 3, label: "Moderately interested", description: "I'd like to get better at this"},
+                    {value: 4, label: "Very interested", description: "I actively seek opportunities to develop this skill"},
+                    {value: 5, label: "Extremely interested", description: "I'm passionate about becoming excellent at this"}
+                ];
+            }
+            
+            document.getElementById('instructions-text').textContent = instructions;
+            
+            // Update scale legend
+            const scaleOptions = document.getElementById('scale-options');
+            scaleOptions.innerHTML = scaleData.map(opt => 
+                `<strong>${opt.value}</strong> = ${opt.label}${opt.description ? ' (' + opt.description + ')' : ''}`
+            ).join(' • ');
+
+            // Render items
+            const container = document.getElementById('question-container');
+            container.innerHTML = '';
+            
+            items.forEach((item, idx) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'border-b border-gray-200 pb-6 last:border-b-0';
+                itemDiv.id = `item-${item.id}`;
+                
+                const existingValue = responses[section][item.id] || '';
+                
+                itemDiv.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-semibold text-sm mt-1">
+                            ${idx + 1}
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-gray-900 font-medium mb-3">
+                                ${item.text}
+                            </label>
+                            <div class="likert-scale">
+                                ${scaleData.map(opt => `
+                                    <div class="likert-option">
+                                        <input 
+                                            type="radio" 
+                                            id="${item.id}-${opt.value}" 
+                                            name="${item.id}" 
+                                            value="${opt.value}"
+                                            ${existingValue === opt.value ? 'checked' : ''}
+                                            onchange="handleResponse('${section}', '${item.id}', ${opt.value})"
+                                        />
+                                        <label for="${item.id}-${opt.value}">
+                                            <div class="font-semibold">${opt.value}</div>
+                                            <div class="text-xs mt-1 text-gray-600">${opt.label}</div>
+                                        </label>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(itemDiv);
+            });
+
+            updateProgress();
+            updateNavigation();
+        }
+
+        function handleResponse(section, itemId, value) {
+            responses[section][itemId] = value;
+            updateProgress();
+            updateSectionNavigation(); // Update nav to show completed sections
+            updateNavigation();
+        }
+
+        function updateProgress() {
+            const section = sections[currentSectionIndex];
+            const items = itemBank[section].items;
+            const answered = items.filter(item => responses[section][item.id] !== undefined).length;
+            const total = items.length;
+            const percent = Math.round((answered / total) * 100);
+            
+            document.getElementById('item-num').textContent = answered;
+            document.getElementById('progress-percent').textContent = percent + '%';
+            document.getElementById('progress-bar').style.width = percent + '%';
+            
+            // Calculate overall progress
+            let totalAnswered = 0;
+            let totalItems = 0;
+            sections.forEach(s => {
+                const sItems = itemBank[s].items;
+                totalItems += sItems.length;
+                totalAnswered += sItems.filter(item => responses[s][item.id] !== undefined).length;
+            });
+        }
+
+        function updateNavigation() {
+            const section = sections[currentSectionIndex];
+            const items = itemBank[section].items;
+            const allAnswered = items.every(item => responses[section][item.id] !== undefined);
+            
+            document.getElementById('next-btn').disabled = !allAnswered;
+            document.getElementById('back-btn').style.visibility = currentSectionIndex === 0 ? 'hidden' : 'visible';
+        }
+
+        function nextSection() {
+            if (currentSectionIndex < sections.length - 1) {
+                showSection(currentSectionIndex + 1);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                calculateResults();
+            }
+        }
+
+        function goBack() {
+            if (currentSectionIndex > 0) {
+                showSection(currentSectionIndex - 1);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Scoring functions (from Liu et al., 2024)
+        function mean(arr) {
+            if (arr.length === 0) return 0;
+            return arr.reduce((sum, val) => sum + val, 0) / arr.length;
+        }
+
+        function standardDeviation(arr) {
+            if (arr.length === 0) return 0;
+            const mu = mean(arr);
+            const variance = arr.reduce((sum, val) => sum + Math.pow(val - mu, 2), 0) / arr.length;
+            return Math.sqrt(variance);
+        }
+
+        function standardize(arr) {
+            const mu = mean(arr);
+            const sd = standardDeviation(arr);
+            if (sd === 0) return arr.map(() => 0);
+            return arr.map(val => (val - mu) / sd);
+        }
+
+        function computeProfileCorrelation(p, o) {
+            if (p.length !== o.length || p.length === 0) return 0;
+            const pStd = standardize(p);
+            const oStd = standardize(o);
+            const n = p.length;
+            const sum = p.reduce((acc, _, i) => acc + pStd[i] * oStd[i], 0);
+            return sum / n;
+        }
+
+        function scoreRespondent(responses, itemBank) {
+            const domainScores = {
+                interests_basic: {},
+                interests_riasec: {},
+                values: {},
+                knowledge: {},
+                skills: {},
+                personality: {}
+            };
+
+            // Score interests - basic interests
+            const interestItems = itemBank.interests.items;
+            const basicInterestGroups = {};
+            interestItems.forEach(item => {
+                const response = responses.interests[item.id];
+                if (response !== undefined) {
+                    if (!basicInterestGroups[item.basic_interest]) {
+                        basicInterestGroups[item.basic_interest] = [];
+                    }
+                    basicInterestGroups[item.basic_interest].push(response);
+                }
+            });
+            Object.keys(basicInterestGroups).forEach(bi => {
+                domainScores.interests_basic[bi] = mean(basicInterestGroups[bi]);
+            });
+
+            // Score interests - RIASEC
+            const riasecGroups = {};
+            interestItems.forEach(item => {
+                const response = responses.interests[item.id];
+                if (response !== undefined) {
+                    if (!riasecGroups[item.riasec]) {
+                        riasecGroups[item.riasec] = [];
+                    }
+                    riasecGroups[item.riasec].push(response);
+                }
+            });
+            Object.keys(riasecGroups).forEach(r => {
+                domainScores.interests_riasec[r] = mean(riasecGroups[r]);
+            });
+
+            // Score values
+            const valueItems = itemBank.values.items;
+            const valueGroups = {};
+            valueItems.forEach(item => {
+                const response = responses.values[item.id];
+                if (response !== undefined) {
+                    const valueType = item.value_type;
+                    if (!valueGroups[valueType]) {
+                        valueGroups[valueType] = [];
+                    }
+                    const value = item.reverse_coded ? (6 - response) : response;
+                    valueGroups[valueType].push(value);
+                }
+            });
+            Object.keys(valueGroups).forEach(vt => {
+                domainScores.values[vt] = mean(valueGroups[vt]);
+            });
+
+            // Score knowledge
+            const knowledgeItems = itemBank.knowledge.items;
+            knowledgeItems.forEach(item => {
+                const response = responses.knowledge[item.id];
+                if (response !== undefined) {
+                    domainScores.knowledge[item.knowledge_area] = response;
+                }
+            });
+
+            // Score skills
+            const skillItems = itemBank.skills.items;
+            skillItems.forEach(item => {
+                const response = responses.skills[item.id];
+                if (response !== undefined) {
+                    domainScores.skills[item.skill] = response;
+                }
+            });
+
+            // Score personality
+            const personalityItems = itemBank.personality.items;
+            const personalityGroups = {};
+            personalityItems.forEach(item => {
+                const response = responses.personality[item.id];
+                if (response !== undefined) {
+                    const facet = item.facet;
+                    if (!personalityGroups[facet]) {
+                        personalityGroups[facet] = [];
+                    }
+                    const value = item.reverse_coded ? (6 - response) : response;
+                    personalityGroups[facet].push(value);
+                }
+            });
+            Object.keys(personalityGroups).forEach(facet => {
+                domainScores.personality[facet] = mean(personalityGroups[facet]);
+            });
+
+            return domainScores;
+        }
+
+        function calculateFitScores(domainScores, occupationProfile) {
+            const fitScores = [];
+            const domainVectors = occupationProfile.domain_vectors;
+
+            // Interests - Basic
+            const basicInterestKeys = Object.keys(domainVectors.interests_basic);
+            const basicInterestPerson = basicInterestKeys.map(key => domainScores.interests_basic[key] || 0);
+            const basicInterestOcc = basicInterestKeys.map(key => domainVectors.interests_basic[key] || 0);
+            if (basicInterestPerson.some(v => v !== 0) && basicInterestOcc.some(v => v !== 0)) {
+                const corr = computeProfileCorrelation(basicInterestPerson, basicInterestOcc);
+                fitScores.push({ domain: 'interests_basic', correlation: corr });
+            }
+
+            // Interests - RIASEC
+            const riasecKeys = Object.keys(domainVectors.interests_riasec);
+            const riasecPerson = riasecKeys.map(key => domainScores.interests_riasec[key] || 0);
+            const riasecOcc = riasecKeys.map(key => domainVectors.interests_riasec[key] || 0);
+            if (riasecPerson.some(v => v !== 0) && riasecOcc.some(v => v !== 0)) {
+                const corr = computeProfileCorrelation(riasecPerson, riasecOcc);
+                fitScores.push({ domain: 'interests_riasec', correlation: corr });
+            }
+
+            // Values
+            const valuesKeys = Object.keys(domainVectors.values);
+            const valuesPerson = valuesKeys.map(key => domainScores.values[key] || 0);
+            const valuesOcc = valuesKeys.map(key => domainVectors.values[key] || 0);
+            if (valuesPerson.some(v => v !== 0) && valuesOcc.some(v => v !== 0)) {
+                const corr = computeProfileCorrelation(valuesPerson, valuesOcc);
+                fitScores.push({ domain: 'values', correlation: corr });
+            }
+
+            // Knowledge
+            const knowledgeKeys = Object.keys(domainVectors.knowledge);
+            const knowledgePerson = knowledgeKeys.map(key => domainScores.knowledge[key] || 0);
+            const knowledgeOcc = knowledgeKeys.map(key => domainVectors.knowledge[key] || 0);
+            if (knowledgePerson.some(v => v !== 0) && knowledgeOcc.some(v => v !== 0)) {
+                const corr = computeProfileCorrelation(knowledgePerson, knowledgeOcc);
+                fitScores.push({ domain: 'knowledge', correlation: corr });
+            }
+
+            // Skills
+            const skillsKeys = Object.keys(domainVectors.skills);
+            const skillsPerson = skillsKeys.map(key => domainScores.skills[key] || 0);
+            const skillsOcc = skillsKeys.map(key => domainVectors.skills[key] || 0);
+            if (skillsPerson.some(v => v !== 0) && skillsOcc.some(v => v !== 0)) {
+                const corr = computeProfileCorrelation(skillsPerson, skillsOcc);
+                fitScores.push({ domain: 'skills', correlation: corr });
+            }
+
+            // Personality
+            const personalityKeys = Object.keys(domainVectors.personality);
+            const personalityPerson = personalityKeys.map(key => domainScores.personality[key] || 0);
+            const personalityOcc = personalityKeys.map(key => domainVectors.personality[key] || 0);
+            if (personalityPerson.some(v => v !== 0) && personalityOcc.some(v => v !== 0)) {
+                const corr = computeProfileCorrelation(personalityPerson, personalityOcc);
+                fitScores.push({ domain: 'personality', correlation: corr });
+            }
+
+            // Calculate 50/50 weighted composite fit
+            // Group 1 (50%): Interests, Values, Personality (softer features)
+            const softFeatures = fitScores.filter(fs => 
+                fs.domain === 'interests_basic' || 
+                fs.domain === 'interests_riasec' || 
+                fs.domain === 'values' || 
+                fs.domain === 'personality'
+            );
+            const softFeaturesFit = softFeatures.length > 0 
+                ? mean(softFeatures.map(fs => fs.correlation))
+                : 0;
+
+            // Group 2 (50%): Knowledge Interest, Skills Interest (learning motivation)
+            const learningInterest = fitScores.filter(fs => 
+                fs.domain === 'knowledge' || 
+                fs.domain === 'skills'
+            );
+            const learningInterestFit = learningInterest.length > 0 
+                ? mean(learningInterest.map(fs => fs.correlation))
+                : 0;
+
+            // 50/50 weighted composite
+            const compositeFit = (0.50 * softFeaturesFit) + (0.50 * learningInterestFit);
+
+            return {
+                occupation: occupationProfile,
+                fit_scores: fitScores,
+                composite_fit: compositeFit,
+                soft_features_fit: softFeaturesFit,
+                learning_interest_fit: learningInterestFit
+            };
+        }
+
+        // Empirical weights from Liu et al. (2024) for each outcome
+        const outcomeWeights = {
+            'career-satisfaction': {
+                'interests_basic': 0.527,
+                'values': 0.176,
+                'knowledge': 0.168,
+                'personality': 0.092,
+                'skills': 0.046
+            },
+            'job-satisfaction': {
+                'interests_basic': 0.477,
+                'knowledge': 0.252,
+                'values': 0.117,
+                'personality': 0.099,
+                'skills': 0.054
+            },
+            'needs-supplies': {
+                'interests_basic': 0.593,
+                'knowledge': 0.144,
+                'values': 0.144,
+                'personality': 0.085,
+                'skills': 0.025
+            },
+            'demands-abilities': {
+                'interests_basic': 0.343,
+                'knowledge': 0.267,
+                'personality': 0.152,
+                'values': 0.143,
+                'skills': 0.095
+            },
+            'income': {
+                'knowledge': 0.367,
+                'skills': 0.200,
+                'personality': 0.200,
+                'values': 0.133,
+                'interests_basic': 0.100
+            }
+        };
+
+        // Calculate outcome-specific scores using empirical weights
+        function calculateOutcomeScores(fitResult) {
+            const domainFitMap = {};
+            fitResult.fit_scores.forEach(fs => {
+                const pct = Math.round(((fs.correlation + 1) / 2) * 100);
+                domainFitMap[fs.domain] = pct;
+            });
+
+            const outcomes = {};
+            Object.keys(outcomeWeights).forEach(outcomeKey => {
+                const weights = outcomeWeights[outcomeKey];
+                let weightedSum = 0;
+                let totalWeight = 0;
+                
+                Object.keys(weights).forEach(domain => {
+                    const weight = weights[domain];
+                    const fitPct = domainFitMap[domain] || 0;
+                    weightedSum += (weight * fitPct);
+                    totalWeight += weight;
+                });
+                
+                // Normalize to account for any missing domains
+                const outcomeScore = totalWeight > 0 ? weightedSum / totalWeight : 0;
+                outcomes[outcomeKey] = Math.round(outcomeScore);
+            });
+
+            return outcomes;
+        }
+
+        // Calculate predicted income based on fit score and degree level
+        // Uses Liu et al. (2025) income correlations: Knowledge fit r=.19, Skill fit r=.15
+        // Maps fit score (0-100%) to salary percentile, then applies to SIOP base salaries
+        function calculatePredictedIncome(incomeFitScore, degreeLevel) {
+            // SIOP base median salaries (2025 dollars, inflation-adjusted)
+            const baseSalaries = {
+                'masters': 119000,
+                'doctoral': 163000
+            };
+            
+            const baseSalary = baseSalaries[degreeLevel] || baseSalaries.masters;
+            
+            // Convert fit score to percentile position
+            // Fit score of 50% = median (50th percentile)
+            // Fit score of 75% = ~75th percentile (+25% above median)
+            // Fit score of 85% = ~85th percentile (+40% above median)
+            // Fit score of 25% = ~25th percentile (-20% below median)
+            // Using a conservative multiplier based on Liu et al. correlations
+            const percentile = incomeFitScore; // Fit score directly maps to percentile
+            const multiplier = 0.5 + (percentile / 100) * 1.0; // Range: 0.5x to 1.5x median
+            
+            // Apply multiplier to base salary
+            const predictedSalary = Math.round(baseSalary * multiplier);
+            
+            // Calculate range (±10% for uncertainty)
+            const rangeLow = Math.round(predictedSalary * 0.90);
+            const rangeHigh = Math.round(predictedSalary * 1.10);
+            
+            return {
+                predicted: predictedSalary,
+                rangeLow: rangeLow,
+                rangeHigh: rangeHigh,
+                percentile: percentile
+            };
+        }
+
+        function calculateResults() {
+            const domainScores = scoreRespondent(responses, itemBank);
+            const fitResult = calculateFitScores(domainScores, occupationProfile);
+            
+            showResults(fitResult);
+        }
+
+        function showResults(fitResult) {
+            document.getElementById('assessment-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+
+            const fitPercentage = Math.round(((fitResult.composite_fit + 1) / 2) * 100);
+            const interpretation = getInterpretation(fitPercentage);
+            
+            // Calculate outcome-specific scores
+            const outcomeScores = calculateOutcomeScores(fitResult);
+            
+            // Create domain fit map
+            const domainFitMap = {};
+            fitResult.fit_scores.forEach(fs => {
+                const pct = Math.round(((fs.correlation + 1) / 2) * 100);
+                domainFitMap[fs.domain] = pct;
+            });
+
+            // Update sidebar summary
+            const sidebarSummary = document.getElementById('sidebar-summary');
+            sidebarSummary.innerHTML = `
+                <div class="text-center mb-4">
+                    <div class="text-4xl font-bold text-gray-900 mb-1">${fitPercentage}%</div>
+                    <div class="text-sm font-medium text-gray-700">Overall Fit Score</div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full" style="width: ${fitPercentage}%"></div>
+                </div>
+            `;
+
+            // Generate results content with all outcomes
+            const resultsContent = document.getElementById('results-content');
+            resultsContent.innerHTML = generateResultsHTML(fitResult, outcomeScores, domainFitMap, interpretation);
+
+            // Draw all radar charts
+            setTimeout(() => {
+                drawAllRadarCharts(fitResult, domainFitMap);
+            }, 100);
+
+            // Initialize navigation
+            initializeNavigation();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Generate HTML for all outcome sections
+        function generateResultsHTML(fitResult, outcomeScores, domainFitMap, interpretation) {
+            const fitPercentage = Math.round(((fitResult.composite_fit + 1) / 2) * 100);
+            const softFeaturesPct = Math.round(((fitResult.soft_features_fit + 1) / 2) * 100);
+            const learningInterestPct = Math.round(((fitResult.learning_interest_fit + 1) / 2) * 100);
+
+            return `
+                <!-- Overview Section -->
+                <div id="overview" class="outcome-content active">
+                    <div class="mb-8">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">Your People Analytics Fit Profile</h1>
+                        <p class="text-gray-600">Explore how your fit relates to different career outcomes</p>
+                    </div>
+
+                    <!-- How Fit is Measured Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6 border-l-4 border-blue-500">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3">How Your Fit is Measured</h2>
+                        
+                        <div id="plain-explanation" class="space-y-3 text-gray-700">
+                            <p>
+                                <strong>Plain Language:</strong> Think of fit like comparing two puzzle pieces. We look at how similar your interests, values, and goals are to what People Analytics careers actually need. Instead of asking if you already know everything (since you're a student), we focus on two things:
+                            </p>
+                            <ol class="list-decimal list-inside space-y-2 ml-4">
+                                <li><strong>Core Fit (50%):</strong> How much do your interests, work values, and personality match People Analytics? This includes what you enjoy doing, what matters to you in work, and your natural tendencies.</li>
+                                <li><strong>Learning Interest (50%):</strong> How interested are you in learning the knowledge and developing the skills that People Analysts need? We ask about your interest in learning, not what you already know, because we want to understand your potential.</li>
+                            </ol>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+                                <p class="text-sm text-blue-900">
+                                    <strong>Important Note:</strong> Unlike the original research study (Liu et al., 2024), we measure your <em>interest in learning</em> knowledge and skills rather than your current knowledge and skills. This makes the assessment more relevant for college students who are still building their expertise. Your interest in learning these areas shows your potential to succeed in People Analytics.
+                                </p>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-4">
+                                <strong>Source:</strong> Liu, Z., Hoff, K. A., Chu, C., Oswald, F. L., & Rounds, J. (2025). Toward whole-person fit assessment: 
+                                Integrating interests, values, skills, knowledge, and personality using the Occupational Information Network (O*NET). 
+                                <em>Journal of Applied Psychology</em>, <em>110</em>(5), 623–647. https://doi.org/10.1037/apl0001232
+                            </p>
+                            <p>
+                                <span class="explanation-toggle text-sm" onclick="toggleExplanation()">Show technical explanation →</span>
+                            </p>
+                        </div>
+                        
+                        <div id="technical-explanation" class="hidden space-y-3 text-gray-700">
+                            <p>
+                                <strong>Technical Explanation:</strong> Fit is calculated using profile correlation (Pearson r) between your personal characteristics profile and the People Analytics occupational profile across multiple domains. For each domain:
+                            </p>
+                            <ol class="list-decimal list-inside space-y-2 ml-4 text-sm">
+                                <li>Your responses are aggregated into domain-level scores (raw response sums or means)</li>
+                                <li>These scores are converted to standardized profiles (z-scores) to normalize scale differences</li>
+                                <li>Profile correlation is computed between your profile and the target occupational profile using Pearson product-moment correlation</li>
+                                <li>Correlation values range from -1 to +1, which are transformed to percentages (0-100%) using: ((r + 1) / 2) × 100</li>
+                            </ol>
+                            <p class="text-sm">
+                                The composite fit score uses outcome-specific weights derived from dominance analysis (Liu et al., 2024). Each outcome (e.g., Career Satisfaction, Income) has different domain weights based on empirical research showing which domains best predict that outcome. For example, Career Satisfaction is primarily weighted by Basic Interests (52.7%), while Income Potential is primarily weighted by Knowledge Interest (36.7%).
+                            </p>
+                            <p class="text-xs text-gray-500 mt-4 italic">
+                                <strong>Source:</strong> Liu, Z., Hoff, K. A., Chu, C., Oswald, F. L., & Rounds, J. (2025). Toward whole-person fit assessment: 
+                                Integrating interests, values, skills, knowledge, and personality using the Occupational Information Network (O*NET). 
+                                <em>Journal of Applied Psychology</em>, <em>110</em>(5), 623–647. https://doi.org/10.1037/apl0001232
+                            </p>
+                            <p>
+                                <span class="explanation-toggle text-sm" onclick="toggleExplanation()">← Show plain language explanation</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Component Scores -->
+                    <div class="grid md:grid-cols-2 gap-4 mb-8">
+                        <div class="bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+                            <h3 class="text-lg font-semibold text-blue-900 mb-2">Core Fit (50%)</h3>
+                            <div class="text-4xl font-bold text-blue-700 mb-1">${softFeaturesPct}%</div>
+                            <p class="text-sm text-blue-800">Interests, Values, Personality</p>
+                        </div>
+                        <div class="bg-purple-50 rounded-xl p-6 border-2 border-purple-200">
+                            <h3 class="text-lg font-semibold text-purple-900 mb-2">Learning Interest (50%)</h3>
+                            <div class="text-4xl font-bold text-purple-700 mb-1">${learningInterestPct}%</div>
+                            <p class="text-sm text-purple-800">Interest in Learning Knowledge & Skills</p>
+                        </div>
+                    </div>
+
+                    <!-- Overall Fit Score Card -->
+                    <div class="bg-white rounded-lg shadow-sm p-8 mb-6" style="background: ${interpretation.gradient};">
+                        <div class="text-center text-white">
+                            <h2 class="text-2xl font-semibold mb-2">${fitResult.occupation.title}</h2>
+                            <div class="text-6xl font-bold my-4">${fitPercentage}%</div>
+                            <div class="text-xl mb-1">Overall Fit Score</div>
+                            <p class="text-sm opacity-90 mb-4">(${interpretation.level})</p>
+                            <p class="mt-6 text-base opacity-95">${fitResult.occupation.description}</p>
+                            <div class="mt-6 text-left bg-white bg-opacity-20 rounded-lg p-4">
+                                <p class="font-medium mb-2">${interpretation.summary}</p>
+                                <p class="text-sm">${interpretation.details}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domain Overview Radar -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Domain Fit Overview</h2>
+                        <div class="flex justify-center items-center">
+                            <div id="overview-radar" style="width: 400px; height: 400px; overflow: visible;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Outcome Comparison -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Outcome Comparison</h2>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-4">
+                                <div class="w-32 text-sm text-gray-700">Career Satisfaction</div>
+                                <div class="flex-1 bg-gray-200 rounded-full h-6 relative">
+                                    <div class="bg-green-500 h-6 rounded-full flex items-center justify-end pr-2" style="width: ${outcomeScores['career-satisfaction']}%">
+                                        <span class="text-xs text-white font-medium">${outcomeScores['career-satisfaction']}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-32 text-sm text-gray-700">Job Satisfaction</div>
+                                <div class="flex-1 bg-gray-200 rounded-full h-6 relative">
+                                    <div class="bg-green-500 h-6 rounded-full flex items-center justify-end pr-2" style="width: ${outcomeScores['job-satisfaction']}%">
+                                        <span class="text-xs text-white font-medium">${outcomeScores['job-satisfaction']}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-32 text-sm text-gray-700">Needs-Supplies Fit</div>
+                                <div class="flex-1 bg-gray-200 rounded-full h-6 relative">
+                                    <div class="bg-blue-500 h-6 rounded-full flex items-center justify-end pr-2" style="width: ${outcomeScores['needs-supplies']}%">
+                                        <span class="text-xs text-white font-medium">${outcomeScores['needs-supplies']}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-32 text-sm text-gray-700">Demands-Abilities</div>
+                                <div class="flex-1 bg-gray-200 rounded-full h-6 relative">
+                                    <div class="bg-blue-500 h-6 rounded-full flex items-center justify-end pr-2" style="width: ${outcomeScores['demands-abilities']}%">
+                                        <span class="text-xs text-white font-medium">${outcomeScores['demands-abilities']}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-32 text-sm text-gray-700">Income Potential*</div>
+                                <div class="flex-1 bg-gray-200 rounded-full h-6 relative">
+                                    <div class="bg-purple-500 h-6 rounded-full flex items-center justify-end pr-2" style="width: ${outcomeScores['income']}%">
+                                        <span class="text-xs text-white font-medium">${outcomeScores['income']}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 rounded-lg p-4 mt-4">
+                            <p class="text-xs text-yellow-900">
+                                <strong>⚠️ Note on Income Potential:</strong> This score is based on your <em>interest in learning</em> knowledge and skills, not your actual knowledge and skills. 
+                                Research shows that actual income is predicted by real knowledge/skill fit, not interests. This prediction should be interpreted cautiously. 
+                                See the Income section below for actual salary data from I-O Psychology careers.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                ${generateOutcomeHTML('career-satisfaction', 'Career Choice Satisfaction', 'How satisfied you\'ll be with your career choice in People Analytics', outcomeScores['career-satisfaction'], domainFitMap, outcomeWeights['career-satisfaction'])}
+                ${generateOutcomeHTML('job-satisfaction', 'Job Satisfaction', 'How satisfied you\'ll be in People Analytics jobs', outcomeScores['job-satisfaction'], domainFitMap, outcomeWeights['job-satisfaction'])}
+                ${generateOutcomeHTML('needs-supplies', 'Needs-Supplies Fit', 'How well People Analytics can fulfill what you value in work', outcomeScores['needs-supplies'], domainFitMap, outcomeWeights['needs-supplies'])}
+                ${generateOutcomeHTML('demands-abilities', 'Demands-Abilities Fit', 'The match between job demands and your capabilities', outcomeScores['demands-abilities'], domainFitMap, outcomeWeights['demands-abilities'])}
+                ${generateOutcomeHTML('income', 'Income & Salary Information', 'Actual salary data from I-O Psychology careers and how fit relates to income potential', outcomeScores['income'], domainFitMap, outcomeWeights['income'])}
+                ${generateCareerProspectsHTML()}
+            `;
+        }
+
+        // Generate HTML for a single outcome section
+        function generateOutcomeHTML(outcomeId, title, subtitle, score, domainFitMap, weights) {
+            const colorClasses = {
+                'career-satisfaction': { textClass: 'text-green-600', barClass: 'bg-green-500', label: 'High satisfaction potential' },
+                'job-satisfaction': { textClass: 'text-green-600', barClass: 'bg-green-500', label: 'High satisfaction potential' },
+                'needs-supplies': { textClass: 'text-blue-600', barClass: 'bg-blue-500', label: 'Good fit potential' },
+                'demands-abilities': { textClass: 'text-blue-600', barClass: 'bg-blue-500', label: 'Good capability match' },
+                'income': { textClass: 'text-purple-600', barClass: 'bg-purple-500', label: 'Income potential' }
+            };
+            const colors = colorClasses[outcomeId] || { textClass: 'text-gray-600', barClass: 'bg-gray-500', label: 'Fit score' };
+
+            // Sort domains by weight for display
+            const domainEntries = Object.entries(weights).sort((a, b) => b[1] - a[1]);
+
+            // Outcome definitions based on Liu et al. (2024)
+            const outcomeDefinitions = {
+                'career-satisfaction': {
+                    definition: 'Career Choice Satisfaction reflects your overall satisfaction with your chosen career path and the extent to which your career aligns with your personal goals and identity.',
+                    liuDefinition: 'Career Choice Satisfaction measures an individual\'s overall satisfaction with their career choice and the alignment between their career and personal goals (Liu et al., 2024).',
+                    modification: 'This assessment predicts career satisfaction based on fit with the People Analytics field, recognizing that satisfaction evolves as students gain experience and refine their career goals.'
+                },
+                'job-satisfaction': {
+                    definition: 'Job Satisfaction refers to your level of contentment and positive feelings about the specific job tasks, work environment, and day-to-day experiences in People Analytics roles.',
+                    liuDefinition: 'Job Satisfaction is a person\'s affective response to their job, including feelings about work tasks, conditions, and the overall work experience (Liu et al., 2024).',
+                    modification: 'We predict job satisfaction based on fit with People Analytics work characteristics, acknowledging that actual satisfaction will depend on specific job context and organizational factors.'
+                },
+                'needs-supplies': {
+                    definition: 'Needs-Supplies Fit measures how well People Analytics careers can fulfill what you value and need in work (e.g., autonomy, meaning, growth opportunities, work-life balance).',
+                    liuDefinition: 'Needs-Supplies Fit (also called Person-Environment Fit) is the extent to which the work environment supplies what the individual needs and values, such as autonomy, meaning, growth opportunities, and compensation (Liu et al., 2024).',
+                    modification: 'This assessment measures fit between your work values (what you need and value) and what People Analytics careers typically provide, focusing on potential rather than specific job offers.'
+                },
+                'demands-abilities': {
+                    definition: 'Demands-Abilities Fit assesses the match between what People Analytics jobs require (demands) and your capabilities, knowledge, and skills (abilities).',
+                    liuDefinition: 'Demands-Abilities Fit is the degree to which an individual\'s knowledge, skills, and abilities match the demands and requirements of their job (Liu et al., 2024).',
+                    modification: 'For college students, we measure <em>interest in learning</em> knowledge areas and <em>interest in developing</em> skills rather than current capabilities, focusing on potential and motivation to develop required competencies.'
+                },
+                'income': {
+                    definition: 'This section shows actual salary data from I-O Psychology careers, along with how your fit relates to income potential. However, the fit-based prediction should be interpreted cautiously because we measure your interest in learning (not your actual knowledge and skills).',
+                    liuDefinition: 'Income (objective career success) reflects actual earnings and financial rewards. Research shows that income is predicted by actual knowledge and skill fit, not interests or values (Liu et al., 2024).',
+                    modification: '<strong>Important Limitation:</strong> We are using your <em>interest in learning</em> knowledge and skills as a proxy for actual knowledge and skills, but interest ≠ actual knowledge/skills. Liu et al. (2024) found that actual knowledge and skill fit predict income, not interests. Therefore, this fit-based prediction should be interpreted very cautiously. Instead, see the actual salary data from SIOP below, which reflects real earnings in I-O Psychology careers.'
+                }
+            };
+            
+            const outcomeDef = outcomeDefinitions[outcomeId] || {
+                definition: subtitle,
+                liuDefinition: '',
+                modification: ''
+            };
+
+            return `
+                <div id="${outcomeId}" class="outcome-content">
+                    <div class="mb-8">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">${title}</h1>
+                        <p class="text-gray-600">${subtitle}</p>
+                    </div>
+
+                    <!-- Outcome Definition -->
+                    <div class="bg-blue-50 rounded-lg shadow-sm p-6 mb-6 border-l-4 border-blue-500">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3">What This Outcome Means</h2>
+                        <p class="text-gray-700 mb-3">
+                            ${outcomeDef.definition}
+                        </p>
+                        ${outcomeDef.liuDefinition ? `
+                        <div class="bg-white bg-opacity-50 rounded-lg p-4 mb-3">
+                            <p class="text-sm text-gray-700 mb-2">
+                                <strong>Based on Liu et al. (2024):</strong> ${outcomeDef.liuDefinition}
+                            </p>
+                            <p class="text-xs text-gray-600 italic">
+                                <strong>How We Modified It:</strong> ${outcomeDef.modification}
+                            </p>
+                        </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-8 mb-6">
+                        <div class="grid md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <div class="text-5xl font-bold ${colors.textClass} mb-2">${score}%</div>
+                                <div class="text-sm text-gray-600 mb-4">${colors.label}</div>
+                                <div class="w-full bg-gray-200 rounded-full h-4 mb-6">
+                                    <div class="${colors.barClass} h-4 rounded-full" style="width: ${score}%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-center items-center">
+                                <div id="${outcomeId}-radar" style="width: 400px; height: 400px; overflow: visible;"></div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">All Domain Contributions (Weighted by Liu et al., 2024)</h3>
+                        <p class="text-xs text-gray-500 mb-4">
+                            Weights derived from dominance analysis in Liu et al. (2024). Different outcomes use different weights based on which domains best predict each outcome.
+                        </p>
+                        <div class="space-y-4">
+                            ${domainEntries.map(([domain, weight]) => {
+                                const fitPct = domainFitMap[domain] || 0;
+                                const domainClass = domain === 'interests_basic' ? 'domain-basic-interests' :
+                                                   domain === 'knowledge' ? 'domain-knowledge' :
+                                                   domain === 'values' ? 'domain-values' :
+                                                   domain === 'skills' ? 'domain-skills' :
+                                                   'domain-personality';
+                                const colorClass = domain === 'interests_basic' ? 'bg-blue-500' :
+                                             domain === 'knowledge' ? 'bg-purple-500' :
+                                             domain === 'values' ? 'bg-pink-500' :
+                                             domain === 'skills' ? 'bg-teal-500' :
+                                             'bg-amber-500';
+                                const label = getDomainLabel(domain);
+                                return `
+                                    <div class="${domainClass}">
+                                        <div class="flex justify-between mb-2">
+                                            <span class="text-sm font-medium text-gray-700">${label}</span>
+                                            <span class="text-sm font-semibold text-gray-900">${(weight * 100).toFixed(1)}% weight • ${fitPct}% fit</span>
+                                        </div>
+                                        <div class="w-full bg-gray-100 rounded-full h-3">
+                                            <div class="${colorClass} h-3 rounded-full domain-bar" style="width: ${fitPct}%"></div>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                    ${outcomeId === 'income' ? `
+                    <!-- Predicted Income Based on Fit Score -->
+                    <div class="bg-purple-50 rounded-lg shadow-sm p-6 mb-6 border-l-4 border-purple-500">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3">💰 Your Predicted Income Potential</h2>
+                        <p class="text-sm text-gray-700 mb-4">
+                            Based on your fit score (${score}%) and using Liu et al. (2025) income prediction weights, here are your predicted salary ranges for I-O Psychology careers:
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6 mb-4">
+                            ${(() => {
+                                const mastersPred = calculatePredictedIncome(score, 'masters');
+                                const doctoralPred = calculatePredictedIncome(score, 'doctoral');
+                                return `
+                                    <div class="text-center p-6 bg-white rounded-lg border-2 border-purple-200">
+                                        <div class="text-sm text-purple-700 mb-2 font-medium">Master's Degree Path</div>
+                                        <div class="text-4xl font-bold text-purple-900 mb-1">$${Math.round(mastersPred.predicted / 1000)}K</div>
+                                        <div class="text-xs text-gray-600 mt-2">Predicted range: $${Math.round(mastersPred.rangeLow / 1000)}K - $${Math.round(mastersPred.rangeHigh / 1000)}K</div>
+                                        <div class="text-xs text-gray-500 mt-1">Based on ${score}% income fit score</div>
+                                    </div>
+                                    <div class="text-center p-6 bg-white rounded-lg border-2 border-purple-200">
+                                        <div class="text-sm text-purple-700 mb-2 font-medium">Doctoral Degree Path</div>
+                                        <div class="text-4xl font-bold text-purple-900 mb-1">$${Math.round(doctoralPred.predicted / 1000)}K</div>
+                                        <div class="text-xs text-gray-600 mt-2">Predicted range: $${Math.round(doctoralPred.rangeLow / 1000)}K - $${Math.round(doctoralPred.rangeHigh / 1000)}K</div>
+                                        <div class="text-xs text-gray-500 mt-1">Based on ${score}% income fit score</div>
+                                    </div>
+                                `;
+                            })()}
+                        </div>
+                        <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-4">
+                            <p class="text-xs text-yellow-900">
+                                <strong>⚠️ Important Limitations:</strong> These predictions are based on your <em>interest in learning</em> knowledge and skills, not your actual knowledge and skills. 
+                                Liu et al. (2025) found that actual income is predicted by real knowledge and skill fit (r=.19 for knowledge, r=.15 for skills), not interests. 
+                                These predictions should be interpreted very cautiously. See actual SIOP salary data below for real-world earnings.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Actual Salary Data Section (only for income) -->
+                    <div class="bg-green-50 rounded-lg shadow-sm p-6 mb-6 border-l-4 border-green-500">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3">💼 Actual Salary Data from I-O Psychology</h2>
+                        <p class="text-sm text-gray-700 mb-4">
+                            For comparison, here are the actual median salary figures from the 2022 SIOP Income and Employment Report (2021 data), adjusted to 2025 dollars using CPI-U:
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-6 mb-4">
+                            <div class="text-center p-6 bg-white rounded-lg border-2 border-green-200">
+                                <div class="text-sm text-green-700 mb-2 font-medium">Master's Degree</div>
+                                <div class="text-4xl font-bold text-green-900 mb-1">$119K</div>
+                                <div class="text-xs text-gray-600 mt-2">Median income (2025, adjusted for inflation)</div>
+                                <div class="text-xs text-gray-500 mt-1">$100K in 2021 dollars</div>
+                                <div class="text-xs text-gray-500 mt-1">97.8% work as practitioners</div>
+                            </div>
+                            <div class="text-center p-6 bg-white rounded-lg border-2 border-green-200">
+                                <div class="text-sm text-green-700 mb-2 font-medium">Doctoral Degree</div>
+                                <div class="text-4xl font-bold text-green-900 mb-1">$163K</div>
+                                <div class="text-xs text-gray-600 mt-2">Median income (2025, adjusted for inflation)</div>
+                                <div class="text-xs text-gray-500 mt-1">$137K in 2021 dollars</div>
+                                <div class="text-xs text-gray-500 mt-1">62% practitioners, 38% academics</div>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-4 mb-4">
+                            <p class="text-sm text-yellow-900 mb-2">
+                                <strong>⚠️ Important Note:</strong> The fit score above (${score}%) is based on your interest in learning knowledge and skills, not your actual knowledge and skills. 
+                                Research shows that actual income is predicted by real knowledge and skill fit, not interests. Therefore, the fit-based prediction above should be interpreted very cautiously.
+                            </p>
+                            <p class="text-xs text-yellow-800 mt-2">
+                                <strong>Source:</strong> Society for Industrial and Organizational Psychology (SIOP). (2022). 
+                                <em>SIOP Income and Employment Report 2021</em>. Retrieved from 
+                                <a href="https://www.siop.org/Research-Publications/Items-of-Interest" target="_blank" class="text-blue-600 hover:underline">SIOP website</a>
+                            </p>
+                            <p class="text-xs text-yellow-800 mt-2">
+                                <strong>Inflation Adjustment:</strong> All salary figures from the 2021 SIOP report have been adjusted to 2025 dollars using CPI-U 
+                                (inflation factor: 1.1903, representing 19% cumulative inflation from 2021 to 2025).
+                            </p>
+                        </div>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // Generate Career Prospects HTML
+        function generateCareerProspectsHTML() {
+            return `
+                <div id="career-prospects" class="outcome-content">
+                    <div class="mb-8">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">Career Prospects: I-O Psychology</h1>
+                        <p class="text-gray-600">Salary data and career information for Industrial-Organizational Psychology</p>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-8 border-2 border-blue-300 mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3">💼 Career Outlook: I-O Psychology Salary Data</h2>
+                        <p class="text-gray-700 mb-2 text-sm">
+                            Based on the 2022 SIOP (Society for Industrial and Organizational Psychology) Income and Employment Report, 
+                            I-O Psychology offers strong earning potential and career flexibility.
+                        </p>
+                        <p class="text-xs text-gray-500 mb-6 italic">
+                            <strong>Source:</strong> Society for Industrial and Organizational Psychology (SIOP). (2022). 
+                            <em>SIOP Income and Employment Report 2021</em>. 
+                            Retrieved from <a href="https://www.siop.org/Research-Publications/Items-of-Interest" target="_blank" class="text-blue-600 hover:underline">https://www.siop.org/Research-Publications/Items-of-Interest</a>
+                        </p>
+
+                        <!-- Education Level Comparison -->
+                        <div class="bg-white rounded-lg p-6 mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">📊 Median Income by Education Level (2025, inflation-adjusted)</h3>
+                            <div class="grid md:grid-cols-2 gap-6 mb-4">
+                                <div class="text-center p-6 bg-blue-50 rounded-lg border-2 border-blue-200">
+                                    <div class="text-sm text-blue-700 mb-2 font-medium">Master's Degree</div>
+                                    <div class="text-4xl font-bold text-blue-900 mb-1">$119K</div>
+                                    <div class="text-xs text-gray-600 mt-2">Practitioners (97.8%)</div>
+                                    <div class="text-xs text-gray-500 mt-1">$100K in 2021 dollars</div>
+                                </div>
+                                <div class="text-center p-6 bg-green-50 rounded-lg border-2 border-green-200">
+                                    <div class="text-sm text-green-700 mb-2 font-medium">Doctoral Degree</div>
+                                    <div class="text-4xl font-bold text-green-900 mb-1">$163K</div>
+                                    <div class="text-xs text-gray-600 mt-2">Practitioners (62%) | Academia (38%)</div>
+                                    <div class="text-xs text-gray-500 mt-1">$137K in 2021 dollars</div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 bg-gray-50 p-3 rounded-lg">
+                                <strong>Key Findings:</strong> Doctoral degree holders earn 37% more than Master's degree holders. 
+                                Practitioners earn 19.5% more than academics on average. Independent consultants with doctorates 
+                                earned the highest median salary ($417,000 in 2025 dollars, $350,000 in 2021). Academics in business schools had higher median income 
+                                ($171,000 in 2025 dollars, $143,559 in 2021) than those in psychology departments ($110,000 in 2025 dollars, $92,000 in 2021).
+                            </p>
+                        </div>
+
+                        <!-- Remote Work -->
+                        <div class="bg-white rounded-lg p-6 mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">🏠 Remote Work Trends</h3>
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div class="p-4 bg-blue-50 rounded-lg">
+                                    <div class="text-sm text-gray-700 mb-1">Before Pandemic (2019)</div>
+                                    <div class="text-2xl font-bold text-blue-900">17%</div>
+                                    <div class="text-xs text-gray-600 mt-1">Fully remote workers</div>
+                                </div>
+                                <div class="p-4 bg-green-50 rounded-lg">
+                                    <div class="text-sm text-gray-700 mb-1">2021 (During Pandemic)</div>
+                                    <div class="text-2xl font-bold text-green-900">42%</div>
+                                    <div class="text-xs text-gray-600 mt-1">Fully remote workers</div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600">
+                                Remote work opportunities increased significantly. Importantly, remote work status did not impact pay—remote 
+                                workers earned comparable salaries to in-person workers.
+                            </p>
+                        </div>
+
+                        <!-- Employment Stability -->
+                        <div class="bg-white rounded-lg p-6 mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">📈 Employment Stability</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">73.2%</div>
+                                        <div class="text-xs text-gray-600">No employment or income change in 2020 due to COVID-19</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
+                                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">88.5%</div>
+                                        <div class="text-xs text-gray-600">No employment or income change in 2021 due to COVID-19</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-4">
+                                I-O Psychology showed strong resilience during the pandemic, with the vast majority of professionals maintaining 
+                                stable employment and income.
+                            </p>
+                        </div>
+
+                        <!-- Gender Equity -->
+                        <div class="bg-white rounded-lg p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">⚖️ Gender Equity</h3>
+                            <div class="p-4 bg-purple-50 rounded-lg mb-3">
+                                <div class="text-2xl font-bold text-purple-900 mb-1">94%</div>
+                                <div class="text-sm text-gray-700">Women's median income as % of men's median income (2021)</div>
+                            </div>
+                            <p class="text-xs text-gray-600">
+                                The gender wage gap has narrowed since 2019. In 2021, the median income for women increased to 94% of men's 
+                                median income, and the pay difference was <strong>not statistically significant</strong>. This represents 
+                                significant progress toward gender equity in the field.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Career Paths -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">🎯 Career Paths in I-O Psychology</h2>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Practitioner Roles</h3>
+                                <p class="text-sm text-gray-700 mb-2">
+                                    Most I-O psychologists (97.8% of Master's degree holders, 62% of Doctoral degree holders) work as practitioners, 
+                                    applying psychological principles in organizational settings. Common roles include:
+                                </p>
+                                <ul class="text-sm text-gray-600 list-disc list-inside ml-2 space-y-1">
+                                    <li>People Analytics / HR Analytics</li>
+                                    <li>Talent Management</li>
+                                    <li>Organizational Development</li>
+                                    <li>Selection & Assessment</li>
+                                    <li>Training & Development</li>
+                                    <li>Organizational Consulting</li>
+                                </ul>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Academic Roles</h3>
+                                <p class="text-sm text-gray-700 mb-2">
+                                    38% of Doctoral degree holders work in academia, teaching and conducting research:
+                                </p>
+                                <ul class="text-sm text-gray-600 list-disc list-inside ml-2 space-y-1">
+                                    <li>University Professors (Psychology or Business Schools)</li>
+                                    <li>Researchers in academic institutions</li>
+                                    <li>Faculty in graduate programs</li>
+                                </ul>
+                            </div>
+                            <div class="border-l-4 border-purple-500 pl-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Consulting</h3>
+                                <p class="text-sm text-gray-700 mb-2">
+                                    Independent consultants with doctoral degrees earned the highest median salary ($417,000 in 2025 dollars, $350,000 in 2021), 
+                                    making consulting an attractive career path for experienced I-O psychologists.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Industry Insights -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">💡 Industry Insights</h2>
+                        <div class="space-y-3">
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <div class="text-sm font-medium text-gray-900 mb-1">Highest Paying Industry (Master's Level)</div>
+                                <div class="text-lg font-bold text-gray-900">Technology Industry</div>
+                                <div class="text-sm text-gray-600">Median salary: $145,000* for Master's-level practitioners (2025 dollars, $121,729 in 2021)</div>
+                                <div class="text-xs text-gray-500 mt-1">*For industries with n > 10</div>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <div class="text-sm font-medium text-gray-900 mb-1">Geographic Concentration</div>
+                                <div class="text-lg font-bold text-gray-900">Washington D.C. Metro Area</div>
+                                <div class="text-sm text-gray-600">Largest concentration of I-O psychologists</div>
+                                <div class="text-sm text-gray-600 mt-1">Median income: $133,891</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Graduate School Preparation -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">🎓 Preparing for Graduate School in I-O Psychology</h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Certificate Program -->
+                            <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-500">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3">Business, Industrial, and Organizational Psychology Certificate</h3>
+                                <p class="text-sm text-gray-700 mb-4">
+                                    Nicholls State University offers a certificate program designed to prepare students for graduate work in I-O psychology and people analytics careers.
+                                </p>
+                                
+                                <div class="mb-4">
+                                    <p class="text-sm font-medium text-gray-900 mb-2">Prerequisites:</p>
+                                    <ul class="text-sm text-gray-700 list-disc list-inside ml-2 space-y-1">
+                                        <li>PSYCH 208 and 209, OR</li>
+                                        <li>QBA 282 and 283</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <p class="text-sm font-medium text-gray-900 mb-2">Required Courses:</p>
+                                    <ul class="text-sm text-gray-700 list-disc list-inside ml-2 space-y-1">
+                                        <li>PSYC 203</li>
+                                        <li>PSYC 207</li>
+                                        <li>PSYC 302</li>
+                                        <li>MNGT 301</li>
+                                        <li>MNGT 367</li>
+                                        <li>MNGT 425</li>
+                                        <li>PSYCH 450</li>
+                                    </ul>
+                                </div>
+                                
+                                <p class="text-sm text-gray-700">
+                                    <strong>Note:</strong> A minimum grade of C is required in each course for the certificate.
+                                </p>
+                            </div>
+
+                            <!-- SIOP Resources -->
+                            <div class="bg-green-50 rounded-lg p-6 border-l-4 border-green-500">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3">SIOP Resources for Graduate School Preparation</h3>
+                                <p class="text-sm text-gray-700 mb-4">
+                                    The Society for Industrial and Organizational Psychology (SIOP) provides comprehensive resources for students considering graduate programs in I-O psychology:
+                                </p>
+                                
+                                <div class="space-y-3">
+                                    <div class="bg-white rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-900 mb-2">📚 Graduate Training Programs</h4>
+                                        <p class="text-sm text-gray-700 mb-2">
+                                            Explore SIOP's directory of Master's and Doctoral programs in I-O psychology, including program descriptions, faculty expertise, and admission requirements.
+                                        </p>
+                                        <a href="https://www.siop.org/Research-Publications/Items-of-Interest/Graduate-Training-Programs-in-I-O-Psychology" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-sm font-medium">
+                                            View Graduate Training Programs →
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="bg-white rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-900 mb-2">📋 Preparing for Graduate School</h4>
+                                        <p class="text-sm text-gray-700 mb-2">
+                                            SIOP offers guidance on preparing for graduate school, including tips on research experience, GRE preparation, application essays, and choosing the right program for your career goals.
+                                        </p>
+                                        <a href="https://www.siop.org/Research-Publications/Items-of-Interest/Preparing-for-Graduate-School-in-I-O-Psychology" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-sm font-medium">
+                                            Graduate School Preparation Guide →
+                                        </a>
+                                    </div>
+                                    
+                                    <div class="bg-white rounded-lg p-4">
+                                        <h4 class="font-semibold text-gray-900 mb-2">🎯 Student Resources</h4>
+                                        <p class="text-sm text-gray-700 mb-2">
+                                            Access student-focused resources including career information, networking opportunities, student membership benefits, and information about SIOP's annual conference.
+                                        </p>
+                                        <a href="https://www.siop.org/Membership/Student-Affiliates" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-sm font-medium">
+                                            SIOP Student Resources →
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Preparation Tips -->
+                            <div class="bg-gray-50 rounded-lg p-6 border-l-4 border-gray-400">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-3">💡 Key Preparation Strategies</h3>
+                                <ul class="text-sm text-gray-700 space-y-2 list-disc list-inside ml-2">
+                                    <li><strong>Research Experience:</strong> Get involved in research labs (like PAL at Nicholls) or conduct independent research projects</li>
+                                    <li><strong>Strong Academic Record:</strong> Maintain a high GPA, especially in psychology, statistics, and research methods courses</li>
+                                    <li><strong>GRE Preparation:</strong> Take the GRE early and prepare thoroughly; many programs consider quantitative scores particularly important</li>
+                                    <li><strong>Coursework:</strong> Take courses in statistics, research methods, psychology, and organizational behavior</li>
+                                    <li><strong>Relevant Experience:</strong> Gain experience through internships, HR roles, or research assistantships</li>
+                                    <li><strong>Letters of Recommendation:</strong> Build relationships with professors and supervisors who can write strong letters</li>
+                                    <li><strong>Personal Statement:</strong> Clearly articulate your interest in I-O psychology and career goals</li>
+                                    <li><strong>Connect with Programs:</strong> Reach out to faculty at programs you're interested in to learn about their research</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- References Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 border-t-4 border-gray-400">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">📚 References & Sources</h2>
+                        <div class="space-y-4 text-sm text-gray-700">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Fit Assessment Methodology</h3>
+                                <p class="mb-2">
+                                    Liu, Z., Hoff, K. A., Chu, C., Oswald, F. L., & Rounds, J. (2025). Toward whole-person fit assessment: 
+                                    Integrating interests, values, skills, knowledge, and personality using the Occupational Information Network (O*NET). 
+                                    <em>Journal of Applied Psychology</em>, <em>110</em>(5), 623–647. https://doi.org/10.1037/apl0001232
+                                </p>
+                                <p class="text-xs text-gray-600">
+                                    This assessment is based on the integrative fit assessment framework developed by Liu et al. (2024). 
+                                    Outcome-specific domain weights are derived from dominance analysis (relative importance analysis) reported in 
+                                    Tables 3, 8, and 9 of their study. The assessment measures fit using profile correlation (Pearson r) between 
+                                    individual characteristics and occupational profiles across five domains: interests, values, knowledge interest, 
+                                    skills interest, and personality.
+                                </p>
+                                <p class="text-xs text-gray-600 mt-2">
+                                    <strong>Note:</strong> Unlike the original Liu et al. (2024) study which measured actual knowledge and skills, 
+                                    this assessment measures <em>interest in learning</em> knowledge and <em>interest in developing</em> skills. 
+                                    This modification makes the assessment more relevant for college students who are still building their expertise.
+                                </p>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h3 class="font-semibold text-gray-900 mb-2">Compensation & Career Data</h3>
+                                <p class="mb-2">
+                                    Society for Industrial and Organizational Psychology (SIOP). (2022). 
+                                    <em>SIOP Income and Employment Report 2021</em>. 
+                                    Retrieved from <a href="https://www.siop.org/Research-Publications/Items-of-Interest" target="_blank" class="text-blue-600 hover:underline">https://www.siop.org/Research-Publications/Items-of-Interest</a>
+                                </p>
+                                <p class="text-xs text-gray-600">
+                                    Salary data, employment statistics, remote work trends, and gender equity information are based on the 
+                                    2022 SIOP Income and Employment Report, which surveyed 1,203 I-O psychologists in 2021. Salary figures 
+                                    have been adjusted to 2025 dollars using the Consumer Price Index for All Urban Consumers (CPI-U). 
+                                    Inflation factor: 1.1903 (CPI-U 2021 annual average: 270.97; CPI-U June 2025: 322.56). This report 
+                                    provides comprehensive compensation data for Master's and Doctoral degree holders across different 
+                                    sectors (practitioners vs. academics) and industries.
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4 mt-4">
+                                <p class="text-xs text-gray-600">
+                                    <strong>Methodological Note:</strong> The outcome-specific weights used in this assessment come from 
+                                    dominance analysis (relative importance analysis) conducted by Liu et al. (2024). Each outcome 
+                                    (Career Satisfaction, Job Satisfaction, Needs-Supplies Fit, Demands-Abilities Fit, Income) uses 
+                                    different domain weights based on empirical research showing which domains best predict that 
+                                    particular outcome. For example, Career Satisfaction is primarily weighted by Basic Interests (52.7%), 
+                                    while Income Potential is primarily weighted by Knowledge Interest (36.7%).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${fitPercentage >= 70 ? `
+                    <!-- Volunteer for PAL Section - Only shown for 70%+ fit -->
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-8 mb-6 text-white shadow-lg">
+                        <h2 class="text-2xl font-bold mb-4">Interested in Volunteering for the People Analytics Lab?</h2>
+                        <p class="text-lg mb-4 opacity-95">
+                            If you're interested in gaining hands-on experience with people analytics research, consider volunteering with the People Analytics Lab of the Bayou (PAL) at Nicholls State University.
+                        </p>
+                        <div class="bg-white bg-opacity-20 rounded-lg p-6 mb-4">
+                            <p class="mb-3">
+                                <strong>What you'll gain:</strong>
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 ml-2">
+                                <li>Hands-on experience with real organizational data and research projects</li>
+                                <li>Opportunities to work on cutting-edge people analytics research</li>
+                                <li>Mentorship from Dr. Castille and exposure to academic research methods</li>
+                                <li>Experience that strengthens your resume and graduate school applications</li>
+                                <li>Networking opportunities with researchers and practitioners in the field</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white bg-opacity-20 rounded-lg p-6 mb-4">
+                            <p class="mb-3">
+                                <strong>What we're looking for:</strong>
+                            </p>
+                            <ul class="list-disc list-inside space-y-2 ml-2">
+                                <li>Students interested in people analytics, I-O psychology, or HR research</li>
+                                <li>Strong analytical thinking and attention to detail</li>
+                                <li>Commitment to learning and contributing to research projects</li>
+                                <li>Willingness to work collaboratively on team-based research</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white bg-opacity-20 rounded-lg p-4 mb-6">
+                            <p class="font-semibold mb-2">To express interest:</p>
+                            <p class="mb-2">
+                                Print or save your assessment results as a PDF (use the button below) and share it with Dr. Castille along with a brief message about your interest in volunteering.
+                            </p>
+                            <p>
+                                <strong>Contact:</strong> <a href="mailto:christopher.castille@nicholls.edu" class="underline hover:no-underline">christopher.castille@nicholls.edu</a>
+                            </p>
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- Print/Save PDF Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6 mb-6 border-2 border-blue-200">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Save Your Results</h2>
+                        <p class="text-gray-700 mb-4">
+                            Print or save your assessment results as a PDF to share with Dr. Castille or keep for your records. The PDF will include all your fit scores, outcome predictions, and detailed feedback.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button 
+                                onclick="printResults()"
+                                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center gap-2"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                                </svg>
+                                Print / Save as PDF
+                            </button>
+                            <div class="text-sm text-gray-600 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span>When printing, select "Save as PDF" as your destination to create a PDF file.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Print results function
+        function printResults() {
+            // Hide sidebar and navigation for print
+            const sidebar = document.querySelector('aside');
+            const nav = document.querySelector('nav');
+            const restartBtn = document.querySelector('button[onclick="restartAssessment()"]');
+            
+            if (sidebar) sidebar.style.display = 'none';
+            if (nav) nav.style.display = 'none';
+            if (restartBtn) restartBtn.style.display = 'none';
+            
+            // Add print styles
+            const printStyles = document.createElement('style');
+            printStyles.textContent = `
+                @media print {
+                    @page {
+                        margin: 1cm;
+                    }
+                    body {
+                        background: white;
+                    }
+                    aside, nav, button {
+                        display: none !important;
+                    }
+                    .outcome-content {
+                        display: block !important;
+                        page-break-after: always;
+                    }
+                    .outcome-content:last-child {
+                        page-break-after: auto;
+                    }
+                    .bg-gradient-to-r, .bg-blue-600, .bg-indigo-600 {
+                        background: #2563eb !important;
+                        color: white !important;
+                        -webkit-print-color-adjust: exact;
+                        print-color-adjust: exact;
+                    }
+                    .text-white {
+                        color: white !important;
+                    }
+                }
+            `;
+            document.head.appendChild(printStyles);
+            
+            // Trigger print dialog
+            window.print();
+            
+            // Restore elements after print
+            setTimeout(() => {
+                if (sidebar) sidebar.style.display = '';
+                if (nav) nav.style.display = '';
+                if (restartBtn) restartBtn.style.display = '';
+                document.head.removeChild(printStyles);
+            }, 1000);
+        }
+
+        // Toggle explanation
+        function toggleExplanation() {
+            const plain = document.getElementById('plain-explanation');
+            const technical = document.getElementById('technical-explanation');
+            if (plain && technical) {
+                plain.classList.toggle('hidden');
+                technical.classList.toggle('hidden');
+            }
+        }
+
+        // Draw all radar charts
+        function drawAllRadarCharts(fitResult, domainFitMap) {
+            // Domain label mapping for radar charts
+            const domainLabelMap = {
+                'interests_basic': 'Basic Interests',
+                'interests_riasec': 'RIASEC Interests',
+                'values': 'Work Values',
+                'knowledge': 'Knowledge Interest',
+                'skills': 'Skills Interest',
+                'personality': 'Personality'
+            };
+
+            // Overview radar - show all domains
+            const overviewData = fitResult.fit_scores
+                .map(fs => ({
+                    label: domainLabelMap[fs.domain] || fs.domain,
+                    value: domainFitMap[fs.domain] || 0
+                }))
+                .sort((a, b) => {
+                    // Sort by domain order for consistent display
+                    const order = ['Basic Interests', 'Knowledge Interest', 'Work Values', 'Skills Interest', 'Personality'];
+                    return (order.indexOf(a.label) || 99) - (order.indexOf(b.label) || 99);
+                });
+
+            drawRadarChart('overview-radar', overviewData);
+
+            // Outcome-specific radar charts
+            Object.keys(outcomeWeights).forEach(outcomeId => {
+                const weights = outcomeWeights[outcomeId];
+                // Create array of domain-weight pairs and sort by weight
+                const domainWeightPairs = Object.entries(weights)
+                    .map(([domain, weight]) => ({
+                        domain,
+                        weight,
+                        label: domainLabelMap[domain] || domain,
+                        value: domainFitMap[domain] || 0
+                    }))
+                    .sort((a, b) => b.weight - a.weight);
+
+                const outcomeData = domainWeightPairs.map(d => ({
+                    label: d.label,
+                    value: d.value
+                }));
+
+                drawRadarChart(outcomeId + '-radar', outcomeData);
+            });
+        }
+
+        // Radar Chart Drawing Function
+        function drawRadarChart(containerId, data, maxValue = 100) {
+            const container = document.getElementById(containerId);
+            if (!container || data.length === 0) return;
+            
+            const size = 400;
+            const center = size / 2;
+            const radius = 110;
+            const numAxes = data.length;
+            const angleStep = (2 * Math.PI) / numAxes;
+            
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', size);
+            svg.setAttribute('height', size);
+            svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+            svg.setAttribute('class', 'radar-chart');
+            svg.setAttribute('style', 'overflow: visible;');
+            
+            // Draw grid circles
+            for (let i = 1; i <= 5; i++) {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', center);
+                circle.setAttribute('cy', center);
+                circle.setAttribute('r', (radius * i) / 5);
+                circle.setAttribute('class', 'radar-grid');
+                circle.setAttribute('fill', 'none');
+                svg.appendChild(circle);
+            }
+            
+            // Draw axes and labels
+            const points = [];
+            data.forEach((item, index) => {
+                const angle = index * angleStep - Math.PI / 2;
+                const value = Math.min((item.value / maxValue) * radius, radius);
+                const x = center + value * Math.cos(angle);
+                const y = center + value * Math.sin(angle);
+                points.push({ x, y, angle, value: item.value, label: item.label });
+                
+                // Draw axis line
+                const axisLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                axisLine.setAttribute('x1', center);
+                axisLine.setAttribute('y1', center);
+                axisLine.setAttribute('x2', center + radius * Math.cos(angle));
+                axisLine.setAttribute('y2', center + radius * Math.sin(angle));
+                axisLine.setAttribute('class', 'radar-axis');
+                svg.appendChild(axisLine);
+                
+                // Draw label
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                const labelOffset = 40;
+                const labelX = center + (radius + labelOffset) * Math.cos(angle);
+                const labelY = center + (radius + labelOffset) * Math.sin(angle);
+                
+                let textAnchor = 'middle';
+                const degrees = (angle * 180) / Math.PI;
+                if (degrees > -45 && degrees < 45) {
+                    textAnchor = 'start';
+                } else if (degrees > 135 || degrees < -135) {
+                    textAnchor = 'end';
+                }
+                
+                label.setAttribute('x', labelX);
+                label.setAttribute('y', labelY);
+                label.setAttribute('text-anchor', textAnchor);
+                label.setAttribute('dominant-baseline', 'middle');
+                label.setAttribute('class', 'radar-label');
+                label.textContent = item.label;
+                svg.appendChild(label);
+            });
+            
+            // Draw filled area
+            if (points.length > 0) {
+                const areaPath = points.map((p, i) => 
+                    i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`
+                ).join(' ') + ' Z';
+                const area = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                area.setAttribute('d', areaPath);
+                area.setAttribute('class', 'radar-area');
+                svg.appendChild(area);
+                
+                // Draw outline
+                const outline = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                outline.setAttribute('d', areaPath);
+                outline.setAttribute('class', 'radar-line');
+                svg.appendChild(outline);
+                
+                // Draw points
+                points.forEach(point => {
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    circle.setAttribute('cx', point.x);
+                    circle.setAttribute('cy', point.y);
+                    circle.setAttribute('r', 3);
+                    circle.setAttribute('class', 'radar-point');
+                    circle.setAttribute('title', `${point.label}: ${point.value}%`);
+                    svg.appendChild(circle);
+                });
+            }
+            
+            container.innerHTML = '';
+            container.appendChild(svg);
+        }
+
+        // Initialize navigation
+        function initializeNavigation() {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const outcomeId = item.getAttribute('data-outcome');
+                    
+                    // Update nav states
+                    document.querySelectorAll('.nav-item').forEach(nav => {
+                        nav.classList.remove('active');
+                    });
+                    item.classList.add('active');
+                    
+                    // Update content visibility
+                    document.querySelectorAll('.outcome-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    const targetContent = document.getElementById(outcomeId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        }
+
+        function getInterpretation(pct) {
+            if (pct >= 80) return {
+                level: 'Exceptional fit',
+                summary: 'You show exceptional alignment with the People Analyst role.',
+                details: 'Your interests, values, knowledge, skills, and personality characteristics are well-matched to this position. This suggests you would likely find the work engaging, experience strong job satisfaction, and excel in the role.',
+                gradient: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)'
+            };
+            if (pct >= 65) return {
+                level: 'Strong fit',
+                summary: 'You show strong alignment with the People Analyst role.',
+                details: 'Your profile demonstrates meaningful compatibility across most domains. With targeted development in specific areas, you are well-positioned to succeed in this field.',
+                gradient: 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)'
+            };
+            if (pct >= 50) return {
+                level: 'Moderate fit',
+                summary: 'You show moderate alignment with the People Analyst role.',
+                details: 'Your profile shows some compatibility, but there are areas where development would be beneficial. Consider whether you\'re genuinely interested in People Analyst work and willing to build the necessary capabilities.',
+                gradient: 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)'
+            };
+            return {
+                level: 'Limited fit',
+                summary: 'Your profile shows limited alignment with the People Analyst role.',
+                details: 'While you have strengths that may be valuable, there are significant gaps in fit. Consider exploring alternative career paths that better match your interests, values, and capabilities.',
+                gradient: 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)'
+            };
+        }
+
+        function getDomainLabel(domain) {
+            const labels = {
+                'interests_basic': 'Interests (Basic)',
+                'interests_riasec': 'Interests (RIASEC)',
+                'values': 'Work Values',
+                'knowledge': 'Interest in Learning Knowledge',
+                'skills': 'Interest in Developing Skills',
+                'personality': 'Personality'
+            };
+            return labels[domain] || domain;
+        }
+
+        function getDomainDescription(domain, pct) {
+            const descriptions = {
+                'interests_basic': {
+                    high: 'Your interests strongly align with the core work activities of People Analysts.',
+                    moderate: 'Your interests show good alignment with many People Analyst tasks.',
+                    low: 'Your interests may lean toward different types of work activities.'
+                },
+                'interests_riasec': {
+                    high: 'Your vocational interests strongly align with People Analyst work (Investigative, Social, Conventional).',
+                    moderate: 'Your vocational interests show good alignment with many People Analyst activities.',
+                    low: 'Your vocational interests lean toward different types of work.'
+                },
+                'values': {
+                    high: 'What you find meaningful in work closely matches what People Analysts value most.',
+                    moderate: 'Your work values show good compatibility with the People Analyst role.',
+                    low: 'Some of your core work values may not be fully met in a People Analyst position.'
+                },
+                'knowledge': {
+                    high: 'You have strong interest in learning the knowledge areas that People Analysts need.',
+                    moderate: 'You show good interest in learning relevant knowledge areas for People Analyst work.',
+                    low: 'Your interest in learning HR-specific knowledge areas may be developing.'
+                },
+                'skills': {
+                    high: 'You have strong interest in developing the skills needed for People Analyst work.',
+                    moderate: 'You show good interest in developing relevant skills for People Analyst work.',
+                    low: 'Your interest in developing People Analyst skills may be developing.'
+                },
+                'personality': {
+                    high: 'Your personality traits align well with successful People Analysts.',
+                    moderate: 'Your personality includes traits that will serve you well in People Analyst work.',
+                    low: 'Your personality profile brings unique strengths to People Analyst work.'
+                }
+            };
+            const level = pct >= 75 ? 'high' : pct >= 60 ? 'moderate' : 'low';
+            return descriptions[domain]?.[level] || 'This domain contributes to your overall fit profile.';
+        }
+
+        function restartAssessment() {
+            currentSectionIndex = 0;
+            responses = {
+                interests: {},
+                values: {},
+                knowledge: {},
+                skills: {},
+                personality: {}
+            };
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize on page load
+        loadAssessmentData();
+    </script>
+</body>
+</html>
+
